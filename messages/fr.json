@@ -1,9 +1,9 @@
 {
   "meta": {
-    "siteTitle": "Cover Studio · Générateur de cover d'app gratuit et open source",
-    "siteDescription": "Générez gratuitement une cover pro pour votre app, votre README ou LinkedIn, à partir de vos captures ou de l'adresse de votre site. Open source et sans compte.",
+    "siteTitle": "Cover Studio · Créez l'image de présentation de votre app",
+    "siteDescription": "Créez en 2 minutes l'image de présentation de votre app (README, Product Hunt, LinkedIn) à partir de vos captures d'écran. Gratuit, sans compte.",
     "keywords": "générateur de cover, cover d'application, mockup d'application, capture d'écran, capture de site web, README, Open Graph, open source, gratuit",
-    "ogImageAlt": "Cover Studio : générez une cover pro pour votre app",
+    "ogImageAlt": "Cover Studio : créez l'image de présentation de votre app",
     "editorTitle": "Éditeur",
     "appFeatures": "Mise en page automatique à partir de vos captures, capture de votre site depuis son adresse (ordinateur et mobile), modèles multiples, couleur de marque dérivée de l'interface, export PNG en plusieurs formats (résolution 2× en option), images traitées dans le navigateur"
   },
@@ -11,8 +11,8 @@
     "label": "Langue"
   },
   "landing": {
-    "heroTitle": "Une cover pro pour votre app, à partir de vos captures ou de votre site",
-    "heroText": "Importez vos captures ou collez l'adresse de votre site : la mise en page, les mockups et les couleurs sont générés pour vous, avec {count} modèles au choix. Il ne reste qu'à écrire le texte.",
+    "heroTitle": "L'image qui présente votre app, créée à partir de vos captures d'écran",
+    "heroText": "Pour votre README GitHub, Product Hunt ou LinkedIn : ajoutez vos captures (ou collez l'adresse de votre site), choisissez une couleur, et téléchargez une image prête à publier. Rien à dessiner.",
     "startTitle": "Commencez par vos captures",
     "startText": "Jusqu'à 4 captures, desktop ou mobile : importez-les, ou collez l'adresse de votre site pour le capturer sur ordinateur et mobile. Ajoutez votre logo et choisissez la couleur de marque, ou laissez-la déduite de la première capture.",
     "imageLabel": "Captures de votre application ({max} maximum)",
@@ -65,7 +65,7 @@
   },
   "footer": {
     "navLabel": "Liens du projet",
-    "tagline": "Une cover pro pour votre app, à partir de vos captures ou de votre site. Gratuit et open source.",
+    "tagline": "L'image de présentation de votre app, créée à partir de vos captures ou de votre site. Gratuit et open source.",
     "projectTitle": "Projet",
     "github": "Code source sur GitHub",
     "issues": "Signaler un problème",

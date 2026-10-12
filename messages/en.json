@@ -1,9 +1,9 @@
 {
   "meta": {
-    "siteTitle": "Cover Studio · Free open-source app cover generator",
-    "siteDescription": "Generate a pro cover for your app, README or LinkedIn from your screenshots or your website's address. Free, open source, no account.",
+    "siteTitle": "Cover Studio · Create the showcase image for your app",
+    "siteDescription": "Create your app's showcase image (README, Product Hunt, LinkedIn) from your screenshots in 2 minutes. Free, no account.",
     "keywords": "cover generator, app cover, app mockup, screenshot, website screenshot, README, Open Graph, open source, free",
-    "ogImageAlt": "Cover Studio: generate a pro cover for your app",
+    "ogImageAlt": "Cover Studio: create the showcase image for your app",
     "editorTitle": "Editor",
     "appFeatures": "Automatic layout from your screenshots, website capture from its address (desktop and mobile), multiple templates, brand color derived from your interface, PNG export in several formats (optional 2× resolution), images processed in the browser"
   },
@@ -11,8 +11,8 @@
     "label": "Language"
   },
   "landing": {
-    "heroTitle": "A pro cover for your app, built from your screenshots or your website",
-    "heroText": "Import your screenshots or paste your website's address: the layout, mockups and colors are generated for you, with {count} templates to choose from. All that's left is to write the text.",
+    "heroTitle": "The image that showcases your app, built from your screenshots",
+    "heroText": "For your GitHub README, Product Hunt or LinkedIn: add your screenshots (or paste your website's address), pick a color, and download a ready-to-publish image. Nothing to design.",
     "startTitle": "Start with your screenshots",
     "startText": "Up to 4 screenshots, desktop or mobile: import them, or paste your website's address to capture it on desktop and mobile. Add your logo and pick the brand color, or let it come from your first screenshot.",
     "imageLabel": "Screenshots of your app ({max} maximum)",
@@ -65,7 +65,7 @@
   },
   "footer": {
     "navLabel": "Project links",
-    "tagline": "A pro cover for your app, built from your screenshots or your website. Free and open source.",
+    "tagline": "The showcase image for your app, built from your screenshots or your website. Free and open source.",
     "projectTitle": "Project",
     "github": "Source code on GitHub",
     "issues": "Report an issue",
