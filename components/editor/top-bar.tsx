@@ -37,9 +37,9 @@ export function TopBar() {
         className="flex min-w-0 items-center gap-3 rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
       >
         <Logo className="size-8" />
-        <span className="hidden min-w-0 flex-col leading-tight md:flex">
+        <span className="flex min-w-0 flex-col leading-tight">
           <span className="truncate text-sm font-semibold">Cover Studio</span>
-          <span className="truncate text-xs text-muted-foreground">
+          <span className="hidden truncate text-xs text-muted-foreground md:block">
             {tTemplates(template.nameKey)} · {tSizes(output.labelKey)} {output.width} ×{" "}
             {output.height}
           </span>
