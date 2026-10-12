@@ -5,9 +5,13 @@ import { openEditor, openPanel, templateButtons } from "./helpers/editor"
 import { en } from "./helpers/messages"
 import { pngSize } from "./helpers/png"
 
+// Un export rend le DOM en PNG : plusieurs tests en parallèle se disputent le CPU,
+// les délais par défaut (30 s par test, 5 s par assertion) sont alors trop justes.
+const EXPORT_TIMEOUT = 60_000
+
 async function download(page: Page) {
   const [file] = await Promise.all([
-    page.waitForEvent("download"),
+    page.waitForEvent("download", { timeout: EXPORT_TIMEOUT }),
     page.getByRole("button", { name: en("export", "downloadPng") }).click(),
   ])
   const path = await file.path()
@@ -44,6 +48,7 @@ test.describe("export PNG", () => {
   })
 
   test("respecte le format choisi et la haute résolution", async ({ page }) => {
+    test.setTimeout(3 * EXPORT_TIMEOUT)
     await openEditor(page)
     await openPanel(page, "railExport")
 
@@ -58,6 +63,7 @@ test.describe("export PNG", () => {
   })
 
   test("nomme le fichier d'après le nom de l'application", async ({ page }) => {
+    test.setTimeout(2 * EXPORT_TIMEOUT)
     await openEditor(page)
     await openPanel(page, "railContent")
     await page.locator("#field-content-name").fill("Café Pro")
@@ -69,10 +75,11 @@ test.describe("export PNG", () => {
   })
 
   test("affiche la confirmation de téléchargement", async ({ page }) => {
+    test.setTimeout(2 * EXPORT_TIMEOUT)
     await openEditor(page)
     await openPanel(page, "railExport")
     await download(page)
 
-    await expect(page.getByText(en("export", "toastSuccess"))).toBeVisible()
+    await expect(page.getByText(en("export", "toastSuccess"))).toBeVisible({ timeout: EXPORT_TIMEOUT })
   })
 })

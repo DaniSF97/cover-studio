@@ -13,8 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "x-default": SITE_URL,
   }
 
+  // Date du build : le site est statique, le contenu change à chaque déploiement.
+  const lastModified = new Date()
+
   return locales.map((locale) => ({
     url: `${SITE_URL}/${locale}`,
+    lastModified,
     changeFrequency: "monthly",
     priority: 1,
     alternates: { languages },
