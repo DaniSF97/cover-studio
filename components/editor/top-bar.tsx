@@ -9,32 +9,40 @@ import { Logo } from "@/components/logo"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { useMediaQuery } from "@/hooks/use-media-query"
 import { Link } from "@/i18n/navigation"
 import { useTranslations } from "@/i18n/provider"
 import { getExportSize } from "@/lib/export-sizes"
 import { LINKS } from "@/lib/site"
+import { cn } from "@/lib/utils"
 import { useCoverStore } from "@/stores/cover-store"
 import { getTemplate } from "@/templates/registry"
 
 import { ExportCard } from "./export-card"
+
+// Mobile : barre colorée, icônes blanches (style Canva).
+const ICON_ON_GRADIENT = "max-md:text-white max-md:hover:bg-white/15 max-md:hover:text-white"
 
 export function TopBar() {
   const t = useTranslations("editor")
   const tTemplates = useTranslations("templates")
   const tSizes = useTranslations("exportSizes")
   const { resolvedTheme, setTheme } = useTheme()
+  const desktop = useMediaQuery("(min-width: 768px)")
+  const setPanel = useCoverStore((state) => state.setActivePanel)
+  const setSheetOpen = useCoverStore((state) => state.setSheetOpen)
   const template = getTemplate(useCoverStore((state) => state.config.template))
   const output = getExportSize(useCoverStore((state) => state.config.export.size))
 
   return (
-    <header className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-background px-3 sm:px-4">
+    <header className="flex h-12 shrink-0 items-center gap-3 border-b border-border bg-background px-3 max-md:border-0 max-md:bg-linear-to-r max-md:from-[#00c4cc] max-md:via-[#4f6bed] max-md:to-[#7d2ae8] max-md:text-white sm:px-4 md:h-14">
       <Link
         href="/"
         aria-label={t("backHome")}
         className="flex min-w-0 items-center gap-3 rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
       >
-        <Logo className="size-8" />
-        <span className="flex min-w-0 flex-col leading-tight">
+        <Logo className="size-8 max-md:rounded-lg max-md:ring-2 max-md:ring-white/40" />
+        <span className="hidden min-w-0 flex-col leading-tight md:flex">
           <span className="truncate text-sm font-semibold">Cover Studio</span>
           <span className="truncate text-xs text-muted-foreground">
             {tTemplates(template.nameKey)} · {tSizes(output.labelKey)} {output.width} ×{" "}
@@ -43,7 +51,7 @@ export function TopBar() {
         </span>
       </Link>
 
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex items-center gap-1 md:gap-2">
         <Tooltip>
           <TooltipTrigger
             render={
@@ -52,7 +60,10 @@ export function TopBar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t("githubAria")}
-                className={buttonVariants({ variant: "ghost", size: "icon" })}
+                className={cn(
+                  buttonVariants({ variant: "ghost", size: "icon" }),
+                  ICON_ON_GRADIENT
+                )}
               />
             }
           >
@@ -60,7 +71,7 @@ export function TopBar() {
           </TooltipTrigger>
           <TooltipContent side="bottom">{t("githubTooltip")}</TooltipContent>
         </Tooltip>
-        <LocaleSwitcher />
+        <LocaleSwitcher tone={desktop ? "default" : "onGradient"} />
         <Tooltip>
           <TooltipTrigger
             render={
@@ -68,6 +79,7 @@ export function TopBar() {
                 variant="ghost"
                 size="icon"
                 aria-label={t("toggleTheme")}
+                className={ICON_ON_GRADIENT}
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               />
             }
@@ -79,11 +91,22 @@ export function TopBar() {
           <TooltipContent side="bottom">{t("themeTooltip")}</TooltipContent>
         </Tooltip>
 
+        {/* Mobile : le téléchargement ouvre le tiroir « Export ». */}
+        <Button
+          size="icon"
+          aria-label={t("download")}
+          onClick={() => {
+            setPanel("export")
+            setSheetOpen(true)
+          }}
+          className="bg-white text-[#4f6bed] hover:bg-white/90 md:hidden"
+        >
+          <Download />
+        </Button>
+
         <Popover>
           <PopoverTrigger
-            render={
-              <Button className="h-9 px-3 font-semibold" />
-            }
+            render={<Button className="hidden h-9 px-3 font-semibold md:inline-flex" />}
           >
             <Download />
             {t("download")}
