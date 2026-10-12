@@ -17,7 +17,8 @@ const ITEMS: { id: PanelId; label: `rail${Capitalize<PanelId>}`; icon: LucideIco
 ]
 
 type SideRailProps = {
-  active: PanelId
+  /** `null` : aucun item actif (mobile, tiroir fermé). */
+  active: PanelId | null
   onSelect: (id: PanelId) => void
 }
 
@@ -27,7 +28,7 @@ export function SideRail({ active, onSelect }: SideRailProps) {
   return (
     <nav
       aria-label={t("railLabel")}
-      className="flex shrink-0 gap-1 overflow-x-auto border-b md:overflow-visible bg-[var(--rail)] p-2 md:w-[76px] md:flex-col md:border-r md:border-b-0"
+      className="flex shrink-0 gap-1 overflow-x-auto border-t bg-[var(--rail)] p-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] [scrollbar-width:none] md:w-[76px] md:flex-col md:overflow-visible md:border-t-0 md:border-r md:p-2"
     >
       {ITEMS.map(({ id, label, icon: Icon }) => {
         const selected = id === active
@@ -38,7 +39,7 @@ export function SideRail({ active, onSelect }: SideRailProps) {
             onClick={() => onSelect(id)}
             aria-current={selected ? "page" : undefined}
             className={cn(
-              "group flex min-w-16 flex-1 flex-col items-center gap-1 rounded-lg px-1 py-2 text-[11px] font-medium text-muted-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:flex-none",
+              "group flex min-w-16 flex-1 flex-col items-center gap-0.5 rounded-lg px-1 py-1 md:gap-1 md:py-2 text-[11px] font-medium text-muted-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:flex-none",
               selected ? "text-foreground" : "hover:text-foreground"
             )}
           >

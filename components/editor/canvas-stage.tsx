@@ -11,6 +11,7 @@ import { CoverPreview, coverCanvas } from "./cover-preview"
 import { SelectionLayer, useEditingApi } from "./inline-editing"
 
 const PADDING = 24
+const PADDING_MOBILE = 12
 
 export function CanvasStage() {
   const t = useTranslations("editor")
@@ -54,12 +55,13 @@ export function CanvasStage() {
     return () => observer.disconnect()
   }, [])
 
+  const padding = box && box.width < 768 ? PADDING_MOBILE : PADDING
   const scale = box
     ? Math.max(
         0.05,
         Math.min(
-          (box.width - PADDING * 2) / canvas.width,
-          (box.height - PADDING * 2) / canvas.height
+          (box.width - padding * 2) / canvas.width,
+          (box.height - padding * 2) / canvas.height
         )
       )
     : 0

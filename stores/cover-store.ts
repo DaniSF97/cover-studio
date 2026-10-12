@@ -30,6 +30,9 @@ type CoverState = {
    */
   activePanel: PanelId
   setActivePanel: (panel: PanelId) => void
+  /** Mobile : tiroir du panneau ouvert. Fermé à l'arrivée, jamais persisté. */
+  sheetOpen: boolean
+  setSheetOpen: (open: boolean) => void
   /** Étiquettes cochées dans le panneau des modèles : survivent au changement de langue, jamais persistées. */
   templateTags: TemplateTag[]
   setTemplateTags: (tags: TemplateTag[]) => void
@@ -52,6 +55,8 @@ export const useCoverStore = create<CoverState>()(
       locale: defaultLocale,
       activePanel: "templates",
       setActivePanel: (activePanel) => set({ activePanel }),
+      sheetOpen: false,
+      setSheetOpen: (sheetOpen) => set({ sheetOpen }),
       templateTags: [],
       setTemplateTags: (templateTags) => set({ templateTags }),
       selection: null,

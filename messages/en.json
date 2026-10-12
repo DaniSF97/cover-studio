@@ -85,6 +85,7 @@
     "railTypography": "Font",
     "railColors": "Colors",
     "railMockups": "Screenshots",
+    "closePanel": "Close panel",
     "railExport": "Export"
   },
   "panels": {
