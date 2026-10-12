@@ -14,6 +14,8 @@ import {
   nameFontSize,
   useTextScale,
 } from "@/templates/shared/text-block"
+import { useBadgeShape } from "@/templates/shared/typography"
+import { EditableText, useShowSlot } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const PAD = 120
@@ -28,6 +30,8 @@ const DESCRIPTION = { left: 1360, width: 920 }
  */
 export function PosterTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  const badgeShape = useBadgeShape()
+  const show = useShowSlot()
   const brand = style.brandColor
   // Fond assez soutenu pour porter du texte blanc en AA.
   const bg = readableOn(brand, "#ffffff")
@@ -36,7 +40,7 @@ export function PosterTemplate({ config }: { config: PlacedConfig }) {
   const descriptionScale = useTextScale("description")
   const chipsScale = useTextScale("chips")
   const nameSize = nameFontSize(content, 112) * useTextScale("name")
-  const giant = `${content.nameMain}${content.nameAccent ?? ""}`.toUpperCase()
+  const giant = content.name.toUpperCase()
 
   const showDesktop = mockups.showDesktop
   const showMobile = mockups.showMobile
@@ -88,7 +92,7 @@ export function PosterTemplate({ config }: { config: PlacedConfig }) {
         </div>
       ))}
 
-      {content.badge && (
+      {show(content.badge) && (
         <div
           style={{
             position: "absolute",
@@ -108,9 +112,10 @@ export function PosterTemplate({ config }: { config: PlacedConfig }) {
             whiteSpace: "nowrap",
             maxWidth: 900,
             overflow: "hidden",
+            ...badgeShape,
           }}
         >
-          {content.badge}
+          <EditableText field="badge" text={content.badge} />
         </div>
       )}
 
@@ -190,10 +195,12 @@ export function PosterTemplate({ config }: { config: PlacedConfig }) {
             overflowWrap: "anywhere",
           }}
         >
-          {content.nameMain}
-          {content.nameAccent && (
-            <span style={{ color: accent }}>{content.nameAccent}</span>
-          )}
+          <EditableText
+            field="name"
+            text={content.name}
+            accent={content.accent}
+            accentStyle={{ color: accent }}
+          />
         </h1>
       </div>
 
@@ -205,7 +212,7 @@ export function PosterTemplate({ config }: { config: PlacedConfig }) {
           width: DESCRIPTION.width,
         }}
       >
-        {content.description && (
+        {show(content.description) && (
           <p
             style={{
               margin: 0,
@@ -218,10 +225,10 @@ export function PosterTemplate({ config }: { config: PlacedConfig }) {
               overflow: "hidden",
             }}
           >
-            {content.description}
+            <EditableText field="description" text={content.description} />
           </p>
         )}
-        {content.chips.length > 0 && (
+        {show(content.chips) && (
           <Chips
             chips={content.chips}
             radius={999}

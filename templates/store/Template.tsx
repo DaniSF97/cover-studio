@@ -8,6 +8,8 @@ import {
   nameFontSize,
   useTextScale,
 } from "@/templates/shared/text-block"
+import { useBadgeShape } from "@/templates/shared/typography"
+import { EditableText, useShowSlot, useEditorChips } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const PAD = 110
@@ -25,6 +27,10 @@ const PHONE_TOP = 200
  */
 export function StoreTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  const badgeShape = useBadgeShape()
+  const show = useShowSlot()
+  // Dans l'éditeur, une liste vide montre une chip à remplir.
+  const chips = useEditorChips(content.chips)
   const brand = style.brandColor
   const background = tone(brand, 0.965, 0.2)
   const ink = tone(brand, 0.2, 0.45)
@@ -59,7 +65,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
           color: ink,
         }}
       >
-        {content.badge && (
+        {show(content.badge) && (
           <span
             style={{
               alignSelf: "flex-start",
@@ -72,9 +78,10 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               whiteSpace: "nowrap",
+              ...badgeShape,
             }}
           >
-            {content.badge}
+            <EditableText field="badge" text={content.badge} />
           </span>
         )}
         <div style={{ display: "flex", alignItems: "center", gap: nameSize * 0.25 }}>
@@ -92,13 +99,17 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
               textOverflow: "ellipsis",
             }}
           >
-            {content.nameMain}
-            {content.nameAccent && <span style={{ color: accent }}>{content.nameAccent}</span>}
+            <EditableText
+              field="name"
+              text={content.name}
+              accent={content.accent}
+              accentStyle={{ color: accent }}
+            />
           </h1>
         </div>
       </div>
 
-      {content.description && (
+      {show(content.description) && (
         <p
           style={{
             position: "absolute",
@@ -116,7 +127,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
             overflow: "hidden",
           }}
         >
-          {content.description}
+          <EditableText field="description" text={content.description} />
         </p>
       )}
 
@@ -127,7 +138,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
       />
 
       {panels.map((panel, index) => {
-        const caption = content.chips[index]
+        const caption = chips[index]
         return (
           <div
             key={index}
@@ -142,7 +153,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
               background: panel.bg,
             }}
           >
-            {caption && (
+            {caption !== undefined && (
               <div
                 style={{
                   position: "absolute",
@@ -161,7 +172,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
                   overflow: "hidden",
                 }}
               >
-                {caption}
+                <EditableText field="chips" text={caption} index={index} />
               </div>
             )}
             <PhoneFrame
@@ -171,7 +182,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
               style={{
                 position: "absolute",
                 left: (PANEL_WIDTH - PHONE_SIZE.width * PHONE_SCALE) / 2,
-                top: caption ? PHONE_TOP : PHONE_TOP - 90,
+                top: caption !== undefined ? PHONE_TOP : PHONE_TOP - 90,
               }}
             />
           </div>
