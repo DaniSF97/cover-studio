@@ -93,8 +93,8 @@ background).
 type CoverConfig = {
   content: {
     badge: string;            // shown in spaced capitals
-    nameMain: string;         // first part of the name
-    nameAccent?: string;      // optional second part (e.g. "Ongola" + "Phone")
+    name: string;             // app name, in one piece (e.g. "OngolaPhone")
+    accent?: { start: number; end: number }; // part of the name in the accent colour
     description: string;
     chips: string[];          // dynamic list, any number
     footer: string;           // free text (e.g. "klivar.fr · Tech Lead")
@@ -102,7 +102,7 @@ type CoverConfig = {
   };
   style: {
     brandColor: string;       // hex, the only required field
-    accentColor?: string;     // override for the nameAccent colour (V1.1)
+    accentColor?: string;     // override for the accent colour of the name (V1.1)
     haloIntensity?: number;   // 0–1 (V1.1)
     gridOpacity?: number;     // 0–1, 0 = disabled (V1.1)
   };
@@ -163,7 +163,7 @@ from it (see §7).
 
 - "Download PNG" button
 - Output size: 2400×1500 (1× scale)
-- File name: `<nameMain><nameAccent>-cover.png`, lowercased without spaces
+- File name: `<name>-cover.png`, lowercased without spaces
 
 ### 6.5 V1.1 additions
 
@@ -201,6 +201,11 @@ Constraints:
 
 API contract, security and deployment: [CAPTURE.md](./CAPTURE.md).
 
+### 6.8 Inline editing on the preview
+
+Texts editable in place and a floating toolbar (size, font, colour per element), Canva-style. The
+panel remains the complete path. Specification: [INLINE-EDITING.md](./INLINE-EDITING.md).
+
 ## 7. Palette derivation
 
 From `brandColor` (converted to HSL or OKLCH):
@@ -212,7 +217,7 @@ From `brandColor` (converted to HSL or OKLCH):
 | Halo | lighter, more saturated hue, wide blur, positioned top right |
 | Badge, chips | white at ≈ 8% opacity |
 | Button, accents | lightened `brandColor` |
-| `nameAccent` colour | auto: light tint on a dark background; dark tint if the background is bright |
+| Name accent colour | auto: light tint on a dark background; dark tint if the background is bright |
 
 **Contrast**: the background colour's relative luminance is computed. If the contrast ratio of
 white text falls below 4.5:1 (WCAG AA), the background is darkened until it reaches the

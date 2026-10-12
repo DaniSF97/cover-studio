@@ -116,11 +116,13 @@ describe("applyLocale", () => {
 
   it("ne touche pas aux textes modifiés par l'utilisateur", async () => {
     const { useCoverStore } = await loadStore()
-    useCoverStore.getState().setField("content.nameMain", "MonApp")
+    useCoverStore.getState().setField("content.name", "Klivar")
     useCoverStore.getState().applyLocale("fr")
 
     const { content } = useCoverStore.getState().config
-    expect(content.nameMain).toBe("MonApp")
+    expect(content.name).toBe("Klivar")
+    // L'accent d'exemple n'est pas appliqué à un nom choisi par l'utilisateur.
+    expect(content.accent).toBeUndefined()
     expect(content.description).toBe(defaultConfig("fr").content.description)
   })
 
@@ -149,7 +151,7 @@ describe("persistance", () => {
     storage.data.set(
       STORAGE_KEY,
       JSON.stringify({
-        version: 2,
+        version: 3,
         state: {
           config: {
             ...defaultConfig("en"),
@@ -170,6 +172,40 @@ describe("persistance", () => {
     expect(config.content.badge).toBe("Sauvé")
     expect(config.style.brandColor).toBe("#ef4444")
     expect(config.mockups.images).toEqual([image])
+  })
+
+  it("reprend le nom en deux parties d'une sauvegarde v2", async () => {
+    const content: Record<string, unknown> = { ...defaultConfig("en").content }
+    delete content.name
+    delete content.accent
+    storage.data.set(
+      STORAGE_KEY,
+      JSON.stringify({
+        version: 2,
+        state: {
+          config: {
+            ...defaultConfig("en"),
+            content: { ...content, nameMain: "Ongola", nameAccent: "Phone" },
+          },
+        },
+      })
+    )
+    const { useCoverStore, hydrateCoverStore } = await loadStore()
+
+    hydrateCoverStore()
+
+    const saved = useCoverStore.getState().config.content
+    expect(saved.name).toBe("OngolaPhone")
+    expect(saved.accent).toEqual({ start: 6, end: 11 })
+    expect(saved).not.toHaveProperty("nameMain")
+  })
+
+  it("fait suivre l'accent quand le nom change", async () => {
+    const { useCoverStore } = await loadStore()
+    useCoverStore.getState().setField("content.name", "Ongola")
+    useCoverStore.getState().setField("content.accent", { start: 3, end: 6 })
+    useCoverStore.getState().setField("content.name", "OngolaPhone")
+    expect(useCoverStore.getState().config.content.accent).toEqual({ start: 3, end: 6 })
   })
 
   it("abandonne une sauvegarde d'une ancienne version", async () => {

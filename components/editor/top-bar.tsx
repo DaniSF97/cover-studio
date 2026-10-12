@@ -18,16 +18,19 @@ import { getTemplate } from "@/templates/registry"
 
 import { ExportCard } from "./export-card"
 
+
 export function TopBar() {
   const t = useTranslations("editor")
   const tTemplates = useTranslations("templates")
   const tSizes = useTranslations("exportSizes")
   const { resolvedTheme, setTheme } = useTheme()
+  const setPanel = useCoverStore((state) => state.setActivePanel)
+  const setSheetOpen = useCoverStore((state) => state.setSheetOpen)
   const template = getTemplate(useCoverStore((state) => state.config.template))
   const output = getExportSize(useCoverStore((state) => state.config.export.size))
 
   return (
-    <header className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-background px-3 sm:px-4">
+    <header className="flex h-12 shrink-0 items-center gap-3 border-b border-border bg-background px-3 sm:px-4 md:h-14">
       <Link
         href="/"
         aria-label={t("backHome")}
@@ -36,14 +39,14 @@ export function TopBar() {
         <Logo className="size-8" />
         <span className="flex min-w-0 flex-col leading-tight">
           <span className="truncate text-sm font-semibold">Cover Studio</span>
-          <span className="truncate text-xs text-muted-foreground">
+          <span className="hidden truncate text-xs text-muted-foreground md:block">
             {tTemplates(template.nameKey)} · {tSizes(output.labelKey)} {output.width} ×{" "}
             {output.height}
           </span>
         </span>
       </Link>
 
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex items-center gap-1 md:gap-2">
         <Tooltip>
           <TooltipTrigger
             render={
@@ -79,11 +82,22 @@ export function TopBar() {
           <TooltipContent side="bottom">{t("themeTooltip")}</TooltipContent>
         </Tooltip>
 
+        {/* Mobile : le téléchargement ouvre le tiroir « Export ». */}
+        <Button
+          size="icon"
+          aria-label={t("download")}
+          onClick={() => {
+            setPanel("export")
+            setSheetOpen(true)
+          }}
+          className="md:hidden"
+        >
+          <Download />
+        </Button>
+
         <Popover>
           <PopoverTrigger
-            render={
-              <Button className="h-9 px-3 font-semibold" />
-            }
+            render={<Button className="hidden h-9 px-3 font-semibold md:inline-flex" />}
           >
             <Download />
             {t("download")}

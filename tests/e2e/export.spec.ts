@@ -66,8 +66,7 @@ test.describe("export PNG", () => {
     test.setTimeout(2 * EXPORT_TIMEOUT)
     await openEditor(page)
     await openPanel(page, "railContent")
-    await page.locator("#field-content-nameMain").fill("Café")
-    await page.locator("#field-content-nameAccent").fill("Pro")
+    await page.locator("#field-content-name").fill("Café Pro")
 
     await openPanel(page, "railExport")
     const { filename } = await download(page)

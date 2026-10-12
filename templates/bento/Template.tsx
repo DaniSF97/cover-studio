@@ -9,6 +9,7 @@ import {
   resolveBrowserTheme,
 } from "@/templates/shared/mockups"
 import { Chips, CoverRoot, TextBlock, useTextScale } from "@/templates/shared/text-block"
+import { EditableText, useShowSlot } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const PAD = 64
@@ -21,6 +22,7 @@ const INTRO_HEIGHT = 860
 /** Grille de tuiles arrondies : présentation, fonctionnalités, desktop, mobile. */
 export function BentoTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  const show = useShowSlot()
   const footerScale = useTextScale("footer")
   const brand = style.brandColor
   // La tuile de présentation porte du texte blanc : on garantit le contraste AA.
@@ -85,9 +87,9 @@ export function BentoTemplate({ config }: { config: PlacedConfig }) {
           maxWidth={SIDE - 120}
           colors={{ text: ink, chipBg: tone(brand, 0.95, 0.35), chipText: ink }}
         />
-        {content.footer && (
+        {show(content.footer) && (
           <div style={{ fontSize: 26 * footerScale, fontWeight: 500, color: tone(brand, 0.4, 0.4) }}>
-            {content.footer}
+            <EditableText field="footer" text={content.footer} />
           </div>
         )}
       </Tile>

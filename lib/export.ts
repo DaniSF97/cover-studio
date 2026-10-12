@@ -12,7 +12,7 @@ export class ExportError extends Error {
 }
 
 export function coverFilename(content: CoverConfig["content"], sizeId = "cover") {
-  const base = `${content.nameMain}${content.nameAccent ?? ""}`
+  const base = content.name
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
     .toLowerCase()
