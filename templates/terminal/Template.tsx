@@ -12,7 +12,8 @@ import {
   nameFontSize,
   useTextScale,
 } from "@/templates/shared/text-block"
-import { EditableText } from "@/templates/shared/editable"
+import { useBadgeShape } from "@/templates/shared/typography"
+import { EditableText, useShowSlot, useEditorChips } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const GUIDE = 140
@@ -29,6 +30,10 @@ const LINE = "rgba(255, 255, 255, 0.1)"
  */
 export function TerminalTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  const badgeShape = useBadgeShape()
+  const show = useShowSlot()
+  // Dans l'éditeur, une liste vide montre une chip à remplir.
+  const chips = useEditorChips(content.chips)
   const brand = style.brandColor
   const bg = tone(brand, 0.14, 0.12)
   const glow = tone(brand, 0.64, 1.1)
@@ -46,7 +51,7 @@ export function TerminalTemplate({ config }: { config: PlacedConfig }) {
 
   const showDesktop = mockups.showDesktop
   const showMobile = mockups.showMobile
-  const mockupTop = content.chips.length > 0 ? 780 : 690
+  const mockupTop = chips.length > 0 ? 780 : 690
   const browserLeft = (COVER_SIZE.width - BROWSER.width) / 2
 
   return (
@@ -94,7 +99,7 @@ export function TerminalTemplate({ config }: { config: PlacedConfig }) {
           color: "#ffffff",
         }}
       >
-        {content.badge && (
+        {show(content.badge) && (
           <div
             style={{
               display: "flex",
@@ -113,6 +118,7 @@ export function TerminalTemplate({ config }: { config: PlacedConfig }) {
               whiteSpace: "nowrap",
               maxWidth: "100%",
               overflow: "hidden",
+              ...badgeShape,
             }}
           >
             <span
@@ -151,16 +157,16 @@ export function TerminalTemplate({ config }: { config: PlacedConfig }) {
               overflowWrap: "anywhere",
             }}
           >
-            <EditableText field="nameMain" text={content.nameMain} />
-            {content.nameAccent && (
-              <span style={{ color: accent }}>
-                <EditableText field="nameAccent" text={content.nameAccent} colorable={false} />
-              </span>
-            )}
+            <EditableText
+              field="name"
+              text={content.name}
+              accent={content.accent}
+              accentStyle={{ color: accent }}
+            />
           </h1>
         </div>
 
-        {content.description && (
+        {show(content.description) && (
           <p
             style={{
               margin: "28px 0 0",
@@ -178,7 +184,7 @@ export function TerminalTemplate({ config }: { config: PlacedConfig }) {
           </p>
         )}
 
-        {content.chips.length > 0 && (
+        {show(content.chips) && (
           <div
             style={{
               marginTop: 44,
@@ -190,7 +196,7 @@ export function TerminalTemplate({ config }: { config: PlacedConfig }) {
               overflow: "hidden",
             }}
           >
-            {content.chips.map((chip, index) => (
+            {chips.map((chip, index) => (
               <span
                 key={`${chip}-${index}`}
                 style={{

@@ -4,10 +4,9 @@ import { coverFilename } from "@/lib/export"
 import { EXPORT_SIZES, canvasFor, getExportSize } from "@/lib/export-sizes"
 import { defaultConfig } from "@/templates/showcase/defaults"
 
-const content = (nameMain: string, nameAccent?: string) => ({
+const content = (name: string, accent = "") => ({
   ...defaultConfig("en").content,
-  nameMain,
-  nameAccent,
+  name: `${name}${accent}`,
 })
 
 describe("coverFilename", () => {

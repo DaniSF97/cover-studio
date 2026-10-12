@@ -2,6 +2,7 @@ import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
 import { defaultLocale, type Locale } from "@/i18n/routing"
+import { joinName, rebaseRange } from "@/lib/name"
 import { setPath } from "@/lib/path"
 import { isPortrait } from "@/lib/slots"
 import { DEFAULT_CONFIG, DEFAULT_TEMPLATE, localizeContent } from "@/templates/showcase/defaults"
@@ -39,6 +40,12 @@ type CoverState = {
   editing: boolean
   setSelection: (selection: TextSelection | null) => void
   setEditing: (editing: boolean) => void
+  /**
+   * Vrai pendant un export : l'éditeur monte une copie de la cover sans
+   * édition directe (ni emplacements vides, ni bouton d'ajout), seule capturée.
+   */
+  exportRender: boolean
+  setExportRender: (exportRender: boolean) => void
   setField: (path: string, value: unknown) => void
   startFrom: (images: ImageAsset[], options?: StartOptions) => void
   /** Passe les textes d'exemple dans la langue de la page, sans toucher à ceux modifiés. */
@@ -58,9 +65,19 @@ export const useCoverStore = create<CoverState>()(
       editing: false,
       setSelection: (selection) => set({ selection, editing: false }),
       setEditing: (editing) => set({ editing }),
+      exportRender: false,
+      setExportRender: (exportRender) => set({ exportRender }),
       setField: (path, value) =>
         set((state) => ({
-          config: setPath(state.config, path, value),
+          config:
+            // L'accent est une plage du nom : il suit le texte modifié.
+            path === "content.name"
+              ? setPath(
+                  setPath(state.config, path, value),
+                  "content.accent",
+                  rebaseRange(state.config.content.name, value as string, state.config.content.accent)
+                )
+              : setPath(state.config, path, value),
           // Un autre template n'a pas forcément le texte sélectionné.
           ...(path === "template" ? { selection: null, editing: false } : {}),
         })),
@@ -104,8 +121,25 @@ export const useCoverStore = create<CoverState>()(
     {
       name: "cover-generator",
       // v2 : on abandonne les textes sauvegardés à partir des anciens exemples.
-      version: 2,
-      migrate: () => ({}),
+      // v3 : nom d'un seul tenant, l'ancienne suite devient la plage d'accent.
+      version: 3,
+      migrate: (persisted, version) => {
+        if (version !== 2) return {}
+        const saved = persisted as { config?: { content?: Record<string, unknown> } }
+        const content = saved.config?.content
+        if (!content) return saved
+        const { nameMain, nameAccent, ...rest } = content
+        return {
+          ...saved,
+          config: {
+            ...saved.config,
+            content: {
+              ...rest,
+              ...joinName(String(nameMain ?? ""), String(nameAccent ?? "")),
+            },
+          },
+        }
+      },
       storage: createJSONStorage(() => localStorage),
       // Réhydraté côté client par l'éditeur, pour éviter un écart SSR/client.
       skipHydration: true,

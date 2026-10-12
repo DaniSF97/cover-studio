@@ -165,3 +165,13 @@
 [data-editable]:focus-visible:not([data-selected]) {
   outline: calc(1.5px / var(--edit-scale, 1)) solid var(--primary);
 }
+
+/* Texte vidé en saisie : il garde une largeur et affiche son emplacement. */
+[data-editing]:empty {
+  display: inline-block;
+  min-width: 0.5em;
+}
+[data-editing]:empty::before {
+  content: attr(data-placeholder);
+  opacity: 0.45;
+}

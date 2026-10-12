@@ -122,7 +122,7 @@ test.describe("éditeur", () => {
     await openEditor(page)
     await openPanel(page, "railContent")
 
-    await page.locator("#field-content-nameMain").fill("Zorglub")
+    await page.locator("#field-content-name").fill("Zorglub")
 
     await expect(page.getByRole("region", { name: en("editor", "previewLabel") })).toContainText("Zorglub")
   })

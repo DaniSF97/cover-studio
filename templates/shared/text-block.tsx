@@ -3,8 +3,14 @@ import { createContext, useContext, type CSSProperties } from "react"
 import { DEFAULT_FONT, fontStack } from "@/lib/fonts"
 import type { CoverConfig, ImageAsset } from "@/types/cover"
 
-import { EditableText, useIsEditing } from "./editable"
-import { TypographyContext, useTextScale } from "./typography"
+import {
+  EditableText,
+  useAddChip,
+  useEditorChips,
+  useIsEditing,
+  useShowSlot,
+} from "./editable"
+import { TypographyContext, useBadgeShape, useTextScale } from "./typography"
 
 export { TypographyContext, useTextScale }
 
@@ -37,10 +43,10 @@ type TextBlockProps = {
 
 /** Taille du nom : `base` jusqu'à 12 caractères, réduite au-delà (hors échelle utilisateur). */
 export function nameFontSize(
-  content: Pick<CoverConfig["content"], "nameMain" | "nameAccent">,
+  content: Pick<CoverConfig["content"], "name">,
   base: number
 ) {
-  const length = `${content.nameMain}${content.nameAccent ?? ""}`.length
+  const length = content.name.length
   return length <= 12 ? base : Math.max(base * 0.66, (base * 12) / length)
 }
 
@@ -60,6 +66,8 @@ export function TextBlock({
   const badgeScale = useTextScale("badge")
   const descriptionScale = useTextScale("description")
   const editingDescription = useIsEditing("description")
+  const show = useShowSlot()
+  const badgeShape = useBadgeShape()
   const centered = align === "center"
 
   return (
@@ -74,7 +82,7 @@ export function TextBlock({
         ...style,
       }}
     >
-      {content.badge && (
+      {show(content.badge) && (
         <div
           style={{
             height: 61 * badgeScale,
@@ -92,6 +100,7 @@ export function TextBlock({
             whiteSpace: "nowrap",
             maxWidth: "100%",
             overflow: "hidden",
+            ...badgeShape,
           }}
         >
           <EditableText field="badge" text={content.badge} />
@@ -120,16 +129,16 @@ export function TextBlock({
             overflowWrap: "anywhere",
           }}
         >
-          <EditableText field="nameMain" text={content.nameMain} />
-          {content.nameAccent && (
-            <span style={{ color: colors.accent }}>
-              <EditableText field="nameAccent" text={content.nameAccent} colorable={false} />
-            </span>
-          )}
+          <EditableText
+            field="name"
+            text={content.name}
+            accent={content.accent}
+            accentStyle={{ color: colors.accent }}
+          />
         </h1>
       </div>
 
-      {content.description && (
+      {show(content.description) && (
         <p
           style={{
             margin: "22px 0 0",
@@ -147,7 +156,7 @@ export function TextBlock({
         </p>
       )}
 
-      {!hideChips && content.chips.length > 0 && (
+      {!hideChips && show(content.chips) && (
         <Chips
           chips={content.chips}
           colors={colors}
@@ -205,6 +214,20 @@ export function Chips({
   style?: CSSProperties
 }) {
   const scale = useTextScale("chips")
+  const items = useEditorChips(chips)
+  const addChip = useAddChip()
+  const chipStyle: CSSProperties = {
+    height: 58 * scale,
+    display: "inline-flex",
+    alignItems: "center",
+    padding: `0 ${24 * scale}px`,
+    borderRadius: radius,
+    fontSize: 22 * scale,
+    fontWeight: 500,
+    letterSpacing: "0.01em",
+    whiteSpace: "nowrap",
+    maxWidth,
+  }
   return (
     <div
       style={{
@@ -215,23 +238,14 @@ export function Chips({
         ...style,
       }}
     >
-      {chips.map((chip, index) => (
+      {items.map((chip, index) => (
         <span
           key={`${chip}-${index}`}
           style={{
-            height: 58 * scale,
-            display: "inline-flex",
-            alignItems: "center",
-            padding: `0 ${24 * scale}px`,
-            borderRadius: radius,
+            ...chipStyle,
             background: colors.chipBg,
             color: colors.chipText ?? colors.text,
             border: colors.chipBorder ? `2px solid ${colors.chipBorder}` : undefined,
-            fontSize: 22 * scale,
-            fontWeight: 500,
-            letterSpacing: "0.01em",
-            whiteSpace: "nowrap",
-            maxWidth,
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
@@ -239,6 +253,28 @@ export function Chips({
           <EditableText field="chips" text={chip} index={index} />
         </span>
       ))}
+      {/* Éditeur seulement : ajoute une chip à la suite, comme un champ de tags. */}
+      {addChip && chips.length > 0 && (
+        <button
+          type="button"
+          aria-label={addChip.label}
+          title={addChip.label}
+          onClick={addChip.add}
+          style={{
+            ...chipStyle,
+            justifyContent: "center",
+            minWidth: 58 * scale,
+            background: "transparent",
+            color: colors.chipText ?? colors.text,
+            border: `2px dashed ${colors.chipText ?? colors.text}`,
+            opacity: 0.5,
+            cursor: "pointer",
+            fontFamily: "inherit",
+          }}
+        >
+          +
+        </button>
+      )}
     </div>
   )
 }
@@ -253,7 +289,8 @@ export function Footer({
   style: CSSProperties
 }) {
   const scale = useTextScale("footer")
-  if (!text) return null
+  const show = useShowSlot()
+  if (!show(text)) return null
   return (
     <div
       style={{

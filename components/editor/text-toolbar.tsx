@@ -1,7 +1,19 @@
 "use client"
 
-import { Check, Minus, Pencil, Plus, RotateCcw, Type, X } from "lucide-react"
-import type { ReactNode } from "react"
+import {
+  Check,
+  Eraser,
+  Highlighter,
+  ListPlus,
+  Minus,
+  Pencil,
+  Plus,
+  RotateCcw,
+  Trash2,
+  Type,
+  X,
+} from "lucide-react"
+import { useEffect, useState, type ReactNode } from "react"
 import { HexColorInput, HexColorPicker } from "react-colorful"
 
 import { Button } from "@/components/ui/button"
@@ -15,12 +27,19 @@ import { clamp, cssToHex } from "@/lib/color"
 import { FONTS, SCALE_MAX, SCALE_MIN, fontStack, getFont } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { useCoverStore } from "@/stores/cover-store"
+import {
+  selectedNameRange,
+  setActiveNameAccent,
+} from "@/templates/shared/editable"
 import { COLOR_PRESETS } from "@/templates/showcase/defaults"
+import type { BadgeShape, TextRange } from "@/types/cover"
+
+import { insertChip, removeChip } from "./chip-actions"
 
 const HEIGHT = 44
 const GAP = 12
 /** Demi-largeur approximative : garde la barre dans la fenêtre. */
-const HALF_WIDTH = 190
+const HALF_WIDTH = 240
 const STEP = 0.1
 
 /**
@@ -212,6 +231,27 @@ export function TextToolbar({
         </PopoverContent>
       </Popover>
 
+      {element === "name" && (
+        <>
+          <Divider />
+          <AccentControls editing={editing} />
+        </>
+      )}
+
+      {element === "badge" && (
+        <>
+          <Divider />
+          <ShapeControls />
+        </>
+      )}
+
+      {element === "chips" && (
+        <>
+          <Divider />
+          <ChipControls index={Number(selection.path.split(".").pop())} />
+        </>
+      )}
+
       <Divider />
 
       <Button
@@ -223,6 +263,173 @@ export function TextToolbar({
         <X />
       </Button>
     </div>
+  )
+}
+
+/**
+ * Accent du nom : en saisie, met en accent les lettres sélectionnées ; hors
+ * saisie, le bouton passe en saisie pour permettre la sélection.
+ */
+function AccentControls({ editing }: { editing: boolean }) {
+  const t = useTranslations("inlineEditing")
+  const accent = useCoverStore((state) => state.config.content.accent)
+  const setField = useCoverStore((state) => state.setField)
+  const setEditing = useCoverStore((state) => state.setEditing)
+  const [range, setRange] = useState<TextRange | null>(null)
+
+  useEffect(() => {
+    if (!editing) return
+    const update = () => setRange(selectedNameRange())
+    document.addEventListener("selectionchange", update)
+    const frame = requestAnimationFrame(update)
+    return () => {
+      document.removeEventListener("selectionchange", update)
+      cancelAnimationFrame(frame)
+    }
+  }, [editing])
+
+  const selected = editing ? range : null
+
+  return (
+    <>
+      <Button
+        variant="ghost"
+        size="sm"
+        title={selected ? undefined : t("accentHint")}
+        disabled={editing && !selected}
+        onClick={() =>
+          selected ? setActiveNameAccent(selected) : setEditing(true)
+        }
+      >
+        <Highlighter data-icon="inline-start" />
+        {t("accent")}
+      </Button>
+      {accent && (
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          aria-label={t("accentRemove")}
+          title={t("accentRemove")}
+          onClick={() =>
+            editing
+              ? setActiveNameAccent(undefined)
+              : setField("content.accent", undefined)
+          }
+        >
+          <Eraser />
+        </Button>
+      )}
+    </>
+  )
+}
+
+const SHAPES: {
+  value: BadgeShape | undefined
+  label:
+    | "badgeShapeTemplate"
+    | "badgeShapeSquare"
+    | "badgeShapeRounded"
+    | "badgeShapePill"
+    | "badgeShapeNone"
+  radius?: number
+}[] = [
+  { value: undefined, label: "badgeShapeTemplate" },
+  { value: "square", label: "badgeShapeSquare", radius: 0 },
+  { value: "rounded", label: "badgeShapeRounded", radius: 4 },
+  { value: "pill", label: "badgeShapePill", radius: 999 },
+  { value: "none", label: "badgeShapeNone" },
+]
+
+/** Forme de la pastille : rectangle, arrondi, pilule ou sans fond. */
+function ShapeControls() {
+  const t = useTranslations("inlineEditing")
+  const shape = useCoverStore((state) => state.config.style.badgeShape)
+  const setField = useCoverStore((state) => state.setField)
+  const current = SHAPES.find((option) => option.value === shape) ?? SHAPES[0]
+
+  return (
+    <Popover>
+      <PopoverTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label={t("badgeShape")}
+            title={t("badgeShape")}
+          >
+            <ShapePreview
+              radius={current.radius}
+              empty={!current.value || current.value === "none"}
+            />
+            <span className="max-w-24 truncate">{t(current.label)}</span>
+          </Button>
+        }
+      />
+      <PopoverContent side="bottom" className="w-56 gap-1 p-1">
+        <div
+          role="radiogroup"
+          aria-label={t("badgeShape")}
+          className="flex flex-col"
+        >
+          {SHAPES.map((option) => (
+            <FontOption
+              key={option.label}
+              checked={option.value === shape}
+              onSelect={() => setField("style.badgeShape", option.value)}
+            >
+              <span className="flex items-center gap-2.5">
+                <ShapePreview
+                  radius={option.radius}
+                  empty={!option.value || option.value === "none"}
+                />
+                {t(option.label)}
+              </span>
+            </FontOption>
+          ))}
+        </div>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+/** Petite pastille d'exemple ; pointillés pour « modèle » et « sans forme ». */
+function ShapePreview({ radius, empty }: { radius?: number; empty: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "h-3 w-5 shrink-0 border-[1.5px] border-current",
+        empty ? "border-dashed opacity-60" : "bg-current/15"
+      )}
+      style={{ borderRadius: radius ?? 3 }}
+    />
+  )
+}
+
+/** Fonctionnalités : ajout après la chip sélectionnée, suppression. */
+function ChipControls({ index }: { index: number }) {
+  const t = useTranslations("inlineEditing")
+  return (
+    <>
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        aria-label={t("chipAdd")}
+        title={t("chipAdd")}
+        onClick={() => insertChip(index)}
+      >
+        <ListPlus />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        aria-label={t("chipRemove")}
+        title={t("chipRemove")}
+        onClick={() => removeChip(index)}
+      >
+        <Trash2 />
+      </Button>
+    </>
   )
 }
 

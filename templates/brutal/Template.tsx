@@ -12,7 +12,8 @@ import {
   nameFontSize,
   useTextScale,
 } from "@/templates/shared/text-block"
-import { EditableText } from "@/templates/shared/editable"
+import { useBadgeShape } from "@/templates/shared/typography"
+import { EditableText, useShowSlot, useEditorChips } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const INK = "#111111"
@@ -31,6 +32,10 @@ const BLEED = 1200
  */
 export function BrutalTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  const badgeShape = useBadgeShape()
+  const show = useShowSlot()
+  // Dans l'éditeur, une liste vide montre une chip à remplir.
+  const chips = useEditorChips(content.chips)
   const brand = style.brandColor
   const background = tone(brand, 0.95, 0.35)
   const onBrand =
@@ -153,7 +158,7 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
           color: INK,
         }}
       >
-        {content.badge && (
+        {show(content.badge) && (
           <div
             style={{
               padding: `${14 * scale.badge}px ${28 * scale.badge}px`,
@@ -169,6 +174,7 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
               whiteSpace: "nowrap",
               maxWidth: "100%",
               overflow: "hidden",
+              ...badgeShape,
             }}
           >
             <EditableText field="badge" text={content.badge} />
@@ -204,27 +210,25 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
               overflowWrap: "anywhere",
             }}
           >
-            <EditableText field="nameMain" text={content.nameMain} />
-            {content.nameAccent && (
-              <span
-                style={{
-                  display: "inline-block",
-                  marginLeft: "0.08em",
-                  padding: "0 0.16em",
-                  background: brand,
-                  color: onBrand,
-                  border: BORDER,
-                  borderRadius: 14,
-                  transform: "rotate(-2deg)",
-                }}
-              >
-                <EditableText field="nameAccent" text={content.nameAccent} colorable={false} />
-              </span>
-            )}
+            <EditableText
+              field="name"
+              text={content.name}
+              accent={content.accent}
+              accentStyle={{
+                display: "inline-block",
+                marginLeft: "0.08em",
+                padding: "0 0.16em",
+                background: brand,
+                color: onBrand,
+                border: BORDER,
+                borderRadius: 14,
+                transform: "rotate(-2deg)",
+              }}
+            />
           </h1>
         </div>
 
-        {content.description && (
+        {show(content.description) && (
           <p
             style={{
               margin: "40px 0 0",
@@ -242,7 +246,7 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
           </p>
         )}
 
-        {content.chips.length > 0 && (
+        {show(content.chips) && (
           <div
             style={{
               marginTop: 52,
@@ -251,7 +255,7 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
               gap: "22px 20px",
             }}
           >
-            {content.chips.map((chip, index) => {
+            {chips.map((chip, index) => {
               const fill = chipFills[index % chipFills.length]
               return (
                 <span
@@ -282,7 +286,7 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
         )}
       </div>
 
-      {content.footer && (
+      {show(content.footer) && (
         <div
           style={{
             position: "absolute",

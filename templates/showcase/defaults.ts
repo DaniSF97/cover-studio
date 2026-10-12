@@ -1,6 +1,7 @@
 import { MESSAGES } from "@/i18n/messages"
 import { defaultLocale, locales, type Locale } from "@/i18n/routing"
 import { createTranslator } from "@/i18n/translator"
+import { joinName } from "@/lib/name"
 import type { CoverConfig } from "@/types/cover"
 
 export const DEFAULT_BRAND = "#7d2ae8"
@@ -14,8 +15,7 @@ function defaultContent(locale: Locale): Content {
   const t = createTranslator(MESSAGES[locale], "defaults")
   return {
     badge: t("badge"),
-    nameMain: t("nameMain"),
-    nameAccent: t("nameAccent"),
+    ...joinName(t("nameMain"), t("nameAccent")),
     description: t("description"),
     chips: [t("chipKeyFeature"), t("chipResponsive"), t("chipOpenSource")],
     footer: t("footer"),
@@ -49,8 +49,11 @@ export function localizeContent(content: Content, locale: Locale): Content {
 
   const next = { ...content }
   for (const key of Object.keys(target) as (keyof Omit<Content, "icon">)[]) {
+    // L'accent suit le nom : il n'a de sens que sur le texte d'exemple.
+    if (key === "accent") continue
     if (others.some((other) => same(other[key], content[key]))) {
       Object.assign(next, { [key]: target[key] })
+      if (key === "name") next.accent = target.accent
     }
   }
   return next

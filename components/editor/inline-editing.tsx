@@ -6,14 +6,15 @@ import { createPortal } from "react-dom"
 import { useTranslations } from "@/i18n/provider"
 import { useCoverStore } from "@/stores/cover-store"
 import type { EditingApi } from "@/templates/shared/editable"
-import type { EditableField, Template } from "@/types/cover"
+import { rebaseRange } from "@/lib/name"
+import type { EditableField, Template, TextRange } from "@/types/cover"
 
+import { insertChip, removeChip } from "./chip-actions"
 import { TextToolbar } from "./text-toolbar"
 
 const LABELS = {
   badge: "badgeLabel",
-  nameMain: "nameMainLabel",
-  nameAccent: "nameAccentLabel",
+  name: "nameLabel",
   description: "descriptionLabel",
   footer: "footerLabel",
 } as const
@@ -27,49 +28,54 @@ export function useEditingApi(template: Template): EditingApi {
 
   return useMemo(() => {
     const { setSelection, setEditing, setField } = useCoverStore.getState()
-    const chips = () => useCoverStore.getState().config.content.chips
 
-    function write(field: EditableField, value: string, index = 0) {
-      if (field !== "chips") return setField(`content.${field}`, value)
-      const next = [...chips()]
-      next[index] = value
-      setField("content.chips", next)
+    function write(
+      field: EditableField,
+      value: string,
+      index = 0,
+      accent?: TextRange
+    ) {
+      if (field === "chips") {
+        const chips = [...useCoverStore.getState().config.content.chips]
+        chips[index] = value
+        return setField("content.chips", chips)
+      }
+      setField(`content.${field}`, value)
+      // L'accent lu dans le DOM fait foi, après le report automatique du store.
+      if (field === "name") setField("content.accent", accent)
     }
+
+    const label = (field: EditableField, index = 0) =>
+      field === "chips"
+        ? t("chipLabel", { index: index + 1 })
+        : tFields(LABELS[field])
 
     return {
       selection,
       editing,
       select: setSelection,
       startEditing: () => setEditing(true),
-      // Un texte vidé n'est pas écrit pendant la frappe : l'élément
-      // disparaîtrait sous le curseur. La validation tranche.
-      update: (field, value, index) => {
-        if (value) write(field, value, index)
-      },
-      commit: (field, raw, initial, index = 0) => {
+      // Un texte vidé reste à l'écran sous forme d'emplacement grisé.
+      update: (field, value, index, accent) =>
+        write(field, value, index, accent),
+      commit: (field, raw, index = 0, accent) => {
         setEditing(false)
         const value = raw.trim()
-        if (value) return write(field, value, index)
-        // Le nom est obligatoire : il reprend sa valeur d'origine.
-        if (field === "nameMain") return write(field, initial)
-        setSelection(null)
-        if (field === "chips") {
-          setField(
-            "content.chips",
-            chips().filter((_, position) => position !== index)
-          )
-        } else write(field, "")
+        // Une chip vidée disparaît, comme dans un champ de tags.
+        if (field === "chips" && !value) return removeChip(index)
+        write(field, value, index, rebaseRange(raw, value, accent))
       },
+      addChip: insertChip,
       maxLength: (field) => {
         const schema = template.schema.find(
           (item) => item.path === `content.${field}`
         )
         return schema && "maxLength" in schema ? schema.maxLength : undefined
       },
-      label: (field, index = 0) =>
-        field === "chips"
-          ? t("chipLabel", { index: index + 1 })
-          : tFields(LABELS[field]),
+      label,
+      placeholder: (field) =>
+        field === "chips" ? tFields("chipsLabel") : label(field),
+      addChipLabel: t("chipAdd"),
     }
   }, [selection, editing, template, t, tFields])
 }

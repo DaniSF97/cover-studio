@@ -13,7 +13,8 @@ import {
   nameFontSize,
   useTextScale,
 } from "@/templates/shared/text-block"
-import { EditableText } from "@/templates/shared/editable"
+import { useBadgeShape } from "@/templates/shared/typography"
+import { EditableText, useShowSlot, useEditorChips } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const COLUMN = { left: 130, top: 130, width: 940, height: 1240 }
@@ -32,6 +33,10 @@ const BLEED = 1200
  */
 export function EditorialTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  const badgeShape = useBadgeShape()
+  const show = useShowSlot()
+  // Dans l'éditeur, une liste vide montre une chip à remplir.
+  const chips = useEditorChips(content.chips)
   const brand = style.brandColor
   const paper = tone(brand, 0.975, 0.06)
   const ink = tone(brand, 0.2, 0.25)
@@ -46,7 +51,7 @@ export function EditorialTemplate({ config }: { config: PlacedConfig }) {
     footer: useTextScale("footer"),
   }
   const nameSize = nameFontSize(content, 132) * scale.name
-  const features = content.chips.slice(0, MAX_FEATURES)
+  const features = chips.slice(0, MAX_FEATURES)
 
   const showDesktop = mockups.showDesktop
   const showMobile = mockups.showMobile
@@ -110,7 +115,7 @@ export function EditorialTemplate({ config }: { config: PlacedConfig }) {
       >
         {/* Bloc principal centré verticalement, pied de page en bas. */}
         <div style={{ margin: "auto 0" }}>
-          {content.badge && (
+          {show(content.badge) && (
             <div
               style={{
                 display: "flex",
@@ -123,6 +128,7 @@ export function EditorialTemplate({ config }: { config: PlacedConfig }) {
                 textTransform: "uppercase",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
+                ...badgeShape,
               }}
             >
               <span
@@ -162,16 +168,16 @@ export function EditorialTemplate({ config }: { config: PlacedConfig }) {
                 overflowWrap: "anywhere",
               }}
             >
-              <EditableText field="nameMain" text={content.nameMain} />
-              {content.nameAccent && (
-                <span style={{ color: accent }}>
-                  <EditableText field="nameAccent" text={content.nameAccent} colorable={false} />
-                </span>
-              )}
+              <EditableText
+                field="name"
+                text={content.name}
+                accent={content.accent}
+                accentStyle={{ color: accent }}
+              />
             </h1>
           </div>
 
-          {content.description && (
+          {show(content.description) && (
             <p
               style={{
                 margin: "44px 0 0",
@@ -229,7 +235,7 @@ export function EditorialTemplate({ config }: { config: PlacedConfig }) {
           )}
         </div>
 
-        {content.footer && (
+        {show(content.footer) && (
           <div
             style={{
               fontSize: 22 * scale.footer,

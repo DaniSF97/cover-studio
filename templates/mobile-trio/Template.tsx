@@ -2,6 +2,7 @@ import { hexAlpha, readableOn, tone } from "@/lib/color"
 import { PHONE_SIZE, PhoneFrame } from "@/mockups/PhoneFrame"
 import { COVER_SIZE } from "@/templates/shared/mockups"
 import { CoverRoot, Footer, TextBlock } from "@/templates/shared/text-block"
+import { useEditorChips } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const TEXT = { top: 90, width: 1700 }
@@ -17,13 +18,15 @@ const SIDE_TILT = 9
  */
 export function MobileTrioTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  // Dans l'éditeur, une liste vide montre une chip à remplir.
+  const chips = useEditorChips(content.chips)
   const brand = style.brandColor
   const bgTop = tone(brand, 0.965, 0.3)
   const bgBottom = tone(brand, 0.84, 0.75)
   const ink = tone(brand, 0.22, 0.5)
   const accent = style.accentColor ?? readableOn(brand, bgTop)
 
-  const phonesTop = content.chips.length > 0 ? 700 : 610
+  const phonesTop = chips.length > 0 ? 700 : 610
   const centerLeft = (COVER_SIZE.width - PHONE_SIZE.width * CENTER_SCALE) / 2
   const sideTop = phonesTop + 120
   const main = mockups.mobileImage

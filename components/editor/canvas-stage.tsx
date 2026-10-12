@@ -24,6 +24,7 @@ export function CanvasStage() {
   const [box, setBox] = useState<{ width: number; height: number }>()
   const editing = useEditingApi(template)
   const setSelection = useCoverStore((state) => state.setSelection)
+  const exportRender = useCoverStore((state) => state.exportRender)
 
   // Échap désélectionne (en saisie, le texte l'intercepte), sauf depuis un
   // champ ou une fenêtre ouverte (sélecteur de couleur, menu des polices).
@@ -83,11 +84,17 @@ export function CanvasStage() {
             template={template}
             config={config}
             scale={scale}
-            exportable
             editing={editing}
           >
             <SelectionLayer scale={scale} />
           </CoverPreview>
+        </div>
+      )}
+      {/* Copie sans édition directe, montée le temps d'un export : c'est elle
+          qui est capturée, sans emplacements vides ni bouton d'ajout. */}
+      {exportRender && (
+        <div aria-hidden className="pointer-events-none fixed top-0 left-[-100000px]">
+          <CoverPreview template={template} config={config} scale={1} exportable />
         </div>
       )}
       <div className="absolute right-4 bottom-4 hidden rounded-full md:block bg-background/90 px-3 py-1 text-xs font-medium text-muted-foreground tabular-nums shadow-sm ring-1 ring-foreground/10 backdrop-blur">

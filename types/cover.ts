@@ -20,10 +20,16 @@ export type ImageAsset = {
 
 export type BrowserTheme = "auto" | "light" | "dark"
 
+/** Forme de la pastille : carrée, arrondie, pilule, ou sans fond ni bordure. */
+export type BadgeShape = "square" | "rounded" | "pill" | "none"
+
 export type TextElement = "badge" | "name" | "description" | "chips" | "footer"
 
 /** Champ de texte modifiable directement sur l'aperçu. */
-export type EditableField = "badge" | "nameMain" | "nameAccent" | "description" | "chips" | "footer"
+export type EditableField = "badge" | "name" | "description" | "chips" | "footer"
+
+/** Plage de caractères [start, end[ d'un texte. */
+export type TextRange = { start: number; end: number }
 
 /** Texte sélectionné sur l'aperçu ; `path` vaut par ex. "content.chips.2". */
 export type TextSelection = { element: TextElement; path: string }
@@ -35,8 +41,10 @@ export type CoverConfig = {
     /** Icône de l'application, affichée à côté du nom. */
     icon?: ImageAsset
     badge: string
-    nameMain: string
-    nameAccent?: string
+    /** Nom de l'application, d'un seul tenant. */
+    name: string
+    /** Partie du nom affichée dans la couleur d'accent. */
+    accent?: TextRange
     description: string
     chips: string[]
     footer: string
@@ -55,6 +63,8 @@ export type CoverConfig = {
     textFont?: Partial<Record<TextElement, string>>
     /** Couleur par élément de texte (hex), sinon celle du template. */
     textColor?: Partial<Record<TextElement, string>>
+    /** Forme de la pastille, sinon celle du template. */
+    badgeShape?: BadgeShape
   }
   mockups: {
     /** Captures importées, dans l'ordre choisi par l'utilisateur. */

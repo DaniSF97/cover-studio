@@ -4,7 +4,7 @@ import { contrast, hexAlpha, readableOn, tone } from "@/lib/color"
 import { PHONE_SIZE, PhoneFrame } from "@/mockups/PhoneFrame"
 import { COVER_SIZE } from "@/templates/shared/mockups"
 import { CoverRoot, Footer, TextBlock, useTextScale } from "@/templates/shared/text-block"
-import { EditableText } from "@/templates/shared/editable"
+import { EditableText, useEditorChips } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const COLUMN = { left: 120, top: 360, width: 760 }
@@ -24,6 +24,8 @@ const CALLOUTS: { left?: number; right?: number; top: number; tilt: number }[] =
  */
 export function CalloutsTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  // Dans l'éditeur, une liste vide montre une chip à remplir.
+  const chips = useEditorChips(content.chips)
   const brand = style.brandColor
   const background = tone(brand, 0.955, 0.3)
   const ink = tone(brand, 0.22, 0.5)
@@ -92,7 +94,7 @@ export function CalloutsTemplate({ config }: { config: PlacedConfig }) {
         }}
       />
 
-      {content.chips.slice(0, CALLOUTS.length).map((chip, index) => {
+      {chips.slice(0, CALLOUTS.length).map((chip, index) => {
         const { tilt, ...position } = CALLOUTS[index]
         return (
           <div

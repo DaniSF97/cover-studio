@@ -3,6 +3,7 @@ import { BrowserFrame } from "@/mockups/BrowserFrame"
 import { PHONE_SIZE, PhoneFrame } from "@/mockups/PhoneFrame"
 import { COVER_SIZE, gridLayers, resolveBrowserTheme } from "@/templates/shared/mockups"
 import { CoverRoot, Footer, TextBlock } from "@/templates/shared/text-block"
+import { useEditorChips } from "@/templates/shared/editable"
 import type { PlacedConfig } from "@/types/cover"
 
 const TEXT = { top: 100, width: 1700 }
@@ -15,6 +16,8 @@ const GRID_CELL = 64
  */
 export function SpotlightTemplate({ config }: { config: PlacedConfig }) {
   const { content, style, mockups } = config
+  // Dans l'éditeur, une liste vide montre une chip à remplir.
+  const chips = useEditorChips(content.chips)
   const brand = style.brandColor
   const bgTop = tone(brand, 0.975, 0.25)
   const bgBottom = tone(brand, 0.9, 0.55)
@@ -22,7 +25,7 @@ export function SpotlightTemplate({ config }: { config: PlacedConfig }) {
   const accent = style.accentColor ?? readableOn(brand, bgTop)
 
   // Le bloc de mockups démarre sous le texte, plus bas quand il y a des chips.
-  const mockupTop = content.chips.length > 0 ? 690 : 600
+  const mockupTop = chips.length > 0 ? 690 : 600
   const showDesktop = mockups.showDesktop
   const showMobile = mockups.showMobile
   const browserLeft = (COVER_SIZE.width - BROWSER.width) / 2
