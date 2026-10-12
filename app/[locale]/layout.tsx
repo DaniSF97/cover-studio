@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { GoogleAnalytics } from "@next/third-parties/google"
-import { Geist_Mono, Inter, Montserrat, Playfair_Display, Poppins, Space_Grotesk } from "next/font/google"
+import { Geist_Mono, Inter, Poppins } from "next/font/google"
 import { notFound } from "next/navigation"
 
 import "../globals.css"
@@ -28,23 +28,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-poppins",
-})
-
-// Autres polices proposées dans l'éditeur (cf. lib/fonts).
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-montserrat",
-})
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-space-grotesk",
-})
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-playfair",
 })
 
 /** Couleur de la barre d'adresse mobile, alignée sur le logo. */
@@ -138,10 +121,7 @@ export default async function RootLayout({ children, params }: Readonly<Props>) 
         fontMono.variable,
         "font-sans",
         inter.variable,
-        poppins.variable,
-        montserrat.variable,
-        spaceGrotesk.variable,
-        playfair.variable
+        poppins.variable
       )}
     >
       <body>

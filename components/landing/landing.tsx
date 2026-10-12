@@ -27,7 +27,7 @@ import { LINKS } from "@/lib/site"
 import { MAX_IMAGES, isPortrait } from "@/lib/slots"
 import { cn } from "@/lib/utils"
 import { hydrateCoverStore, useCoverStore } from "@/stores/cover-store"
-import { getTemplate, templates } from "@/templates/registry"
+import { getTemplate } from "@/templates/registry"
 import { COLOR_PRESETS, defaultConfig } from "@/templates/showcase/defaults"
 import type { ImageAsset } from "@/types/cover"
 
@@ -138,14 +138,14 @@ export function Landing() {
             aria-hidden
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_85%_0%,color-mix(in_oklab,var(--primary)_14%,transparent),transparent),radial-gradient(40%_40%_at_0%_100%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent)]"
           />
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-14 lg:py-20">
-            <div className="flex flex-col gap-8">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 py-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-14 lg:py-20">
+            <div className="flex min-w-0 flex-col gap-8">
               <div className="flex flex-col gap-4">
                 <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">
                   {t("heroTitle")}
                 </h1>
                 <p className="max-w-lg text-base text-muted-foreground">
-                  {t("heroText", { count: templates.length })}
+                  {t("heroText")}
                 </p>
               </div>
 
@@ -179,7 +179,7 @@ export function Landing() {
                     onChange={updateImages}
                   />
                 </div>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <FormField id="landing-icon" label={tFields("iconLabel")}>
                     <FileInput
                       id="landing-icon"
@@ -248,7 +248,7 @@ export function Landing() {
               </section>
             </div>
 
-            <div className="rounded-2xl border border-border bg-muted/50 p-2 shadow-sm sm:p-3">
+            <div className="min-w-0 rounded-2xl border border-border bg-muted/50 p-2 shadow-sm sm:p-3">
               <TemplateCarousel
                 config={previewConfig}
                 picked={picked}
