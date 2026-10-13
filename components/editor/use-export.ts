@@ -4,13 +4,16 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 import { useLocale, useTranslations } from "@/i18n/provider"
-import { trackCoverGenerated, trackExportFailed } from "@/lib/analytics"
+import { trackCoverGenerated, trackExportFailed, trackStarClicked } from "@/lib/analytics"
 import { EXPORT_NODE_ID, ExportError, coverFilename, exportCover } from "@/lib/export"
 import { getExportSize } from "@/lib/export-sizes"
+import { GITHUB_URL } from "@/lib/site"
+import { dismissStarPrompt, registerExport } from "@/lib/star-prompt"
 import { useCoverStore } from "@/stores/cover-store"
 import { getTemplate } from "@/templates/registry"
 
 import { coverCanvas } from "./cover-preview"
+import { showStarToast } from "./star-toast"
 
 /**
  * Attend que la copie d'export soit montée (une demi-seconde au plus). Pas de
@@ -49,9 +52,22 @@ export function useExport() {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1,
       }).format((performance.now() - started) / 1000)
-      toast.success(t("toastSuccess"), {
-        description: t("toastSuccessDescription", { filename, seconds }),
-      })
+      if (registerExport()) {
+        // Un seul toast : le rappel d'étoile remplace la confirmation et reste jusqu'à la croix.
+        showStarToast({
+          message: t("starPrompt"),
+          cta: t("starCta"),
+          onStar: () => {
+            dismissStarPrompt()
+            trackStarClicked()
+            window.open(GITHUB_URL, "_blank", "noopener,noreferrer")
+          },
+        })
+      } else {
+        toast.success(t("toastSuccess"), {
+          description: t("toastSuccessDescription", { filename, seconds }),
+        })
+      }
     } catch (error) {
       trackExportFailed({ reason: error instanceof ExportError ? error.code : "unknown" })
       toast.error(t("toastError"), {

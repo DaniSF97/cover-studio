@@ -70,7 +70,8 @@
     "github": "Code source sur GitHub",
     "issues": "Signaler un problème",
     "license": "Licence MIT",
-    "copyright": "© {year} Cover Studio. Sous licence MIT."
+    "copyright": "© {year} Cover Studio. Sous licence MIT.",
+    "builtBy": "Créé par"
   },
   "editor": {
     "settingsLabel": "Réglages",
@@ -117,7 +118,9 @@
     "privacy": "Tout est généré dans votre navigateur : aucune image n'est envoyée à un serveur.",
     "toastSuccess": "Cover téléchargée",
     "toastSuccessDescription": "{filename} · {seconds} s",
-    "toastError": "Export impossible"
+    "toastError": "Export impossible",
+    "starPrompt": "Ça t'a servi ? Une étoile aide beaucoup le projet.",
+    "starCta": "Mettre une étoile"
   },
   "exportSizes": {
     "coverLabel": "Cover",

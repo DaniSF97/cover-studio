@@ -1,11 +1,26 @@
+<div align="center">
+
+<img src="./docs/assets/cover.png" alt="Cover Studio: turn your app screenshots into a cover for your README, Product Hunt or LinkedIn" width="100%" />
+
 # Cover Studio
 
-A free, open-source cover generator for your app: drop in your screenshots (or let Cover Studio
-capture your site from its URL), pick a template and a brand colour, and export a PNG ready to
-share on a GitHub README, Product Hunt, LinkedIn or your portfolio.
+**Turn your app screenshots into a cover for your README, Product Hunt or LinkedIn.**
+Free, open source and 100% client-side.
 
+[**Try it**](https://coverstudio.roosveltkn.com/en) · [Report a bug](https://github.com/roosveltkn/cover-studio/issues) · [Contribute](./CONTRIBUTING.md)
+
+[![Star on GitHub](https://img.shields.io/github/stars/roosveltkn/cover-studio?style=social)](https://github.com/roosveltkn/cover-studio)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![CI](https://github.com/roosveltkn/cover-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/roosveltkn/cover-studio/actions/workflows/ci.yml)
+
+</div>
+
+The cover above was made with Cover Studio itself. Drop in your screenshots (or let Cover Studio
+capture your site from its URL), pick a template and a brand colour, and export a PNG.
+
+<p align="center">
+  <img src="./docs/assets/demo.gif" alt="Importing a screenshot, editing the texts, changing the colour and the template in Cover Studio" width="80%" />
+</p>
 
 ## Features
 
@@ -44,6 +59,7 @@ Open <http://localhost:3000>.
 | `pnpm typecheck`         | TypeScript check                                              |
 | `pnpm format`            | Prettier formatting                                           |
 | `pnpm i18n:check`        | translation consistency (keys, variables, hard-coded text)    |
+| `pnpm readme:visuals`    | regenerate the README cover and GIF (after `pnpm build`)      |
 | `pnpm test`              | unit tests (Vitest)                                           |
 | `pnpm test:e2e`          | build, then end-to-end tests (Playwright)                     |
 | `pnpm capture:dev`       | local capture service (`vercel dev`)                          |
@@ -68,13 +84,15 @@ stores/       editor state (Zustand)
 lib/          pure logic: colours, images, export, capture client
 i18n/         home-made translator; texts live in messages/{fr,en}.json
 capture/      URL capture service (separate Vercel project, headless Chrome)
-docs/         specification (SPECS.md), internationalisation (I18N.md), capture (CAPTURE.md)
+docs/         specification (SPECS.md), internationalisation (I18N.md), capture (CAPTURE.md),
+              README visuals (assets/)
 tests/        unit tests (tests/unit) and end-to-end tests (tests/e2e)
 ```
 
 ## Contributing
 
-Contributions are welcome: new templates, export formats, languages, fixes. Read
+Contributions are welcome: new templates, export formats, languages, fixes. Look for the
+[good first issues](https://github.com/roosveltkn/cover-studio/labels/good%20first%20issue). Read
 [CONTRIBUTING.md](./CONTRIBUTING.md), especially [Adding a template](./CONTRIBUTING.md#adding-a-template),
 and the [code of conduct](./CODE_OF_CONDUCT.md).
 
