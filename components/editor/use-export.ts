@@ -13,6 +13,7 @@ import { useCoverStore } from "@/stores/cover-store"
 import { getTemplate } from "@/templates/registry"
 
 import { coverCanvas } from "./cover-preview"
+import { showStarToast } from "./star-toast"
 
 /**
  * Attend que la copie d'export soit montée (une demi-seconde au plus). Pas de
@@ -51,21 +52,20 @@ export function useExport() {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1,
       }).format((performance.now() - started) / 1000)
-      toast.success(t("toastSuccess"), {
-        description: t("toastSuccessDescription", { filename, seconds }),
-      })
       if (registerExport()) {
-        // Rappel discret, affiché après le toast de succès.
-        toast(t("starPrompt"), {
-          duration: 10_000,
-          action: {
-            label: t("starCta"),
-            onClick: () => {
-              dismissStarPrompt()
-              trackStarClicked()
-              window.open(GITHUB_URL, "_blank", "noopener,noreferrer")
-            },
+        // Un seul toast : le rappel d'étoile remplace la confirmation et reste jusqu'à la croix.
+        showStarToast({
+          message: t("starPrompt"),
+          cta: t("starCta"),
+          onStar: () => {
+            dismissStarPrompt()
+            trackStarClicked()
+            window.open(GITHUB_URL, "_blank", "noopener,noreferrer")
           },
+        })
+      } else {
+        toast.success(t("toastSuccess"), {
+          description: t("toastSuccessDescription", { filename, seconds }),
         })
       }
     } catch (error) {
