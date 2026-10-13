@@ -4,9 +4,11 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 import { useLocale, useTranslations } from "@/i18n/provider"
-import { trackCoverGenerated, trackExportFailed } from "@/lib/analytics"
+import { trackCoverGenerated, trackExportFailed, trackStarClicked } from "@/lib/analytics"
 import { EXPORT_NODE_ID, ExportError, coverFilename, exportCover } from "@/lib/export"
 import { getExportSize } from "@/lib/export-sizes"
+import { GITHUB_URL } from "@/lib/site"
+import { dismissStarPrompt, registerExport } from "@/lib/star-prompt"
 import { useCoverStore } from "@/stores/cover-store"
 import { getTemplate } from "@/templates/registry"
 
@@ -52,6 +54,20 @@ export function useExport() {
       toast.success(t("toastSuccess"), {
         description: t("toastSuccessDescription", { filename, seconds }),
       })
+      if (registerExport()) {
+        // Rappel discret, affiché après le toast de succès.
+        toast(t("starPrompt"), {
+          duration: 10_000,
+          action: {
+            label: t("starCta"),
+            onClick: () => {
+              dismissStarPrompt()
+              trackStarClicked()
+              window.open(GITHUB_URL, "_blank", "noopener,noreferrer")
+            },
+          },
+        })
+      }
     } catch (error) {
       trackExportFailed({ reason: error instanceof ExportError ? error.code : "unknown" })
       toast.error(t("toastError"), {

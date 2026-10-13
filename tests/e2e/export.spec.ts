@@ -82,4 +82,14 @@ test.describe("export PNG", () => {
 
     await expect(page.getByText(en("export", "toastSuccess"))).toBeVisible({ timeout: EXPORT_TIMEOUT })
   })
+
+  test("propose une étoile GitHub après le premier export", async ({ page }) => {
+    test.setTimeout(2 * EXPORT_TIMEOUT)
+    await openEditor(page)
+    await openPanel(page, "railExport")
+    await download(page)
+
+    await expect(page.getByText(en("export", "starPrompt"))).toBeVisible({ timeout: EXPORT_TIMEOUT })
+    await expect(page.getByRole("button", { name: en("export", "starCta") })).toBeVisible()
+  })
 })

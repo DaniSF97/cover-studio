@@ -117,7 +117,9 @@
     "privacy": "Tout est généré dans votre navigateur : aucune image n'est envoyée à un serveur.",
     "toastSuccess": "Cover téléchargée",
     "toastSuccessDescription": "{filename} · {seconds} s",
-    "toastError": "Export impossible"
+    "toastError": "Export impossible",
+    "starPrompt": "Ça t'a servi ? Une étoile aide beaucoup le projet.",
+    "starCta": "Mettre une étoile"
   },
   "exportSizes": {
     "coverLabel": "Cover",

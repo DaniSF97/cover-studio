@@ -55,3 +55,8 @@ export function trackUrlCaptured(params: { count: number; failed: number }) {
 export function trackExportFailed(params: { reason: string }) {
   track("cover_export_failed", params)
 }
+
+/** Le visiteur a cliqué sur « une étoile sur GitHub » après un export. */
+export function trackStarClicked() {
+  track("star_clicked", {})
+}
