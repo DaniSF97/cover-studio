@@ -162,7 +162,13 @@ pnpm capture:typecheck
    _Other_, Node.js 22.x. Deployment Protection (Vercel Authentication) is turned off for this
    project: the service is public by design and protected by the rules below.
 2. **Skipping useless builds**:
-   - capture project: "Skip deployments when there are no changes to the root directory";
+   - capture project: Ignored Build Step
+     `if git cat-file -e "${VERCEL_GIT_PREVIOUS_SHA:-HEAD^}^{commit}" 2>/dev/null; then git diff --quiet "${VERCEL_GIT_PREVIOUS_SHA:-HEAD^}" HEAD -- . ../pnpm-lock.yaml ../pnpm-workspace.yaml; else exit 1; fi`.
+     The dashboard's "Skip deployments when there are no changes to the root directory" option
+     is not enough: every branch and PR still deployed the service, and each deployment bundles
+     Chromium (about 150 MB), which quickly exhausted the Hobby plan's Functions storage. This
+     command only builds when `capture/` or the shared lockfile and workspace file changed. Old previews still count against the storage:
+     remove them from time to time with `vercel remove`.
    - app project: Ignored Build Step
      `if git cat-file -e "${VERCEL_GIT_PREVIOUS_SHA:-HEAD^}^{commit}" 2>/dev/null; then git diff --quiet "${VERCEL_GIT_PREVIOUS_SHA:-HEAD^}" HEAD -- . ":!capture"; else exit 1; fi`.
      It compares against the last successful deployment, not just the last commit. Vercel makes
