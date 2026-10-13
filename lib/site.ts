@@ -9,6 +9,8 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3
 
 export const GITHUB_URL = "https://github.com/roosveltkn/cover-studio"
 
+export const AUTHOR = { name: "Roosvelt KN", url: "https://github.com/roosveltkn" } as const
+
 export const LINKS = {
   github: GITHUB_URL,
   issues: `${GITHUB_URL}/issues`,

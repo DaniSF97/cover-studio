@@ -70,7 +70,8 @@
     "github": "Code source sur GitHub",
     "issues": "Signaler un problème",
     "license": "Licence MIT",
-    "copyright": "© {year} Cover Studio. Sous licence MIT."
+    "copyright": "© {year} Cover Studio. Sous licence MIT.",
+    "builtBy": "Créé par"
   },
   "editor": {
     "settingsLabel": "Réglages",
