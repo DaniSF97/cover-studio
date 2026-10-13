@@ -76,10 +76,26 @@ test.describe("export PNG", () => {
 
   test("affiche la confirmation de téléchargement", async ({ page }) => {
     test.setTimeout(2 * EXPORT_TIMEOUT)
+    // Le rappel d'étoile remplace la confirmation : on le désactive ici.
+    await page.addInitScript(() =>
+      localStorage.setItem("cover-studio:star-prompt", JSON.stringify({ exports: 0, dismissed: true }))
+    )
     await openEditor(page)
     await openPanel(page, "railExport")
     await download(page)
 
     await expect(page.getByText(en("export", "toastSuccess"))).toBeVisible({ timeout: EXPORT_TIMEOUT })
+  })
+
+  test("propose une étoile GitHub après le premier export", async ({ page }) => {
+    test.setTimeout(2 * EXPORT_TIMEOUT)
+    await openEditor(page)
+    await openPanel(page, "railExport")
+    await download(page)
+
+    await expect(page.getByText(en("export", "starPrompt"))).toBeVisible({ timeout: EXPORT_TIMEOUT })
+    await expect(page.getByRole("button", { name: en("export", "starCta") })).toBeVisible()
+    // Un seul toast : la confirmation classique n'apparaît pas en plus.
+    await expect(page.getByText(en("export", "toastSuccess"))).toHaveCount(0)
   })
 })

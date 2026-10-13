@@ -117,7 +117,9 @@
     "privacy": "Everything is generated in your browser: no image is sent to a server.",
     "toastSuccess": "Cover downloaded",
     "toastSuccessDescription": "{filename} · {seconds} s",
-    "toastError": "Export failed"
+    "toastError": "Export failed",
+    "starPrompt": "Did this help? A star helps the project a lot.",
+    "starCta": "Star on GitHub"
   },
   "exportSizes": {
     "coverLabel": "Cover",
