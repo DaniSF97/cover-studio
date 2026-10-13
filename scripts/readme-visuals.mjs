@@ -8,7 +8,7 @@
  * (embarqué avec Next.js, donc pas de dépendance en plus).
  */
 import { spawn } from "node:child_process"
-import { mkdir, readFile, writeFile } from "node:fs/promises"
+import { mkdir } from "node:fs/promises"
 import { createRequire } from "node:module"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
