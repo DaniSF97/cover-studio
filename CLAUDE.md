@@ -40,3 +40,17 @@ CI runs lint, typecheck, i18n:check, unit tests, the capture service's typecheck
 ## Adding things
 
 See `CONTRIBUTING.md` for the step-by-step "add a template" flow (component, schema, slots, registry entry, `templates` message keys in both locales) and `docs/I18N.md` for adding a language.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues on `roosveltkn/cover-studio` (via the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one root `CONTEXT.md` plus `docs/adr/`, both created lazily. See `docs/agents/domain.md`.
