@@ -1,5 +1,7 @@
 import { sendGAEvent } from "@next/third-parties/google"
 
+import { readEntryPage } from "./entry-page"
+
 /**
  * ID de mesure Google Analytics 4 (`G-XXXXXXXXXX`). Sans lui, aucun script n'est
  * chargé et les événements sont ignorés (dev local, forks).
@@ -16,9 +18,17 @@ function track(name: string, params: Record<string, string | number>) {
   }
 }
 
-/** Une cover a été générée et téléchargée. */
+/**
+ * Une cover a été générée et téléchargée. La page d'entrée de la session y est jointe :
+ * c'est l'indicateur principal du référencement (exports par page d'entrée).
+ */
 export function trackCoverGenerated(params: { template: string; size: string; scale: number }) {
-  track("cover_generated", params)
+  const entry = typeof sessionStorage === "undefined" ? undefined : readEntryPage(sessionStorage)
+  track("cover_generated", {
+    ...params,
+    entry_type: entry?.type ?? "unknown",
+    entry_slug: entry?.slug ?? "unknown",
+  })
 }
 
 /** Une capture a été importée sur l'accueil. */

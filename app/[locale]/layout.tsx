@@ -4,6 +4,7 @@ import { Geist_Mono, Inter, Poppins } from "next/font/google"
 import { notFound } from "next/navigation"
 
 import "../globals.css"
+import { EntryPageTracker } from "@/components/entry-page-tracker"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
@@ -118,6 +119,7 @@ export default async function RootLayout({ children, params }: Readonly<Props>) 
       <body>
         <I18nProvider locale={locale}>
           <LocaleSync />
+          {GA_ID && <EntryPageTracker />}
           <ThemeProvider>
             <TooltipProvider>{children}</TooltipProvider>
             <Toaster position="bottom-center" />
