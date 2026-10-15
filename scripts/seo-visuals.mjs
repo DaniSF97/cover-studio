@@ -38,6 +38,9 @@ const VISUALS = [
   { file: "github-social-preview/og.png", format: "og", template: "Showcase", shots: ["editor", "landing-mobile"] },
   { file: "github-social-preview/example-showcase.webp", format: "github", template: "Showcase", shots: ["editor", "landing-mobile"] },
   { file: "github-social-preview/example-spotlight.webp", format: "github", template: "Spotlight", shots: ["landing"] },
+  { file: "readme-banner/og.png", format: "og", template: "Bento", shots: ["landing", "editor", "landing-mobile"] },
+  { file: "readme-banner/example-bento.webp", format: "cover", template: "Bento", shots: ["landing", "editor", "landing-mobile"] },
+  { file: "readme-banner/example-editorial.webp", format: "cover", template: "Editorial", shots: ["editor"] },
 ]
 
 const sharp = createRequire(createRequire(import.meta.url).resolve("next/package.json"))("sharp")

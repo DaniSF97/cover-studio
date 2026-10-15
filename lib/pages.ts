@@ -77,7 +77,27 @@ export const PAGES: SitePage[] = [
     ],
     label: "GitHub social preview",
     summary: "The 1280 × 640 image shown when your repository link is shared.",
+    sisters: ["readme-banner"],
     exportSize: "github",
+    updatedAt: "2026-10-14",
+  },
+  {
+    kind: "use-case",
+    locale: "en",
+    slug: "readme-banner",
+    group: "readme-banner",
+    primaryKeyword: "github readme banner generator",
+    secondaryKeywords: [
+      "readme banner generator",
+      "github repo banner generator",
+      "github project banner generator",
+      "github readme banner maker",
+    ],
+    label: "README banner",
+    summary:
+      "The image at the top of your README that shows the app before the text explains it.",
+    sisters: ["github-social-preview"],
+    exportSize: "cover",
     updatedAt: "2026-10-14",
   },
 ]
