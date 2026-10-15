@@ -3,8 +3,6 @@
 import { ArrowRight } from "lucide-react"
 import { useEffect, useState, type ReactNode } from "react"
 
-import { FileInput } from "@/components/canva/file-input"
-import { FormField } from "@/components/canva/form-field"
 import { ImageGallery } from "@/components/canva/image-gallery"
 import { Swatch } from "@/components/canva/swatch"
 import { Button } from "@/components/ui/button"
@@ -12,8 +10,7 @@ import { Label } from "@/components/ui/label"
 import { useRouter } from "@/i18n/navigation"
 import { useLocale, useTranslations } from "@/i18n/provider"
 import { trackScreenshotImported, trackTemplateSelected } from "@/lib/analytics"
-import { ICON_TYPES } from "@/lib/image"
-import { MAX_IMAGES, isPortrait } from "@/lib/slots"
+import { isPortrait } from "@/lib/slots"
 import { hydrateCoverStore, useCoverStore } from "@/stores/cover-store"
 import { getTemplate } from "@/templates/registry"
 import { COLOR_PRESETS, defaultConfig } from "@/templates/showcase/defaults"
@@ -32,7 +29,7 @@ type Props = {
 
 /**
  * Bloc de démarrage des pages publiques : import des captures (fichiers ou URL),
- * icône, couleur de marque et choix du modèle, puis ouverture de l'éditeur.
+ * couleur de marque et choix du modèle, puis ouverture de l'éditeur.
  */
 export function StartSection({ heading, exportSize, source }: Props) {
   const t = useTranslations("landing")
@@ -42,7 +39,6 @@ export function StartSection({ heading, exportSize, source }: Props) {
   const startFrom = useCoverStore((state) => state.startFrom)
   const [images, setImages] = useState<ImageAsset[]>([])
   const [picked, setPicked] = useState<string>()
-  const [icon, setIcon] = useState<ImageAsset>()
   // Couleur choisie à la main ; sinon celle de la première capture.
   const [chosenColor, setChosenColor] = useState<string>()
 
@@ -67,7 +63,6 @@ export function StartSection({ heading, exportSize, source }: Props) {
     hydrateCoverStore()
     startFrom(images, {
       template: picked,
-      icon,
       brandColor: chosenColor,
       exportSize,
     })
@@ -77,10 +72,8 @@ export function StartSection({ heading, exportSize, source }: Props) {
   const base = defaultConfig(locale)
   const detectedColor = images[0]?.dominant
   const brandColor = chosenColor ?? detectedColor ?? base.style.brandColor
-  const iconColor = icon?.dominant
   const previewConfig = {
     ...base,
-    content: { ...base.content, icon },
     style: { brandColor },
     mockups: { ...base.mockups, images },
   }
@@ -111,7 +104,7 @@ export function StartSection({ heading, exportSize, source }: Props) {
           <section
             id="start"
             aria-labelledby="start-title"
-            className="flex flex-col gap-5 rounded-2xl border border-primary/25 bg-background p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_color-mix(in_oklab,var(--primary)_35%,transparent)] sm:p-6"
+            className="flex flex-col gap-6 rounded-2xl border border-primary/25 bg-background p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_-12px_color-mix(in_oklab,var(--primary)_35%,transparent)] sm:p-6"
           >
             <div className="flex flex-col gap-1">
               <h2
@@ -123,11 +116,8 @@ export function StartSection({ heading, exportSize, source }: Props) {
               <p className="text-sm text-muted-foreground">{t("startText")}</p>
             </div>
             <div className="flex flex-col gap-2">
-              <Label
-                htmlFor="landing-image"
-                className="text-[13px] font-semibold"
-              >
-                {t("imageLabel", { max: MAX_IMAGES })}
+              <Label htmlFor="landing-image" className="sr-only">
+                {t("imageLabel")}
               </Label>
               <ImageGallery
                 id="landing-image"
@@ -137,18 +127,20 @@ export function StartSection({ heading, exportSize, source }: Props) {
                 initialSource={source}
               />
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormField id="landing-icon" label={tFields("iconLabel")}>
-                <FileInput
-                  id="landing-icon"
-                  value={icon}
-                  onChange={setIcon}
-                  types={ICON_TYPES}
-                  contain
-                  compact
-                />
-              </FormField>
-              <FormField id="landing-color" label={tFields("brandColorLabel")}>
+            {/* Couleur : libellé et aide à gauche, sélecteur à droite (empilés sur mobile). */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+              <div className="flex flex-col gap-0.5">
+                <Label
+                  htmlFor="landing-color"
+                  className="text-[13px] font-semibold"
+                >
+                  {tFields("brandColorLabel")}
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  {t("colorHint")}
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 sm:w-60 sm:shrink-0">
                 <Swatch
                   id="landing-color"
                   value={brandColor}
@@ -156,22 +148,6 @@ export function StartSection({ heading, exportSize, source }: Props) {
                   presets={COLOR_PRESETS}
                   compact
                 />
-                {iconColor &&
-                  iconColor.toLowerCase() !== brandColor.toLowerCase() && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="self-start"
-                      onClick={() => setChosenColor(iconColor)}
-                    >
-                      <span
-                        aria-hidden
-                        className="size-3.5 rounded-full ring-1 ring-foreground/15"
-                        style={{ background: iconColor }}
-                      />
-                      {tFields("useIconColor")}
-                    </Button>
-                  )}
                 {chosenColor &&
                   detectedColor &&
                   chosenColor !== detectedColor && (
@@ -189,7 +165,7 @@ export function StartSection({ heading, exportSize, source }: Props) {
                       {t("useScreenshotColor")}
                     </Button>
                   )}
-              </FormField>
+              </div>
             </div>
             <Button
               size="lg"
