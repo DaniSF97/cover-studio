@@ -26,7 +26,7 @@ const COVER = {
   description: "Turn your app screenshots into a cover for your README, Product Hunt or LinkedIn.",
   chips: ["Free", "No account", "100% client-side"],
   footer: "github.com/roosveltkn/cover-studio",
-  browserUrl: "coverstudio.roosveltkn.com",
+  browserUrl: "coverstudio.portf.app",
 }
 
 const sharp = createRequire(createRequire(import.meta.url).resolve("next/package.json"))("sharp")
