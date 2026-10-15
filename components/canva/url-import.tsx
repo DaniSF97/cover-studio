@@ -51,9 +51,9 @@ const DEVICE_ICONS = { desktop: Monitor, mobile: Smartphone }
 const FILTER_THRESHOLD = 8
 /**
  * Captures d'une série : pages × appareils. Avec les deux appareils, 2 pages ;
- * avec un seul, jusqu'à 4.
+ * avec un seul, jusqu'à 5.
  */
-const MAX_CAPTURES = 4
+const MAX_CAPTURES = 5
 
 type UrlImportProps = {
   /** Id du champ d'adresse : les libellés de la galerie pointent dessus. */
@@ -278,7 +278,7 @@ function PagePicker({
 
   const chosen = pages.filter((page) => selected.has(page.url))
   const count = chosen.length * devices.length
-  // Pages possibles : 4 captures au plus, dans la place libre de la galerie.
+  // Pages possibles : 5 captures au plus, dans la place libre de la galerie.
   const allowed = Math.floor(Math.min(MAX_CAPTURES, remaining) / devices.length)
   const full = chosen.length >= allowed
   // Repasser à deux appareils peut laisser trop de pages cochées.
