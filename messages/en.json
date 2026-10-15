@@ -373,5 +373,8 @@
     "chipOpenSource": "Open source",
     "footer": "myapp.com",
     "browserUrl": "myapp.com"
+  },
+  "contentPage": {
+    "breadcrumbLabel": "Breadcrumb"
   }
 }

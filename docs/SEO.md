@@ -121,9 +121,14 @@ footer credit stays as it is. The author in structured data is the "Cover Studio
     `SoftwareApplication`, plus `FAQPage` when the page has its own FAQ.
   - Guides: `Article` (author = Organization, `datePublished`, `dateModified`) + `BreadcrumbList`.
 - **Images**: WebP, descriptive `alt`, meaningful file names, and an Open Graph image per page
-  made with Cover Studio itself.
-- **Formats**: Use-case and Feature pages are typed TypeScript data with keys in
-  `messages/*.json` (checked by `pnpm i18n:check`). Guides are MDX files per locale
+  made with Cover Studio itself: `pnpm build && pnpm seo:visuals` regenerates them under
+  `public/seo/`.
+- **Formats**: the Landing's texts stay in `messages/*.json`. Use-case, Feature and Comparison
+  pages are typed TypeScript content, one file per page and locale (`content/pages/`), because
+  they only exist in the languages with search demand and the messages enforce key parity. A unit
+  test (`tests/unit/content.test.ts`) checks that each page has content, its primary keyword in the
+  H1, title and description lengths, images on disk, and internal links to existing pages of its
+  own language, sister pages included. Guides will be MDX files per locale
   (`content/guides/{locale}/*.mdx`).
 
 ## Pruning

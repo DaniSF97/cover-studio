@@ -1,11 +1,18 @@
 import { FAQ_ITEMS } from "@/components/landing/faq-items"
+import { plainText } from "@/content/inline"
+import type { PageContent } from "@/content/types"
 import { MESSAGES } from "@/i18n/messages"
 import { locales, type Locale } from "@/i18n/routing"
 import { createTranslator } from "@/i18n/translator"
 
+import { pagePath, type SitePage } from "./pages"
 import { GITHUB_URL, SITE_URL } from "./site"
 
 const MIT_URL = "https://opensource.org/licenses/MIT"
+
+// Identifiants partagés : les pages de contenu renvoient à l'application décrite sur la Landing.
+const WEBSITE_ID = `${SITE_URL}/#website`
+const APP_ID = `${SITE_URL}/#app`
 
 /** Données structurées (schema.org) de la landing, dans la langue de la page. */
 export function landingStructuredData(locale: Locale) {
@@ -19,7 +26,7 @@ export function landingStructuredData(locale: Locale) {
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
+        "@id": WEBSITE_ID,
         name: "Cover Studio",
         url,
         inLanguage: locale,
@@ -34,6 +41,7 @@ export function landingStructuredData(locale: Locale) {
       },
       {
         "@type": "SoftwareApplication",
+        "@id": APP_ID,
         name: "Cover Studio",
         url,
         image: `${SITE_URL}/og-image.png`,
@@ -63,6 +71,55 @@ export function landingStructuredData(locale: Locale) {
           acceptedAnswer: { "@type": "Answer", text: faq(answer) },
         })),
       },
+    ],
+  }
+}
+
+/**
+ * Données structurées d'une Use-case page ou d'une Feature page : la page, son fil
+ * d'Ariane et sa FAQ, reliés à l'application par son `@id`.
+ */
+export function contentPageStructuredData(page: SitePage, content: PageContent) {
+  const url = `${SITE_URL}${pagePath(page)}`
+  const home = `${SITE_URL}/${page.locale}`
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: content.title,
+        description: content.description,
+        inLanguage: page.locale,
+        dateModified: page.updatedAt,
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": APP_ID },
+        primaryImageOfPage: `${SITE_URL}${content.ogImage.src}`,
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Cover Studio", item: home },
+          { "@type": "ListItem", position: 2, name: page.label, item: url },
+        ],
+      },
+      ...(content.faq.length > 0
+        ? [
+            {
+              "@type": "FAQPage",
+              inLanguage: page.locale,
+              mainEntity: content.faq.map(({ question, answer }) => ({
+                "@type": "Question",
+                name: question,
+                acceptedAnswer: { "@type": "Answer", text: plainText(answer) },
+              })),
+            },
+          ]
+        : []),
     ],
   }
 }

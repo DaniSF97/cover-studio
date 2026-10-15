@@ -118,7 +118,7 @@ export function TextBlock({
         }}
       >
         {content.icon && <AppIcon image={content.icon} size={Math.round(fontSize * 1.1)} />}
-        <h1
+        <p
           style={{
             margin: 0,
             minWidth: 0,
@@ -135,7 +135,7 @@ export function TextBlock({
             accent={content.accent}
             accentStyle={{ color: colors.accent }}
           />
-        </h1>
+        </p>
       </div>
 
       {show(content.description) && (

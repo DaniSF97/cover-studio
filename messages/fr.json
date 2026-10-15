@@ -373,5 +373,8 @@
     "chipOpenSource": "Open source",
     "footer": "monapp.com",
     "browserUrl": "monapp.com"
+  },
+  "contentPage": {
+    "breadcrumbLabel": "Fil d'Ariane"
   }
 }

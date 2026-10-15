@@ -63,6 +63,23 @@ export const PAGES: SitePage[] = [
     ],
     updatedAt: "2026-10-14",
   },
+  {
+    kind: "use-case",
+    locale: "en",
+    slug: "github-social-preview",
+    group: "github-social-preview",
+    primaryKeyword: "github social preview image generator",
+    secondaryKeywords: [
+      "github social preview generator",
+      "github social preview template",
+      "github repo image generator",
+      "github social image generator",
+    ],
+    label: "GitHub social preview",
+    summary: "The 1280 × 640 image shown when your repository link is shared.",
+    exportSize: "github",
+    updatedAt: "2026-10-14",
+  },
 ]
 
 /** Segments déjà pris par d'autres routes de `app/[locale]`. */
