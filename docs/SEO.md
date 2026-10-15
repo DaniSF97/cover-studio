@@ -10,8 +10,13 @@ project, then GitHub stars. The main KPI is the number of exports per entry page
 
 - GA4 (`NEXT_PUBLIC_GA_ID`, set in production) records the session's entry page (Landing,
   Use-case page, Feature page, Guide, Comparison page) and attaches it to the export event.
-- Google Search Console (property on the subdomain, plus a domain property on `roosveltkn.com`)
-  and Bing Webmaster Tools (imported from GSC) give queries, impressions and positions.
+- Google Search Console (property on `coverstudio.portf.app`) and Bing Webmaster Tools give
+  queries, impressions and positions.
+
+The site lives on `coverstudio.portf.app` since 2026-10-15. The former address,
+`coverstudio.roosveltkn.com`, redirects permanently (308, set on the Vercel domain) to the same
+path; keep that redirect and its DNS record for at least a year, and move the Search Console
+history with the Change of Address tool.
 
 ## Personas
 

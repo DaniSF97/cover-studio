@@ -24,7 +24,7 @@ const COVER = {
   description: "Turn your app screenshots into a cover for your README, Product Hunt or LinkedIn.",
   chips: ["Free", "No account", "100% client-side"],
   footer: "github.com/roosveltkn/cover-studio",
-  browserUrl: "coverstudio.roosveltkn.com",
+  browserUrl: "coverstudio.portf.app",
 }
 
 // Format (bouton du panneau Export : libellé + largeur) de chaque Export format utilisé.

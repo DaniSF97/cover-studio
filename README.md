@@ -7,7 +7,7 @@
 **Turn your app screenshots into a cover for your README, Product Hunt or LinkedIn.**
 Free, open source and 100% client-side.
 
-[**Try it**](https://coverstudio.roosveltkn.com/en) · [Report a bug](https://github.com/roosveltkn/cover-studio/issues) · [Contribute](./CONTRIBUTING.md)
+[**Try it**](https://coverstudio.portf.app/en) · [Report a bug](https://github.com/roosveltkn/cover-studio/issues) · [Contribute](./CONTRIBUTING.md)
 
 [![Star on GitHub](https://img.shields.io/github/stars/roosveltkn/cover-studio?style=social)](https://github.com/roosveltkn/cover-studio)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
