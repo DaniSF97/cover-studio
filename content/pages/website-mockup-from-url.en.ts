@@ -23,7 +23,7 @@ const content: PageContent = {
           ordered: true,
           items: [
             "**Analyze.** Cover Studio reads the home page, its navigation links and the sitemap to list the site's pages, grouped as navigation, pages, blog and legal.",
-            "**Pick.** Check up to 2 pages captured on both desktop and mobile, or up to 4 pages on a single device. A preview shows a page before you commit.",
+            "**Pick.** Check up to 2 pages captured on both desktop and mobile, or up to 5 pages on a single device. A preview shows a page before you commit.",
             "**Capture.** Each page is rendered in a real Chrome browser and lands in the gallery as a screenshot, exactly as if you had imported it.",
             "**Frame and export.** Choose a template and a colour, then download the PNG in the size you need.",
           ],
@@ -95,7 +95,7 @@ const content: PageContent = {
     {
       question: "How many pages can I capture at once?",
       answer:
-        "Four screenshots per run: 2 pages on both desktop and mobile, or 4 pages on a single device. The gallery holds 4 images.",
+        "Five screenshots per run: 2 pages on both desktop and mobile, or 5 pages on a single device. The gallery holds 5 images.",
     },
     {
       question: "How long does a capture take?",

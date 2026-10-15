@@ -20,8 +20,8 @@ App (static)                                  capture/ service (Vercel Functions
 The received image then goes through `readImage()` (`lib/image.ts`), exactly like an imported
 file.
 
-In the app, a run captures at most 4 images (pages × devices): 2 pages on desktop and mobile, or
-up to 4 pages on a single device. The gallery itself holds 4 images (`MAX_IMAGES` in
+In the app, a run captures at most 5 images (pages × devices): 2 pages on desktop and mobile, or
+up to 5 pages on a single device. The gallery itself holds 5 images (`MAX_IMAGES` in
 `lib/slots.ts`).
 
 ## Endpoints

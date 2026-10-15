@@ -57,15 +57,15 @@ test.describe("accueil", () => {
     await page
       .locator("#landing-image")
       .setInputFiles(
-        ["a", "b", "c", "d", "e"].map((name) =>
+        ["a", "b", "c", "d", "e", "f"].map((name) =>
           screenshot(`${name}.png`, 640, 400, [37, 99, 235])
         )
       )
 
     await expect(
-      page.getByRole("alert").filter({ hasText: en("gallery", "limit").replace("{max}", "4") })
+      page.getByRole("alert").filter({ hasText: en("gallery", "limit").replace("{max}", "5") })
     ).toBeVisible()
-    await expect(page.getByRole("button", { name: en("gallery", "remove").replace("{name}", "e.png") })).toHaveCount(0)
+    await expect(page.getByRole("button", { name: en("gallery", "remove").replace("{name}", "f.png") })).toHaveCount(0)
   })
 })
 

@@ -187,7 +187,7 @@ The user pastes their site's address instead of importing files.
    render if the site is an SPA). One level only, 50 pages at most, grouped (home, navigation,
    pages, blog, legal).
 2. **Selection**: in a dialog (a bottom drawer on mobile), the user checks pages and devices
-   (desktop, mobile). A run captures at most 4 images: 2 pages on both devices, or up to 4 pages on
+   (desktop, mobile). A run captures at most 5 images: 2 pages on both devices, or up to 5 pages on
    a single one. "Preview" shows the desktop capture scaled down; it is kept in memory and reused
    if the page is checked.
 3. **Capture**: one WebP image per page and device, which then follows the same path as an

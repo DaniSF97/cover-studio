@@ -118,25 +118,25 @@ test.describe("capture depuis une URL", () => {
     ]) {
       await expect(page.getByRole("button", { name: removeButton(name) })).toBeVisible()
     }
-    // Tout a réussi : la fenêtre se ferme, et la galerie pleine masque l'ajout.
+    // Tout a réussi : la fenêtre se ferme ; la galerie garde une place libre.
     await expect(dialog).toBeHidden()
-    await expect(page.getByRole("button", { name: en("urlImport", "modeUrl") })).toHaveCount(0)
+    await expect(page.getByRole("button", { name: en("urlImport", "modeUrl") })).toBeVisible()
     expect(service.captures).toHaveLength(4)
     expect(service.languages).toEqual(["en"])
   })
 
-  test("un seul appareil permet 4 pages, en revenir à deux signale l'excès", async ({ page }) => {
+  test("un seul appareil permet 5 pages, en revenir à deux signale l'excès", async ({ page }) => {
     await mockService(page)
     await openUrlMode(page)
     const dialog = await analyze(page)
 
     await dialog.getByRole("button", { name: en("urlImport", "mobile"), exact: true }).click()
-    await expect(dialog.getByText(summary(1, 4))).toBeVisible()
-    for (const label of ["Pricing", "Features", "Docs"]) {
+    await expect(dialog.getByText(summary(1, 5))).toBeVisible()
+    for (const label of ["Pricing", "Features", "Docs", "About"]) {
       await dialog.getByText(label, { exact: true }).click()
     }
-    await expect(dialog.getByText(summary(4, 4))).toBeVisible()
-    await expect(dialog.getByRole("button", { name: captureButton(4) })).toBeEnabled()
+    await expect(dialog.getByText(summary(5, 5))).toBeVisible()
+    await expect(dialog.getByRole("button", { name: captureButton(5) })).toBeEnabled()
 
     await dialog.getByRole("button", { name: en("urlImport", "mobile"), exact: true }).click()
     await expect(
@@ -144,7 +144,7 @@ test.describe("capture depuis une URL", () => {
         hasText: en("urlImport", "tooManyPages").replace("{max}", "2"),
       })
     ).toBeVisible()
-    await expect(dialog.getByRole("button", { name: captureButton(8) })).toBeDisabled()
+    await expect(dialog.getByRole("button", { name: captureButton(10) })).toBeDisabled()
   })
 
   test("l'aperçu au clic est réutilisé par la capture finale", async ({ page }) => {
