@@ -353,7 +353,7 @@ keys: see [CONTRIBUTING.md](../CONTRIBUTING.md#adding-a-template).
 
 ## 15. Open questions
 
-- ~~Project name and domain~~: Cover Studio, coverstudio.roosveltkn.com
+- ~~Project name and domain~~: Cover Studio, coverstudio.portf.app
 - Template font (to pick among free fonts close to the reference covers)
 - Animated screenshots (GIF): excluded from V1
 - App logo in the layout: not planned in V1; to be decided (an app icon has since been added)

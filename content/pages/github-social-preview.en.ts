@@ -34,7 +34,7 @@ const content: PageContent = {
         },
         {
           type: "p",
-          text: "Cover Studio's GitHub format is exactly 1280 × 640. For reference, the social preview of [our own repository](https://github.com/roosveltkn/cover-studio), made with this tool, weighs 628 KB: comfortably under the limit. Keep the default 1× export; the 2× option doubles the pixels and can push the file past 1 MB.",
+          text: "Cover Studio's GitHub format is exactly 1280 × 640. For reference, the social preview of [our own repository](https://github.com/roosveltkn/cover-studio), made with this tool, weighs 627 KB: comfortably under the limit. Keep the default 1× export; the 2× option doubles the pixels and can push the file past 1 MB.",
         },
       ],
     },
