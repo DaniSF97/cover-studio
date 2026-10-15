@@ -86,7 +86,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
         )}
         <div style={{ display: "flex", alignItems: "center", gap: nameSize * 0.25 }}>
           {content.icon && <AppIcon image={content.icon} size={Math.round(nameSize * 1.05)} />}
-          <h1
+          <p
             style={{
               margin: 0,
               minWidth: 0,
@@ -105,7 +105,7 @@ export function StoreTemplate({ config }: { config: PlacedConfig }) {
               accent={content.accent}
               accentStyle={{ color: accent }}
             />
-          </h1>
+          </p>
         </div>
       </div>
 

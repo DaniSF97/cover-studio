@@ -199,7 +199,7 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
               }}
             />
           )}
-          <h1
+          <p
             style={{
               margin: 0,
               minWidth: 0,
@@ -225,7 +225,7 @@ export function BrutalTemplate({ config }: { config: PlacedConfig }) {
                 transform: "rotate(-2deg)",
               }}
             />
-          </h1>
+          </p>
         </div>
 
         {show(content.description) && (

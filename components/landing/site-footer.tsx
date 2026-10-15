@@ -1,6 +1,8 @@
 "use client"
 
 import { Logo } from "@/components/logo"
+import type { PageLink } from "@/content/types"
+import { Link } from "@/i18n/navigation"
 import { useTranslations } from "@/i18n/provider"
 import { AUTHOR, LINKS } from "@/lib/site"
 
@@ -10,12 +12,17 @@ const LINK_ITEMS = [
   { key: "license", href: LINKS.license },
 ] as const
 
-export function SiteFooter() {
+type Props = {
+  /** Liens d'exploration vers les pages d'usage ; le cocon, lui, se joue dans le corps des pages. */
+  destinations: PageLink[]
+}
+
+export function SiteFooter({ destinations }: Props) {
   const t = useTranslations("footer")
 
   return (
     <footer className="border-t border-foreground/10">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:flex-row sm:justify-between">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:flex-row sm:gap-16">
         <div className="flex max-w-xs flex-col gap-3">
           <span className="flex items-center gap-3">
             <Logo className="size-9" />
@@ -23,6 +30,29 @@ export function SiteFooter() {
           </span>
           <p className="text-sm text-muted-foreground">{t("tagline")}</p>
         </div>
+
+        {destinations.length > 0 && (
+          <nav
+            aria-label={t("destinationsNavLabel")}
+            className="flex flex-col gap-3"
+          >
+            <span className="text-[13px] font-semibold">
+              {t("destinationsTitle")}
+            </span>
+            <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
+              {destinations.map((page) => (
+                <li key={page.slug}>
+                  <Link
+                    href={`/${page.slug}`}
+                    className="rounded-sm underline-offset-4 outline-none hover:text-foreground hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
+                  >
+                    {page.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
 
         <nav aria-label={t("navLabel")} className="flex flex-col gap-3">
           <span className="text-[13px] font-semibold">{t("projectTitle")}</span>
