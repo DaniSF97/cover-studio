@@ -5,4 +5,5 @@ export const FAQ_ITEMS = [
   { question: "q3", answer: "a3" },
   { question: "q4", answer: "a4" },
   { question: "q5", answer: "a5" },
+  { question: "q6", answer: "a6" },
 ] as const

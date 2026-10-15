@@ -157,7 +157,7 @@ export function EditorialTemplate({ config }: { config: PlacedConfig }) {
                 size={Math.round(nameSize * 1.05)}
               />
             )}
-            <h1
+            <p
               style={{
                 margin: 0,
                 minWidth: 0,
@@ -174,7 +174,7 @@ export function EditorialTemplate({ config }: { config: PlacedConfig }) {
                 accent={content.accent}
                 accentStyle={{ color: accent }}
               />
-            </h1>
+            </p>
           </div>
 
           {show(content.description) && (

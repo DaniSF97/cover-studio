@@ -37,19 +37,27 @@ type ImageGalleryProps = {
   images: ImageAsset[]
   slots: Slot[]
   onChange: (images: ImageAsset[]) => void
+  /** Source ouverte à l'arrivée ; « url » n'a d'effet que si le service de capture est configuré. */
+  initialSource?: "files" | "url"
 }
 
 /**
  * Liste ordonnée des captures : glisser-déposer (souris, tactile ou clavier)
  * pour changer l'ordre, qui décide de l'emplacement de chaque capture.
  */
-export function ImageGallery({ id, images, slots, onChange }: ImageGalleryProps) {
+export function ImageGallery({
+  id,
+  images,
+  slots,
+  onChange,
+  initialSource = "files",
+}: ImageGalleryProps) {
   const t = useTranslations("gallery")
   const tUrl = useTranslations("urlImport")
   const labelKeys = slotLabelKeys(images, slots)
   // Ici plutôt que dans la zone d'ajout : elle disparaît une fois la limite atteinte.
   const [error, setError] = useState<string>()
-  const [source, setSource] = useState<"files" | "url">("files")
+  const [source, setSource] = useState<"files" | "url">(initialSource)
   // Les captures d'URL arrivent une à une, plus vite que le rendu : chaque ajout
   // part de la dernière liste connue, pas de celle du rendu courant.
   const latest = useRef(images)
