@@ -13,7 +13,7 @@ import { trackScreenshotImported, trackTemplateSelected } from "@/lib/analytics"
 import { isPortrait } from "@/lib/slots"
 import { hydrateCoverStore, useCoverStore } from "@/stores/cover-store"
 import { getTemplate } from "@/templates/registry"
-import { COLOR_PRESETS, defaultConfig } from "@/templates/showcase/defaults"
+import { defaultConfig } from "@/templates/showcase/defaults"
 import type { ImageAsset } from "@/types/cover"
 
 import { TemplateCarousel } from "./template-carousel"
@@ -127,45 +127,35 @@ export function StartSection({ heading, exportSize, source }: Props) {
                 initialSource={source}
               />
             </div>
-            {/* Couleur : libellé et aide à gauche, sélecteur à droite (empilés sur mobile). */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-              <div className="flex flex-col gap-0.5">
-                <Label
-                  htmlFor="landing-color"
-                  className="text-[13px] font-semibold"
-                >
-                  {tFields("brandColorLabel")}
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  {t("colorHint")}
-                </p>
-              </div>
-              <div className="flex flex-col gap-2 sm:w-60 sm:shrink-0">
-                <Swatch
-                  id="landing-color"
-                  value={brandColor}
-                  onChange={setChosenColor}
-                  presets={COLOR_PRESETS}
-                  compact
-                />
-                {chosenColor &&
-                  detectedColor &&
-                  chosenColor !== detectedColor && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="self-start"
-                      onClick={() => setChosenColor(undefined)}
-                    >
-                      <span
-                        aria-hidden
-                        className="size-3.5 rounded-full ring-1 ring-foreground/15"
-                        style={{ background: detectedColor }}
-                      />
-                      {t("useScreenshotColor")}
-                    </Button>
-                  )}
-              </div>
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="landing-color"
+                className="text-[13px] font-semibold"
+              >
+                {tFields("brandColorLabel")}
+              </Label>
+              <Swatch
+                id="landing-color"
+                value={brandColor}
+                onChange={setChosenColor}
+              />
+              {chosenColor &&
+                detectedColor &&
+                chosenColor !== detectedColor && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="self-start"
+                    onClick={() => setChosenColor(undefined)}
+                  >
+                    <span
+                      aria-hidden
+                      className="size-3.5 rounded-full ring-1 ring-foreground/15"
+                      style={{ background: detectedColor }}
+                    />
+                    {t("useScreenshotColor")}
+                  </Button>
+                )}
             </div>
             <Button
               size="lg"
