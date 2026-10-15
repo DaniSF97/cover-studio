@@ -104,6 +104,30 @@ for (const entry of contentPages) {
   })
 }
 
+for (const locale of ["en", "fr"] as const) {
+  test(`la Landing ${locale} lie exactement ses pages d'usage`, async ({
+    page,
+  }) => {
+    await page.goto(`/${locale}`)
+    await expect(page.locator("h1")).toHaveCount(1)
+    const expected = pagesOf(locale, ["use-case", "feature"])
+    const section = page.getByRole("region", {
+      name: text(locale, "landing", "destinationsTitle"),
+    })
+    if (expected.length === 0) {
+      await expect(section).toHaveCount(0)
+      return
+    }
+    const links = section.getByRole("link")
+    await expect(links).toHaveCount(expected.length)
+    for (const entry of expected) {
+      await expect(
+        section.getByRole("link", { name: entry.label })
+      ).toHaveAttribute("href", pagePath(entry))
+    }
+  })
+}
+
 test("le sélecteur de langue d'une page sans traduction renvoie vers la Landing", async ({
   page,
 }) => {

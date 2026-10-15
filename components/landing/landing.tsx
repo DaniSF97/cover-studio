@@ -4,6 +4,7 @@ import { Download, ImageUp, Palette, type LucideIcon } from "lucide-react"
 
 import { useTranslations } from "@/i18n/provider"
 
+import { Destinations } from "./destinations"
 import { Faq } from "./faq"
 import { OpenSourceSection } from "./open-source"
 import { SiteFooter } from "./site-footer"
@@ -73,6 +74,7 @@ export function Landing() {
             </ol>
           </section>
 
+          <Destinations />
           <OpenSourceSection />
           <Faq />
         </div>
