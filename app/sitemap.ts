@@ -1,26 +1,30 @@
 import type { MetadataRoute } from "next"
 
-import { locales } from "@/i18n/routing"
+import { PAGES, alternateLanguages, pagePath } from "@/lib/pages"
 import { SITE_URL } from "@/lib/site"
 
 // Généré au build : obligatoire avec `output: "export"`.
 export const dynamic = "force-static"
 
-// Seules les landings sont indexables : l'éditeur est en noindex.
+// Les pages indexables viennent du registre (lib/pages.ts) ; l'éditeur, en noindex, n'y est pas.
+// `lastModified` est la date réelle du contenu, pas celle du build : Google ignore
+// une date qui change à chaque déploiement.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const languages = {
-    ...Object.fromEntries(locales.map((locale) => [locale, `${SITE_URL}/${locale}`])),
-    "x-default": SITE_URL,
-  }
-
-  // Date du build : le site est statique, le contenu change à chaque déploiement.
-  const lastModified = new Date()
-
-  return locales.map((locale) => ({
-    url: `${SITE_URL}/${locale}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 1,
-    alternates: { languages },
-  }))
+  return PAGES.map((page) => {
+    const languages = alternateLanguages(page)
+    return {
+      url: `${SITE_URL}${pagePath(page)}`,
+      lastModified: page.updatedAt,
+      ...(languages && {
+        alternates: {
+          languages: Object.fromEntries(
+            Object.entries(languages).map(([lang, path]) => [
+              lang,
+              `${SITE_URL}${path}`,
+            ])
+          ),
+        },
+      }),
+    }
+  })
 }

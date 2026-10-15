@@ -3,16 +3,18 @@
 import { saveLocale } from "@/i18n/detect"
 import { Link, usePathname } from "@/i18n/navigation"
 import { useLocale, useTranslations } from "@/i18n/provider"
-import { LOCALE_NAMES, locales } from "@/i18n/routing"
+import { LOCALE_NAMES, locales, type Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
 type Props = {
   /** `onGradient` : texte blanc, pour la barre colorée de l'éditeur. */
   tone?: "default" | "onGradient"
   className?: string
+  /** Chemin (sans préfixe) de la page dans chaque langue, quand il diffère du chemin courant. */
+  paths?: Partial<Record<Locale, string>>
 }
 
-export function LocaleSwitcher({ tone = "default", className }: Props) {
+export function LocaleSwitcher({ tone = "default", className, paths }: Props) {
   const t = useTranslations("localeSwitcher")
   const current = useLocale()
   // Chemin sans préfixe de langue : le Link ajoute celui de la langue cible.
@@ -25,7 +27,7 @@ export function LocaleSwitcher({ tone = "default", className }: Props) {
         return (
           <Link
             key={locale}
-            href={pathname}
+            href={paths?.[locale] ?? pathname}
             locale={locale}
             hrefLang={locale}
             lang={locale}

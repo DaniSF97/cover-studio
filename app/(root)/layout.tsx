@@ -10,13 +10,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: MESSAGES[defaultLocale].meta.siteTitle,
   description: MESSAGES[defaultLocale].meta.siteDescription,
+  // « / » redirige (Vercel, puis le client) : elle désigne la version anglaise comme
+  // canonique, cohérente avec le `x-default` de toutes les pages.
   alternates: {
-    canonical: "/",
-    languages: Object.fromEntries(locales.map((locale) => [locale, `/${locale}`])),
+    canonical: `/${defaultLocale}`,
+    languages: {
+      ...Object.fromEntries(locales.map((locale) => [locale, `/${locale}`])),
+      "x-default": `/${defaultLocale}`,
+    },
   },
   openGraph: {
     type: "website",
-    url: "/",
+    url: `/${defaultLocale}`,
     siteName: "Cover Studio",
     title: MESSAGES[defaultLocale].meta.siteTitle,
     description: MESSAGES[defaultLocale].meta.siteDescription,

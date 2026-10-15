@@ -1,8 +1,7 @@
 {
   "meta": {
-    "siteTitle": "Cover Studio · Create the showcase image for your app",
-    "siteDescription": "Create your app's showcase image (README, Product Hunt, LinkedIn) from your screenshots in 2 minutes. Free, no account.",
-    "keywords": "cover generator, app cover, app mockup, screenshot, website screenshot, README, Open Graph, open source, free",
+    "siteTitle": "Screenshot mockup generator for your app · Cover Studio",
+    "siteDescription": "Turn your app screenshots, or your website's address, into a ready-to-publish mockup for your README, Product Hunt or LinkedIn. Free, no account.",
     "ogImageAlt": "Cover Studio: create the showcase image for your app",
     "editorTitle": "Editor",
     "appFeatures": "Automatic layout from your screenshots, website capture from its address (desktop and mobile), multiple templates, brand color derived from your interface, PNG export in several formats (optional 2× resolution), images processed in the browser"
@@ -11,7 +10,7 @@
     "label": "Language"
   },
   "landing": {
-    "heroTitle": "The image that showcases your app, built from your screenshots",
+    "heroTitle": "Screenshot mockup generator for your app's showcase image",
     "heroText": "For your GitHub README, Product Hunt or LinkedIn: add your screenshots (or paste your website's address), pick a color, and download a ready-to-publish image. Nothing to design.",
     "startTitle": "Start with your screenshots",
     "startText": "Up to 4 screenshots, desktop or mobile: import them, or paste your website's address to capture it on desktop and mobile. Add your logo and pick the brand color, or let it come from your first screenshot.",
@@ -25,6 +24,8 @@
     "step2Text": "Choose a template, then the name, description, features and brand color.",
     "step3Title": "Download",
     "step3Text": "A PNG ready for your README, Product Hunt, LinkedIn or social networks, in the size of your choice.",
+    "destinationsTitle": "Pick where your image goes",
+    "destinationsText": "Each page opens the editor in the right format and explains the platform's rules.",
     "github": "GitHub",
     "toggleTheme": "Toggle theme",
     "githubAria": "View the source code on GitHub (opens in a new tab)",
@@ -61,12 +62,16 @@
     "q4": "Can I self-host it or contribute?",
     "a4": "Yes. The site is fully static: clone the GitHub repository, run the build and host the generated folder anywhere. Contributions are welcome.",
     "q5": "Can I capture my website directly?",
-    "a5": "Yes. Paste its address: Cover Studio lists its pages, you pick 2 (captured on desktop and mobile) or up to 4 on a single device, and the screenshots land in the gallery. Pages behind a login and sites that block robots can't be captured: import your screenshots instead."
+    "a5": "Yes. Paste its address: Cover Studio lists its pages, you pick 2 (captured on desktop and mobile) or up to 4 on a single device, and the screenshots land in the gallery. Pages behind a login and sites that block robots can't be captured: import your screenshots instead.",
+    "q6": "Can I make App Store or Google Play screenshots?",
+    "a6": "No. Cover Studio makes one showcase image (README, Product Hunt, link previews), not the series of screenshots at the sizes each store requires. Use a dedicated tool for those."
   },
   "footer": {
     "navLabel": "Project links",
+    "destinationsNavLabel": "Cover Studio use cases",
     "tagline": "The showcase image for your app, built from your screenshots or your website. Free and open source.",
     "projectTitle": "Project",
+    "destinationsTitle": "Use cases",
     "github": "Source code on GitHub",
     "issues": "Report an issue",
     "license": "MIT license",
@@ -374,5 +379,8 @@
     "chipOpenSource": "Open source",
     "footer": "myapp.com",
     "browserUrl": "myapp.com"
+  },
+  "contentPage": {
+    "breadcrumbLabel": "Breadcrumb"
   }
 }
