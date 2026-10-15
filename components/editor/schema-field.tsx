@@ -16,7 +16,7 @@ import { ICON_TYPES } from "@/lib/image"
 import { getPath } from "@/lib/path"
 import { useCoverStore } from "@/stores/cover-store"
 import { getTemplate } from "@/templates/registry"
-import type { FieldSchema, ImageAsset } from "@/types/cover"
+import type { FieldSchema, ImageAsset, Stat } from "@/types/cover"
 
 /** Rend un champ de formulaire à partir de son schéma (SPECS §8.4). */
 export function SchemaField({ field }: { field: FieldSchema }) {
@@ -206,6 +206,38 @@ export function SchemaField({ field }: { field: FieldSchema }) {
             slots={template.slots}
             onChange={set}
           />
+        </FormField>
+      )
+    }
+
+    case "stats": {
+      const stats = (value as Stat[] | undefined) ?? []
+      const update = (index: number, key: keyof Stat, text: string) =>
+        set(stats.map((stat, i) => (i === index ? { ...stat, [key]: text } : stat)))
+      return (
+        <FormField id={id} label={label} help={help}>
+          <div id={id} className="flex flex-col gap-2">
+            {stats.map((stat, index) => (
+              <div key={index} className="grid grid-cols-[6.5rem_1fr] gap-2">
+                <Input
+                  value={stat.value}
+                  maxLength={12}
+                  aria-label={t("statValueAria", { index: index + 1 })}
+                  placeholder={t("statValuePlaceholder")}
+                  onChange={(event) => update(index, "value", event.target.value)}
+                  className="h-10 font-semibold"
+                />
+                <Input
+                  value={stat.label}
+                  maxLength={40}
+                  aria-label={t("statLabelAria", { index: index + 1 })}
+                  placeholder={t("statLabelPlaceholder")}
+                  onChange={(event) => update(index, "label", event.target.value)}
+                  className="h-10"
+                />
+              </div>
+            ))}
+          </div>
         </FormField>
       )
     }

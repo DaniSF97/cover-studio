@@ -172,7 +172,35 @@
     "calloutsName": "Callouts",
     "calloutsDescription": "Features in bubbles around the phone",
     "ribbonName": "Ribbon",
-    "ribbonDescription": "Three screens on a diagonal band"
+    "ribbonDescription": "Three screens on a diagonal band",
+    "explodedName": "Exploded",
+    "explodedDescription": "Pieces of the screen popping out of the phone",
+    "wallName": "Iso wall",
+    "wallDescription": "A tilted mosaic of every screenshot",
+    "brandboardName": "Brand board",
+    "brandboardDescription": "Colour block, type, swatches and screens in a grid",
+    "studioName": "Studio",
+    "studioDescription": "A laptop under a spotlight, black backdrop",
+    "devicesName": "Device family",
+    "devicesDescription": "Desktop, tablet and phone side by side",
+    "longscrollName": "Long scroll",
+    "longscrollDescription": "The whole page cut into three columns",
+    "closeupName": "Close-up",
+    "closeupDescription": "A giant phone cropped by the frame",
+    "flatlayName": "Flat lay",
+    "flatlayDescription": "Phones lying flat, seen from above",
+    "metricsName": "Metrics",
+    "metricsDescription": "Dashboard with key figures in cards",
+    "splitName": "Split",
+    "splitDescription": "Two-tone background, browser across the seam",
+    "blueprintName": "Blueprint",
+    "blueprintDescription": "Dimensions, callouts and a title block",
+    "fanName": "Fan",
+    "fanDescription": "Five screens spread like a hand of cards",
+    "scrapbookName": "Scrapbook",
+    "scrapbookDescription": "Polaroids, tape and handwritten notes",
+    "desktopName": "Desktop",
+    "desktopDescription": "Windows on a wallpaper, with a dock"
   },
   "templatesPanel": {
     "tagsLabel": "Filter by tag",
@@ -196,7 +224,8 @@
     "phone": "Phone",
     "phoneCenter": "Center phone",
     "phoneLeft": "Left phone",
-    "phoneRight": "Right phone"
+    "phoneRight": "Right phone",
+    "fullPage": "Full-page screenshot"
   },
   "fields": {
     "badgeLabel": "Badge",
@@ -234,7 +263,13 @@
     "required": "This field is required.",
     "useIconColor": "Use the icon color",
     "galleryUsesOne": "{template} uses {count} screenshot: {slots}.",
-    "galleryUsesOther": "{template} uses {count} screenshots: {slots}."
+    "galleryUsesOther": "{template} uses {count} screenshots: {slots}.",
+    "statsLabel": "Key figures",
+    "statsHelp": "A short value and its caption, for templates that show figures.",
+    "statValuePlaceholder": "+43%",
+    "statLabelPlaceholder": "more tasks done",
+    "statValueAria": "Figure {index} value",
+    "statLabelAria": "Figure {index} caption"
   },
   "fileInput": {
     "reading": "Reading…",
@@ -348,7 +383,12 @@
   },
   "mockups": {
     "desktopPlaceholder": "Desktop screenshot",
-    "mobilePlaceholder": "Mobile screenshot"
+    "mobilePlaceholder": "Mobile screenshot",
+    "menuFile": "File",
+    "menuEdit": "Edit",
+    "menuView": "View",
+    "menuWindow": "Window",
+    "aboutWindow": "About {name}"
   },
   "errors": {
     "previewNotFound": "Preview not found.",
@@ -377,7 +417,13 @@
     "chipResponsive": "Responsive",
     "chipOpenSource": "Open source",
     "footer": "myapp.com",
-    "browserUrl": "myapp.com"
+    "browserUrl": "myapp.com",
+    "statGrowthValue": "+43%",
+    "statGrowthLabel": "productivity",
+    "statUsersValue": "12,400",
+    "statUsersLabel": "active users",
+    "statRatingValue": "4.9 ★",
+    "statRatingLabel": "average rating"
   },
   "contentPage": {
     "breadcrumbLabel": "Breadcrumb"

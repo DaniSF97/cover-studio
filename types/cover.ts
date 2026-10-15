@@ -34,6 +34,9 @@ export type TextRange = { start: number; end: number }
 /** Texte sélectionné sur l'aperçu ; `path` vaut par ex. "content.chips.2". */
 export type TextSelection = { element: TextElement; path: string }
 
+/** Chiffre clé mis en avant par certains templates (ex. « +43 % », « de tâches terminées »). */
+export type Stat = { value: string; label: string }
+
 export type CoverConfig = {
   /** Identifiant du template dans le registre. */
   template: string
@@ -49,6 +52,8 @@ export type CoverConfig = {
     chips: string[]
     footer: string
     browserUrl: string
+    /** Chiffres clés, lus par les templates qui en affichent (cf. Chiffres). */
+    stats: Stat[]
   }
   style: {
     brandColor: string
@@ -135,6 +140,7 @@ export type FieldSchema =
   | (FieldBase & { type: "icon" })
   | (FieldBase & { type: "font" })
   | (FieldBase & { type: "scale" })
+  | (FieldBase & { type: "stats" })
   | (FieldBase & {
       type: "segmented"
       options: { value: string; label: FieldKey }[]

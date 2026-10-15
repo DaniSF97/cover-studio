@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { GoogleAnalytics } from "@next/third-parties/google"
-import { Geist_Mono, Inter, Poppins } from "next/font/google"
+import { Caveat, Geist_Mono, Inter, Poppins } from "next/font/google"
 import { notFound } from "next/navigation"
 
 import "../globals.css"
@@ -29,6 +29,15 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-poppins",
+})
+
+// Écriture manuscrite du template Carnet (et proposée dans l'éditeur) : rendue aussi
+// dans le carrousel de l'accueil, donc déclarée ici, mais téléchargée seulement à l'usage.
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-caveat",
+  preload: false,
 })
 
 /** Couleur de la barre d'adresse mobile, alignée sur le logo. */
@@ -113,7 +122,8 @@ export default async function RootLayout({ children, params }: Readonly<Props>) 
         fontMono.variable,
         "font-sans",
         inter.variable,
-        poppins.variable
+        poppins.variable,
+        caveat.variable
       )}
     >
       <body>

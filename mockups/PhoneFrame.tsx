@@ -15,6 +15,14 @@ const STATUS_AREA = 64
 const SCREEN_RATIO =
   (PHONE_SIZE.height - 2 * (RING + BEZEL) - STATUS_AREA) / (PHONE_SIZE.width - 2 * (RING + BEZEL))
 
+/** Zone de la capture dans le cadre (à l'échelle 1) : sert aux templates qui en extraient des morceaux. */
+export const PHONE_SCREEN = {
+  left: RING + BEZEL,
+  top: RING + BEZEL + STATUS_AREA,
+  width: PHONE_SIZE.width - 2 * (RING + BEZEL),
+  height: PHONE_SIZE.height - 2 * (RING + BEZEL) - STATUS_AREA,
+}
+
 type PhoneFrameProps = {
   image?: ImageAsset
   /** Facteur appliqué à toutes les cotes (402 × 920 à l'échelle 1). */

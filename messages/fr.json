@@ -172,7 +172,35 @@
     "calloutsName": "Annotations",
     "calloutsDescription": "Fonctionnalités en bulles autour du téléphone",
     "ribbonName": "Ruban",
-    "ribbonDescription": "Trois écrans sur une bande diagonale"
+    "ribbonDescription": "Trois écrans sur une bande diagonale",
+    "explodedName": "Éclaté",
+    "explodedDescription": "Morceaux de l'écran qui sortent du téléphone",
+    "wallName": "Mur isométrique",
+    "wallDescription": "Mosaïque inclinée de toutes les captures",
+    "brandboardName": "Planche de marque",
+    "brandboardDescription": "Aplat, typo, nuancier et écrans en grille",
+    "studioName": "Studio",
+    "studioDescription": "Un laptop sous un projecteur, fond noir",
+    "devicesName": "Famille d'écrans",
+    "devicesDescription": "Écran de bureau, tablette et téléphone",
+    "longscrollName": "Défilement",
+    "longscrollDescription": "La page entière découpée en trois colonnes",
+    "closeupName": "Gros plan",
+    "closeupDescription": "Téléphone géant coupé par le cadre",
+    "flatlayName": "À plat",
+    "flatlayDescription": "Téléphones posés à plat, vus du dessus",
+    "metricsName": "Chiffres",
+    "metricsDescription": "Tableau de bord et chiffres clés en cartes",
+    "splitName": "Partage",
+    "splitDescription": "Fond en deux aplats, navigateur à cheval",
+    "blueprintName": "Plan technique",
+    "blueprintDescription": "Cotes, repères et cartouche sur calque",
+    "fanName": "Éventail",
+    "fanDescription": "Cinq écrans déployés en éventail",
+    "scrapbookName": "Carnet",
+    "scrapbookDescription": "Polaroïds, scotch et notes manuscrites",
+    "desktopName": "Bureau",
+    "desktopDescription": "Fenêtres sur un fond d'écran, avec Dock"
   },
   "templatesPanel": {
     "tagsLabel": "Filtrer par étiquette",
@@ -196,7 +224,8 @@
     "phone": "Téléphone",
     "phoneCenter": "Téléphone central",
     "phoneLeft": "Téléphone gauche",
-    "phoneRight": "Téléphone droit"
+    "phoneRight": "Téléphone droit",
+    "fullPage": "Capture pleine page"
   },
   "fields": {
     "badgeLabel": "Pastille",
@@ -234,7 +263,13 @@
     "required": "Ce champ est obligatoire.",
     "useIconColor": "Utiliser la couleur de l'icône",
     "galleryUsesOne": "{template} utilise {count} capture : {slots}.",
-    "galleryUsesOther": "{template} utilise {count} captures : {slots}."
+    "galleryUsesOther": "{template} utilise {count} captures : {slots}.",
+    "statsLabel": "Chiffres clés",
+    "statsHelp": "Une valeur courte et sa légende, pour les modèles qui affichent des chiffres.",
+    "statValuePlaceholder": "+43 %",
+    "statLabelPlaceholder": "de tâches terminées",
+    "statValueAria": "Valeur du chiffre {index}",
+    "statLabelAria": "Légende du chiffre {index}"
   },
   "fileInput": {
     "reading": "Lecture…",
@@ -348,7 +383,12 @@
   },
   "mockups": {
     "desktopPlaceholder": "Capture desktop",
-    "mobilePlaceholder": "Capture mobile"
+    "mobilePlaceholder": "Capture mobile",
+    "menuFile": "Fichier",
+    "menuEdit": "Édition",
+    "menuView": "Affichage",
+    "menuWindow": "Fenêtre",
+    "aboutWindow": "À propos de {name}"
   },
   "errors": {
     "previewNotFound": "Aperçu introuvable.",
@@ -377,7 +417,13 @@
     "chipResponsive": "Responsive",
     "chipOpenSource": "Open source",
     "footer": "monapp.com",
-    "browserUrl": "monapp.com"
+    "browserUrl": "monapp.com",
+    "statGrowthValue": "+43 %",
+    "statGrowthLabel": "de productivité",
+    "statUsersValue": "12 400",
+    "statUsersLabel": "utilisateurs actifs",
+    "statRatingValue": "4,9 ★",
+    "statRatingLabel": "note moyenne"
   },
   "contentPage": {
     "breadcrumbLabel": "Fil d'Ariane"
