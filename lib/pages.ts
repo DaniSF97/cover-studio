@@ -100,6 +100,40 @@ export const PAGES: SitePage[] = [
     exportSize: "cover",
     updatedAt: "2026-10-14",
   },
+  {
+    kind: "feature",
+    locale: "en",
+    slug: "website-mockup-from-url",
+    group: "website-mockup-from-url",
+    primaryKeyword: "website mockup generator from url",
+    secondaryKeywords: [
+      "website mockup from url",
+      "website screenshot mockup",
+      "url to mockup",
+    ],
+    label: "Website mockup from a URL",
+    summary:
+      "Paste your site's address: its pages are captured on desktop and mobile.",
+    startSource: "url",
+    updatedAt: "2026-10-14",
+  },
+  {
+    kind: "feature",
+    locale: "fr",
+    slug: "mockup-site-web",
+    group: "website-mockup-from-url",
+    primaryKeyword: "mockup site web",
+    secondaryKeywords: [
+      "mockup site web gratuit",
+      "mockup site internet",
+      "capture d'écran site web",
+    ],
+    label: "Mockup de site web",
+    summary:
+      "Collez l'adresse de votre site : ses pages sont capturées sur ordinateur et mobile.",
+    startSource: "url",
+    updatedAt: "2026-10-14",
+  },
 ]
 
 /** Segments déjà pris par d'autres routes de `app/[locale]`. */

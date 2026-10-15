@@ -41,6 +41,14 @@ const VISUALS = [
   { file: "readme-banner/og.png", format: "og", template: "Bento", shots: ["landing", "editor", "landing-mobile"] },
   { file: "readme-banner/example-bento.webp", format: "cover", template: "Bento", shots: ["landing", "editor", "landing-mobile"] },
   { file: "readme-banner/example-editorial.webp", format: "cover", template: "Editorial", shots: ["editor"] },
+  { file: "website-mockup-from-url/og.png", format: "og", template: "Showcase", shots: ["landing", "landing-mobile"] },
+  { file: "website-mockup-from-url/example-devices.webp", format: "cover", template: "Showcase", shots: ["landing", "landing-mobile"] },
+  {
+    file: "website-mockup-from-url/example-mobile.webp",
+    format: "cover",
+    template: "Mobile trio",
+    shots: ["landing-mobile", "editor-mobile", "page-mobile"],
+  },
 ]
 
 const sharp = createRequire(createRequire(import.meta.url).resolve("next/package.json"))("sharp")
