@@ -62,46 +62,48 @@ export function ContentPage({ page, content }: Props) {
           }
         />
 
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-16 px-4 py-16">
-          {content.sections.map((section) => (
-            <section key={section.heading} className="flex flex-col gap-5">
-              <h2 className="text-2xl font-semibold tracking-tight">
-                {section.heading}
-              </h2>
-              {section.blocks.map((block, index) => (
-                <ContentBlock key={index} block={block} locale={locale} />
-              ))}
-            </section>
-          ))}
-
-          {content.faq.length > 0 && (
-            <section
-              aria-labelledby="page-faq-title"
-              className="flex flex-col gap-6"
-            >
-              <h2
-                id="page-faq-title"
-                className="text-2xl font-semibold tracking-tight"
-              >
-                {tFaq("title")}
-              </h2>
-              <div className="flex flex-col gap-3">
-                {content.faq.map(({ question, answer }) => (
-                  <details
-                    key={question}
-                    className="group rounded-xl border border-border bg-background px-5"
-                  >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-lg py-4 text-sm font-semibold outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
-                      {question}
-                    </summary>
-                    <p className="pb-4 text-sm text-muted-foreground">
-                      <RichText text={answer} locale={locale} />
-                    </p>
-                  </details>
+        <div className="mx-auto w-full max-w-6xl px-4 py-16">
+          <div className="flex max-w-3xl flex-col gap-16">
+            {content.sections.map((section) => (
+              <section key={section.heading} className="flex flex-col gap-5">
+                <h2 className="text-2xl font-semibold tracking-tight">
+                  {section.heading}
+                </h2>
+                {section.blocks.map((block, index) => (
+                  <ContentBlock key={index} block={block} locale={locale} />
                 ))}
-              </div>
-            </section>
-          )}
+              </section>
+            ))}
+
+            {content.faq.length > 0 && (
+              <section
+                aria-labelledby="page-faq-title"
+                className="flex flex-col gap-6"
+              >
+                <h2
+                  id="page-faq-title"
+                  className="text-2xl font-semibold tracking-tight"
+                >
+                  {tFaq("title")}
+                </h2>
+                <div className="flex flex-col gap-3">
+                  {content.faq.map(({ question, answer }) => (
+                    <details
+                      key={question}
+                      className="group rounded-xl border border-border bg-background px-5"
+                    >
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-lg py-4 text-sm font-semibold outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
+                        {question}
+                      </summary>
+                      <p className="pb-4 text-sm text-muted-foreground">
+                        <RichText text={answer} locale={locale} />
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
         </div>
       </main>
 
