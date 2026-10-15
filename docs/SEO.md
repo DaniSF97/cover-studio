@@ -109,8 +109,8 @@ Links that matter for the cocoon are in the page body:
 - No generic AI phrasing and no keyword stuffing.
 - French pages are written in French, not translated.
 
-No author identity is exposed: no about page, no `Person` schema and no bylines. The existing
-footer credit stays as it is. The author in structured data is the "Cover Studio" Organization.
+No author identity is exposed: no about page, no `Person` schema, no bylines and no author credit
+in the footer. The author in structured data is the "Cover Studio" Organization.
 
 ## Technical
 

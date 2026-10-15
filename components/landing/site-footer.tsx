@@ -4,7 +4,7 @@ import { Logo } from "@/components/logo"
 import type { PageLink } from "@/content/types"
 import { Link } from "@/i18n/navigation"
 import { useTranslations } from "@/i18n/provider"
-import { AUTHOR, LINKS } from "@/lib/site"
+import { LINKS } from "@/lib/site"
 
 const LINK_ITEMS = [
   { key: "github", href: LINKS.github },
@@ -75,17 +75,6 @@ export function SiteFooter({ destinations }: Props) {
 
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 pb-8 text-xs text-muted-foreground sm:flex-row sm:justify-between">
         <p>{t("copyright", { year: new Date().getFullYear() })}</p>
-        <p>
-          {t("builtBy")}{" "}
-          <a
-            href={AUTHOR.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-sm font-medium text-foreground underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
-          >
-            {AUTHOR.name}
-          </a>
-        </p>
       </div>
     </footer>
   )
