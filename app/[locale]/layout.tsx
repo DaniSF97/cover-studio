@@ -58,18 +58,9 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
     metadataBase: new URL(SITE_URL),
     title: { default: title, template: "%s · Cover Studio" },
     description,
-    keywords: t("keywords").split(", "),
     applicationName: "Cover Studio",
     authors: [{ name: "Cover Studio", url: LINKS.github }],
     category: "design",
-    alternates: {
-      canonical: `/${locale}`,
-      // x-default : la page racine, qui laisse choisir la langue.
-      languages: {
-        ...Object.fromEntries(locales.map((l) => [l, `/${l}`])),
-        "x-default": "/",
-      },
-    },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "48x48" },
@@ -79,14 +70,14 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
       ],
       apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     },
+    // Valeurs par défaut (éditeur) : chaque page indexable fixe les siennes, URL comprise
+    // (lib/page-metadata.ts).
     openGraph: {
       type: "website",
-      url: `/${locale}`,
       siteName: "Cover Studio",
       title,
       description,
       locale: OPEN_GRAPH_LOCALES[locale],
-      alternateLocale: locales.filter((l) => l !== locale).map((l) => OPEN_GRAPH_LOCALES[l]),
       images: [{ url: "/og-image.png", width: 1200, height: 630, alt: t("ogImageAlt") }],
     },
     twitter: {

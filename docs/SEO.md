@@ -67,9 +67,12 @@ comes below the action block.
 
 ## Keyword map and cannibalisation
 
-One keyword cluster belongs to exactly one URL. Every indexable page is declared in a typed
-registry with its primary keyword, secondary keywords, related sister pages, the page a Guide
-supports, and its `updatedAt` date. A unit test fails when two pages share a primary keyword.
+One keyword cluster belongs to exactly one URL. Every indexable page is declared in the registry
+(`lib/pages.ts`) with its primary keyword, secondary keywords, related sister pages, the page a
+Guide supports, and its `updatedAt` date. A unit test (`tests/unit/pages.test.ts`) fails when two
+pages share a primary keyword, when a page's primary keyword is another page's secondary, or when a
+sister page, a supported page or a translation pair does not exist. The registry also drives the
+sitemap, canonicals, hreflang, the Landing's Destinations section and the footer links.
 
 - The Landing keeps the generic term and never names a Destination in its title.
 - A Guide targets a question, never the transactional query of the page it supports.

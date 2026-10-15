@@ -2,7 +2,6 @@
   "meta": {
     "siteTitle": "Cover Studio · Créez l'image de présentation de votre app",
     "siteDescription": "Créez en 2 minutes l'image de présentation de votre app (README, Product Hunt, LinkedIn) à partir de vos captures d'écran. Gratuit, sans compte.",
-    "keywords": "générateur de cover, cover d'application, mockup d'application, capture d'écran, capture de site web, README, Open Graph, open source, gratuit",
     "ogImageAlt": "Cover Studio : créez l'image de présentation de votre app",
     "editorTitle": "Éditeur",
     "appFeatures": "Mise en page automatique à partir de vos captures, capture de votre site depuis son adresse (ordinateur et mobile), modèles multiples, couleur de marque dérivée de l'interface, export PNG en plusieurs formats (résolution 2× en option), images traitées dans le navigateur"
