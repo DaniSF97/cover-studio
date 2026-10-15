@@ -19,6 +19,8 @@ export type StartOptions = {
   template?: string
   icon?: ImageAsset
   brandColor?: string
+  /** Export format recommandé par la page de départ (cf. lib/export-sizes). */
+  exportSize?: string
 }
 
 type CoverState = {
@@ -119,6 +121,9 @@ export const useCoverStore = create<CoverState>()(
                 : state.config.content,
               style: brandColor ? { ...state.config.style, brandColor } : state.config.style,
               mockups: { ...state.config.mockups, images },
+              export: options.exportSize
+                ? { ...state.config.export, size: options.exportSize }
+                : state.config.export,
             },
           }
         }),

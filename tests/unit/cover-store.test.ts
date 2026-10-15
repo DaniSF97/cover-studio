@@ -98,6 +98,19 @@ describe("startFrom", () => {
     expect(useCoverStore.getState().config.content.icon).toEqual(icon)
   })
 
+  it("présélectionne l'export format recommandé par la page de départ", async () => {
+    const { useCoverStore } = await loadStore()
+    useCoverStore.getState().startFrom([landscape()], { exportSize: "github" })
+    expect(useCoverStore.getState().config.export.size).toBe("github")
+  })
+
+  it("garde l'export format en cours sans recommandation", async () => {
+    const { useCoverStore } = await loadStore()
+    useCoverStore.getState().setField("export.size", "og")
+    useCoverStore.getState().startFrom([landscape()])
+    expect(useCoverStore.getState().config.export.size).toBe("og")
+  })
+
   it("garde un template navigateur dès qu'une capture est en paysage", async () => {
     const { useCoverStore } = await loadStore()
     useCoverStore.getState().startFrom([portrait(), landscape()])
