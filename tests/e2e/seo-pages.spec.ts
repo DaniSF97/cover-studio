@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test"
 
 import { EXPORT_SIZES } from "../../lib/export-sizes"
+import { contentFor } from "../../content/pages"
 import { PAGES, alternateLanguages, pagePath, pagesOf } from "../../lib/pages"
 import { openPanel } from "./helpers/editor"
 import { en, text } from "./helpers/messages"
@@ -122,7 +123,7 @@ for (const locale of ["en", "fr"] as const) {
     await expect(links).toHaveCount(expected.length)
     for (const entry of expected) {
       await expect(
-        section.getByRole("link", { name: entry.label })
+        section.getByRole("link", { name: contentFor(entry)!.label })
       ).toHaveAttribute("href", pagePath(entry))
     }
   })

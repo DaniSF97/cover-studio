@@ -5,6 +5,8 @@ const content: PageContent = {
   description:
     "Make your repository's 1280 × 640 social preview from your app's screenshots: device frames, your brand colour, a PNG under 1 MB. Free, no account.",
   h1: "GitHub social preview image generator",
+  label: "GitHub social preview",
+  summary: "The 1280 × 640 image shown when your repository link is shared.",
   intro:
     "Without a social preview, a shared repository link shows your avatar and the repo name. Add your screenshots below and download a 1280 × 640 PNG that shows the app itself.",
   ogImage: {

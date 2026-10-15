@@ -3,6 +3,7 @@ import NextLink from "next/link"
 import { SiteFooter } from "@/components/landing/site-footer"
 import { SiteHeader } from "@/components/landing/site-header"
 import { StartSection } from "@/components/landing/start-section"
+import { pageLinks } from "@/content/pages"
 import type { Block, PageContent } from "@/content/types"
 import { MESSAGES } from "@/i18n/messages"
 import { localizePath } from "@/i18n/paths"
@@ -47,7 +48,7 @@ export function ContentPage({ page, content }: Props) {
                   </li>
                   <li aria-hidden>/</li>
                   <li aria-current="page" className="text-foreground">
-                    {page.label}
+                    {content.label}
                   </li>
                 </ol>
               </nav>
@@ -104,7 +105,7 @@ export function ContentPage({ page, content }: Props) {
         </div>
       </main>
 
-      <SiteFooter />
+      <SiteFooter destinations={pageLinks(locale)} />
     </div>
   )
 }

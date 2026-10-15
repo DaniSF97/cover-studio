@@ -20,10 +20,6 @@ export type SitePage = {
   group: string
   primaryKeyword: string
   secondaryKeywords: string[]
-  /** Libellé court des liens vers la page (pied de page, fil d'Ariane, Destinations). */
-  label?: string
-  /** Une phrase sur la page, sous son lien dans la section Destinations de la Landing. */
-  summary?: string
   /** Slugs, dans la même langue, des pages sœurs liées dans le corps. */
   sisters?: string[]
   /** Guide : slug, dans la même langue, de la page qu'il soutient. */
@@ -75,8 +71,6 @@ export const PAGES: SitePage[] = [
       "github repo image generator",
       "github social image generator",
     ],
-    label: "GitHub social preview",
-    summary: "The 1280 × 640 image shown when your repository link is shared.",
     sisters: ["readme-banner"],
     exportSize: "github",
     updatedAt: "2026-10-14",
@@ -93,9 +87,6 @@ export const PAGES: SitePage[] = [
       "github project banner generator",
       "github readme banner maker",
     ],
-    label: "README banner",
-    summary:
-      "The image at the top of your README that shows the app before the text explains it.",
     sisters: ["github-social-preview"],
     exportSize: "cover",
     updatedAt: "2026-10-14",
@@ -111,9 +102,6 @@ export const PAGES: SitePage[] = [
       "website screenshot mockup",
       "url to mockup",
     ],
-    label: "Website mockup from a URL",
-    summary:
-      "Paste your site's address: its pages are captured on desktop and mobile.",
     startSource: "url",
     updatedAt: "2026-10-14",
   },
@@ -128,13 +116,16 @@ export const PAGES: SitePage[] = [
       "mockup site internet",
       "capture d'écran site web",
     ],
-    label: "Mockup de site web",
-    summary:
-      "Collez l'adresse de votre site : ses pages sont capturées sur ordinateur et mobile.",
     startSource: "url",
     updatedAt: "2026-10-14",
   },
 ]
+
+/**
+ * Types rendus par la route `app/[locale]/[slug]` ; la Landing a la sienne. Une page
+ * d'un autre type n'a pas encore de route : le registre la refuse.
+ */
+export const SLUG_PAGE_KINDS: PageKind[] = ["use-case", "feature", "comparison"]
 
 /** Segments déjà pris par d'autres routes de `app/[locale]`. */
 const RESERVED_SLUGS = new Set(["editor", "guides"])
@@ -195,11 +186,10 @@ export function alternateLanguages(page: SitePage, pages: SitePage[] = PAGES) {
  * si elle existe, sinon la Landing de la langue.
  */
 export function localePaths(page: SitePage, pages: SitePage[] = PAGES) {
+  const translations = translationsOf(page, pages)
   return Object.fromEntries(
     locales.map((locale) => {
-      const translation = translationsOf(page, pages).find(
-        (other) => other.locale === locale
-      )
+      const translation = translations.find((other) => other.locale === locale)
       return [locale, translation?.slug ? `/${translation.slug}` : "/"]
     })
   ) as Record<Locale, string>
@@ -260,8 +250,10 @@ export function registryProblems(pages: SitePage[] = PAGES): string[] {
     ) {
       problems.push(`${id(page)} : slug invalide`)
     }
-    if (page.kind !== "landing" && (!page.label || !page.summary)) {
-      problems.push(`${id(page)} : label et summary sont requis`)
+    if (page.kind !== "landing" && !SLUG_PAGE_KINDS.includes(page.kind)) {
+      problems.push(
+        `${id(page)} : aucune route ne rend les pages « ${page.kind} »`
+      )
     }
     if (RESERVED_SLUGS.has(page.slug))
       problems.push(`${id(page)} : slug réservé`)

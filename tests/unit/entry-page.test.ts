@@ -29,9 +29,9 @@ describe("page d'entrée", () => {
 
   it("ne retient que la première page de la session", () => {
     const storage = memoryStorage()
-    rememberEntryPage(storage, "/fr")
-    rememberEntryPage(storage, "/fr/editor")
-    expect(readEntryPage(storage)).toEqual({ type: "landing", slug: "/" })
+    rememberEntryPage("/fr", () => storage)
+    rememberEntryPage("/fr/editor", () => storage)
+    expect(readEntryPage(() => storage)).toEqual({ type: "landing", slug: "/" })
   })
 
   it("se passe d'un stockage indisponible ou corrompu", () => {
@@ -43,11 +43,18 @@ describe("page d'entrée", () => {
         throw new Error("SecurityError")
       },
     }
-    expect(() => rememberEntryPage(broken, "/en")).not.toThrow()
-    expect(readEntryPage(broken)).toBeUndefined()
+    expect(() => rememberEntryPage("/en", () => broken)).not.toThrow()
+    expect(readEntryPage(() => broken)).toBeUndefined()
+
+    // Stockage bloqué : c'est l'accès à `sessionStorage` lui-même qui lève.
+    const blocked = () => {
+      throw new DOMException("Access denied", "SecurityError")
+    }
+    expect(() => rememberEntryPage("/en", blocked)).not.toThrow()
+    expect(readEntryPage(blocked)).toBeUndefined()
 
     const corrupted = memoryStorage()
     corrupted.data.set(ENTRY_PAGE_KEY, "{")
-    expect(readEntryPage(corrupted)).toBeUndefined()
+    expect(readEntryPage(() => corrupted)).toBeUndefined()
   })
 })

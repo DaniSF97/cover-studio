@@ -2,6 +2,7 @@
 
 import { Download, ImageUp, Palette, type LucideIcon } from "lucide-react"
 
+import type { PageLink } from "@/content/types"
 import { useTranslations } from "@/i18n/provider"
 
 import { Destinations } from "./destinations"
@@ -22,7 +23,8 @@ const STEPS: {
   { icon: Download, title: "step3Title", text: "step3Text" },
 ]
 
-export function Landing() {
+/** `destinations` : pages d'usage de la langue (content/pages, côté serveur). */
+export function Landing({ destinations }: { destinations: PageLink[] }) {
   const t = useTranslations("landing")
 
   return (
@@ -74,13 +76,13 @@ export function Landing() {
             </ol>
           </section>
 
-          <Destinations />
+          <Destinations pages={destinations} />
           <OpenSourceSection />
           <Faq />
         </div>
       </main>
 
-      <SiteFooter />
+      <SiteFooter destinations={destinations} />
     </div>
   )
 }

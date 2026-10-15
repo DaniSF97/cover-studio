@@ -1,9 +1,9 @@
 "use client"
 
 import { Logo } from "@/components/logo"
+import type { PageLink } from "@/content/types"
 import { Link } from "@/i18n/navigation"
-import { useLocale, useTranslations } from "@/i18n/provider"
-import { pagesOf } from "@/lib/pages"
+import { useTranslations } from "@/i18n/provider"
 import { AUTHOR, LINKS } from "@/lib/site"
 
 const LINK_ITEMS = [
@@ -12,11 +12,13 @@ const LINK_ITEMS = [
   { key: "license", href: LINKS.license },
 ] as const
 
-export function SiteFooter() {
+type Props = {
+  /** Liens d'exploration vers les pages d'usage ; le cocon, lui, se joue dans le corps des pages. */
+  destinations: PageLink[]
+}
+
+export function SiteFooter({ destinations }: Props) {
   const t = useTranslations("footer")
-  const locale = useLocale()
-  // Liens d'exploration vers les pages d'usage ; le cocon, lui, se joue dans le corps des pages.
-  const destinations = pagesOf(locale, ["use-case", "feature"])
 
   return (
     <footer className="border-t border-foreground/10">
@@ -30,8 +32,13 @@ export function SiteFooter() {
         </div>
 
         {destinations.length > 0 && (
-          <nav aria-label={t("destinationsNavLabel")} className="flex flex-col gap-3">
-            <span className="text-[13px] font-semibold">{t("destinationsTitle")}</span>
+          <nav
+            aria-label={t("destinationsNavLabel")}
+            className="flex flex-col gap-3"
+          >
+            <span className="text-[13px] font-semibold">
+              {t("destinationsTitle")}
+            </span>
             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
               {destinations.map((page) => (
                 <li key={page.slug}>

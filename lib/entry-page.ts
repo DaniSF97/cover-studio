@@ -17,6 +17,14 @@ export const ENTRY_PAGE_KEY = "cover-studio-entry"
 
 type SessionStore = Pick<Storage, "getItem" | "setItem">
 
+/**
+ * Le stockage est passé sous forme de fonction : lire `sessionStorage` lève lui-même
+ * une SecurityError quand le navigateur bloque le stockage du site.
+ */
+type GetStore = () => SessionStore
+
+const sessionStore: GetStore = () => sessionStorage
+
 /** Page d'entrée correspondant à un chemin (`/en/readme-banner`). */
 export function entryPageFor(pathname: string): EntryPage {
   // Hébergement statique : `/en/readme-banner/` ou `/en/readme-banner.html` selon le serveur.
@@ -29,19 +37,25 @@ export function entryPageFor(pathname: string): EntryPage {
 }
 
 /** Retient la page d'entrée si la session n'en a pas encore. */
-export function rememberEntryPage(storage: SessionStore, pathname: string) {
+export function rememberEntryPage(
+  pathname: string,
+  getStore: GetStore = sessionStore
+) {
   try {
+    const storage = getStore()
     if (storage.getItem(ENTRY_PAGE_KEY)) return
     storage.setItem(ENTRY_PAGE_KEY, JSON.stringify(entryPageFor(pathname)))
   } catch {
-    // Stockage indisponible (navigation privée stricte) : la mesure s'en passe.
+    // Stockage indisponible (navigation privée stricte, stockage bloqué) : la mesure s'en passe.
   }
 }
 
 /** Page d'entrée retenue, ou `undefined` si inconnue. */
-export function readEntryPage(storage: SessionStore): EntryPage | undefined {
+export function readEntryPage(
+  getStore: GetStore = sessionStore
+): EntryPage | undefined {
   try {
-    const saved = storage.getItem(ENTRY_PAGE_KEY)
+    const saved = getStore().getItem(ENTRY_PAGE_KEY)
     return saved ? (JSON.parse(saved) as EntryPage) : undefined
   } catch {
     return undefined

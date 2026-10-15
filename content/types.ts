@@ -35,9 +35,16 @@ export type PageContent = {
   title: string
   description: string
   h1: string
+  /** Libellé court des liens vers la page (pied de page, fil d'Ariane, Destinations). */
+  label: string
+  /** Une phrase sur la page, sous son lien dans la section Destinations de la Landing. */
+  summary: string
   /** Accroche sous le H1, au-dessus du bloc de démarrage. */
   intro: InlineText
   sections: ContentSection[]
   faq: { question: string; answer: InlineText }[]
   ogImage: { src: string; alt: string }
 }
+
+/** Lien vers une page de contenu, calculé côté serveur pour la Landing et le pied de page. */
+export type PageLink = { slug: string; label: string; summary: string }

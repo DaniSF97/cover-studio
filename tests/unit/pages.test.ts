@@ -16,8 +16,6 @@ const page = (overrides: Partial<SitePage>): SitePage => ({
   group: "readme-banner",
   primaryKeyword: "github readme banner generator",
   secondaryKeywords: [],
-  label: "README banner",
-  summary: "A banner for the top of your README.",
   updatedAt: "2026-10-14",
   ...overrides,
 })
@@ -78,6 +76,10 @@ describe("registre des pages (carte des mots-clés)", () => {
     )
     expect(problems).toContain(
       "/fr/readme-banner-size : un Guide soutient une page existante de sa langue"
+    )
+    // Pas encore de route pour les Guides : le sitemap listerait une 404.
+    expect(problems).toContain(
+      "/fr/readme-banner-size : aucune route ne rend les pages « guide »"
     )
   })
 

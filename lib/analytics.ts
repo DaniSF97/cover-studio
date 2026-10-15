@@ -22,8 +22,13 @@ function track(name: string, params: Record<string, string | number>) {
  * Une cover a été générée et téléchargée. La page d'entrée de la session y est jointe :
  * c'est l'indicateur principal du référencement (exports par page d'entrée).
  */
-export function trackCoverGenerated(params: { template: string; size: string; scale: number }) {
-  const entry = typeof sessionStorage === "undefined" ? undefined : readEntryPage(sessionStorage)
+export function trackCoverGenerated(params: {
+  template: string
+  size: string
+  scale: number
+}) {
+  if (!GA_ID) return
+  const entry = typeof window === "undefined" ? undefined : readEntryPage()
   track("cover_generated", {
     ...params,
     entry_type: entry?.type ?? "unknown",
@@ -32,7 +37,9 @@ export function trackCoverGenerated(params: { template: string; size: string; sc
 }
 
 /** Une capture a été importée sur l'accueil. */
-export function trackScreenshotImported(params: { orientation: "portrait" | "landscape" }) {
+export function trackScreenshotImported(params: {
+  orientation: "portrait" | "landscape"
+}) {
   track("screenshot_imported", params)
 }
 

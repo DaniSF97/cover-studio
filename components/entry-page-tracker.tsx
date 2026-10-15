@@ -10,7 +10,7 @@ import { rememberEntryPage } from "@/lib/entry-page"
  */
 export function EntryPageTracker() {
   useEffect(() => {
-    rememberEntryPage(sessionStorage, window.location.pathname)
+    rememberEntryPage(window.location.pathname)
   }, [])
 
   return null

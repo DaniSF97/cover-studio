@@ -5,6 +5,9 @@ const content: PageContent = {
   description:
     "Paste your website's address: Cover Studio captures its pages on desktop and mobile and frames them in a browser and a phone. Free PNG export.",
   h1: "Website mockup generator from a URL",
+  label: "Website mockup from a URL",
+  summary:
+    "Paste your site's address: its pages are captured on desktop and mobile.",
   intro:
     "No screenshots at hand? Paste your site's address below. Cover Studio finds its pages, captures the ones you pick on desktop and mobile, and frames them for you.",
   ogImage: {

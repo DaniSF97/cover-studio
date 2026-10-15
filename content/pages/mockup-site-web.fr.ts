@@ -5,6 +5,9 @@ const content: PageContent = {
   description:
     "Collez l'adresse de votre site : Cover Studio capture ses pages sur ordinateur et mobile, puis les met dans un navigateur et un téléphone. Gratuit.",
   h1: "Mockup de site web à partir de son adresse",
+  label: "Mockup de site web",
+  summary:
+    "Collez l'adresse de votre site : ses pages sont capturées sur ordinateur et mobile.",
   intro:
     "Pas de capture d'écran sous la main ? Collez l'adresse de votre site ci-dessous : Cover Studio trouve ses pages, capture celles que vous choisissez sur ordinateur et sur mobile, et les met en scène.",
   ogImage: {

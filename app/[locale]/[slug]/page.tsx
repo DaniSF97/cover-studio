@@ -5,7 +5,7 @@ import { ContentPage } from "@/components/content/content-page"
 import { contentFor } from "@/content/pages"
 import { hasLocale } from "@/i18n/routing"
 import { pageMetadata } from "@/lib/page-metadata"
-import { findPage, pagesOf } from "@/lib/pages"
+import { SLUG_PAGE_KINDS, findPage, pagesOf } from "@/lib/pages"
 import {
   contentPageStructuredData,
   serializeJsonLd,
@@ -22,9 +22,7 @@ export function generateStaticParams({
   params: { locale: string }
 }) {
   if (!hasLocale(params.locale)) return []
-  return pagesOf(params.locale, ["use-case", "feature", "comparison"]).map(
-    ({ slug }) => ({ slug })
-  )
+  return pagesOf(params.locale, SLUG_PAGE_KINDS).map(({ slug }) => ({ slug }))
 }
 
 function resolve(locale: string, slug: string) {

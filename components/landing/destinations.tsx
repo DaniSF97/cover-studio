@@ -2,18 +2,16 @@
 
 import { ArrowRight } from "lucide-react"
 
+import type { PageLink } from "@/content/types"
 import { Link } from "@/i18n/navigation"
-import { useLocale, useTranslations } from "@/i18n/provider"
-import { pagesOf } from "@/lib/pages"
+import { useTranslations } from "@/i18n/provider"
 
 /**
  * Liens de la Landing vers les Use-case pages et Feature pages de sa langue, tirés
- * du registre : le haut du cocon (docs/SEO.md). Masquée s'il n'y en a aucune.
+ * du registre (calculés côté serveur) : le haut du cocon (docs/SEO.md). Masquée s'il n'y en a aucune.
  */
-export function Destinations() {
+export function Destinations({ pages }: { pages: PageLink[] }) {
   const t = useTranslations("landing")
-  const locale = useLocale()
-  const pages = pagesOf(locale, ["use-case", "feature"])
   if (pages.length === 0) return null
 
   return (

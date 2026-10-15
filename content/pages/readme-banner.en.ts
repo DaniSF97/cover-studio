@@ -5,6 +5,9 @@ const content: PageContent = {
   description:
     "Turn your screenshots into the banner at the top of your GitHub README: device frames, your colours, a sharp PNG and the Markdown to embed it. Free.",
   h1: "GitHub README banner generator",
+  label: "README banner",
+  summary:
+    "The image at the top of your README that shows the app before the text explains it.",
   intro:
     "Visitors decide in a few seconds whether a project is for them. A banner built from your real screenshots answers before they read a line. Add them below, download the PNG, paste two lines of Markdown.",
   ogImage: {

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { Landing } from "@/components/landing/landing"
+import { pageLinks } from "@/content/pages"
 import { MESSAGES } from "@/i18n/messages"
 import { hasLocale } from "@/i18n/routing"
 import { createTranslator } from "@/i18n/translator"
@@ -42,7 +43,7 @@ export default async function Page({ params }: Props) {
           __html: serializeJsonLd(landingStructuredData(locale)),
         }}
       />
-      <Landing />
+      <Landing destinations={pageLinks(locale)} />
     </>
   )
 }

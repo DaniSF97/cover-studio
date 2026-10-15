@@ -79,7 +79,10 @@ export function landingStructuredData(locale: Locale) {
  * Données structurées d'une Use-case page ou d'une Feature page : la page, son fil
  * d'Ariane et sa FAQ, reliés à l'application par son `@id`.
  */
-export function contentPageStructuredData(page: SitePage, content: PageContent) {
+export function contentPageStructuredData(
+  page: SitePage,
+  content: PageContent
+) {
   const url = `${SITE_URL}${pagePath(page)}`
   const home = `${SITE_URL}/${page.locale}`
 
@@ -103,8 +106,13 @@ export function contentPageStructuredData(page: SitePage, content: PageContent) 
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Cover Studio", item: home },
-          { "@type": "ListItem", position: 2, name: page.label, item: url },
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Cover Studio",
+            item: home,
+          },
+          { "@type": "ListItem", position: 2, name: content.label, item: url },
         ],
       },
       ...(content.faq.length > 0
