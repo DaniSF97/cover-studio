@@ -175,3 +175,13 @@
   content: attr(data-placeholder);
   opacity: 0.45;
 }
+
+/* Carrousel de l'accueil : jauge du temps restant avant le modèle suivant. */
+@keyframes carousel-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
