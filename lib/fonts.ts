@@ -8,6 +8,7 @@ export const FONTS = [
   { id: "space-grotesk", label: "Space Grotesk", family: "Space Grotesk", cssVar: "--font-space-grotesk" },
   { id: "playfair", label: "Playfair Display", family: "Playfair Display", cssVar: "--font-playfair" },
   { id: "geist-mono", label: "Geist Mono", family: "Geist Mono", cssVar: "--font-mono" },
+  { id: "caveat", label: "Caveat", family: "Caveat", cssVar: "--font-caveat" },
 ] as const
 
 export const DEFAULT_FONT = "poppins"

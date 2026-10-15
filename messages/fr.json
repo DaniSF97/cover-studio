@@ -13,8 +13,8 @@
     "heroTitle": "Générateur de mockup gratuit, à partir de vos captures d'écran",
     "heroText": "Pour votre README GitHub, Product Hunt ou LinkedIn : ajoutez vos captures (ou collez l'adresse de votre site), choisissez une couleur, et téléchargez une image prête à publier. Rien à dessiner.",
     "startTitle": "Commencez par vos captures",
-    "startText": "Jusqu'à 4 captures, desktop ou mobile : importez-les, ou collez l'adresse de votre site pour le capturer sur ordinateur et mobile. Ajoutez votre logo et choisissez la couleur de marque, ou laissez-la déduite de la première capture.",
-    "imageLabel": "Captures de votre application ({max} maximum)",
+    "startText": "Importez vos captures, desktop ou mobile, ou collez l'adresse de votre site pour la capturer.",
+    "imageLabel": "Vos captures",
     "createButton": "Créer ma cover",
     "useScreenshotColor": "Couleur de la capture",
     "howTitle": "Comment ça marche",
@@ -62,7 +62,7 @@
     "q4": "Puis-je l'héberger moi-même ou contribuer ?",
     "a4": "Oui. Le site est entièrement statique : clonez le dépôt GitHub, lancez le build et hébergez le dossier généré où vous voulez. Les contributions sont les bienvenues.",
     "q5": "Puis-je capturer mon site directement ?",
-    "a5": "Oui. Collez son adresse : Cover Studio liste ses pages, vous en choisissez 2 (capturées sur ordinateur et sur mobile) ou jusqu'à 4 sur un seul appareil, et les captures arrivent dans la galerie. Les pages derrière une connexion et les sites qui bloquent les robots ne peuvent pas être capturés : importez alors vos captures.",
+    "a5": "Oui. Collez son adresse : Cover Studio liste ses pages, vous en choisissez 2 (capturées sur ordinateur et sur mobile) ou jusqu'à 5 sur un seul appareil, et les captures arrivent dans la galerie. Les pages derrière une connexion et les sites qui bloquent les robots ne peuvent pas être capturés : importez alors vos captures.",
     "q6": "Puis-je créer les captures d'écran de l'App Store ou de Google Play ?",
     "a6": "Non. Cover Studio crée une image de présentation (README, Product Hunt, partage de liens), pas la série de captures aux dimensions imposées par chaque store. Pour celles-ci, utilisez un outil dédié."
   },
@@ -105,7 +105,7 @@
     "colorsTitle": "Couleurs",
     "colorsDescription": "Une seule couleur : toute la palette en découle.",
     "mockupsTitle": "Captures",
-    "mockupsDescription": "Jusqu'à 4 captures, placées selon leur ordre. Rien n'est envoyé en ligne.",
+    "mockupsDescription": "Jusqu'à 5 captures, placées selon leur ordre. Rien n'est envoyé en ligne.",
     "exportTitle": "Télécharger",
     "exportDescription": "Export PNG en taille réelle."
   },
@@ -172,7 +172,35 @@
     "calloutsName": "Annotations",
     "calloutsDescription": "Fonctionnalités en bulles autour du téléphone",
     "ribbonName": "Ruban",
-    "ribbonDescription": "Trois écrans sur une bande diagonale"
+    "ribbonDescription": "Trois écrans sur une bande diagonale",
+    "explodedName": "Éclaté",
+    "explodedDescription": "Morceaux de l'écran qui sortent du téléphone",
+    "wallName": "Mur isométrique",
+    "wallDescription": "Mosaïque inclinée de toutes les captures",
+    "brandboardName": "Planche de marque",
+    "brandboardDescription": "Aplat, typo, nuancier et écrans en grille",
+    "studioName": "Studio",
+    "studioDescription": "Un laptop sous un projecteur, fond noir",
+    "devicesName": "Famille d'écrans",
+    "devicesDescription": "Écran de bureau, tablette et téléphone",
+    "longscrollName": "Défilement",
+    "longscrollDescription": "La page entière découpée en trois colonnes",
+    "closeupName": "Gros plan",
+    "closeupDescription": "Téléphone géant coupé par le cadre",
+    "flatlayName": "À plat",
+    "flatlayDescription": "Téléphones posés à plat, vus du dessus",
+    "metricsName": "Chiffres",
+    "metricsDescription": "Tableau de bord et chiffres clés en cartes",
+    "splitName": "Partage",
+    "splitDescription": "Fond en deux aplats, navigateur à cheval",
+    "blueprintName": "Plan technique",
+    "blueprintDescription": "Cotes, repères et cartouche sur calque",
+    "fanName": "Éventail",
+    "fanDescription": "Cinq écrans déployés en éventail",
+    "scrapbookName": "Carnet",
+    "scrapbookDescription": "Polaroïds, scotch et notes manuscrites",
+    "desktopName": "Bureau",
+    "desktopDescription": "Fenêtres sur un fond d'écran, avec Dock"
   },
   "templatesPanel": {
     "tagsLabel": "Filtrer par étiquette",
@@ -196,7 +224,8 @@
     "phone": "Téléphone",
     "phoneCenter": "Téléphone central",
     "phoneLeft": "Téléphone gauche",
-    "phoneRight": "Téléphone droit"
+    "phoneRight": "Téléphone droit",
+    "fullPage": "Capture pleine page"
   },
   "fields": {
     "badgeLabel": "Pastille",
@@ -234,7 +263,13 @@
     "required": "Ce champ est obligatoire.",
     "useIconColor": "Utiliser la couleur de l'icône",
     "galleryUsesOne": "{template} utilise {count} capture : {slots}.",
-    "galleryUsesOther": "{template} utilise {count} captures : {slots}."
+    "galleryUsesOther": "{template} utilise {count} captures : {slots}.",
+    "statsLabel": "Chiffres clés",
+    "statsHelp": "Une valeur courte et sa légende, pour les modèles qui affichent des chiffres.",
+    "statValuePlaceholder": "+43 %",
+    "statLabelPlaceholder": "de tâches terminées",
+    "statValueAria": "Valeur du chiffre {index}",
+    "statLabelAria": "Légende du chiffre {index}"
   },
   "fileInput": {
     "reading": "Lecture…",
@@ -303,7 +338,7 @@
     "doneOther": "{count} captures ajoutées à la galerie.",
     "pagesLabel": "Pages à capturer",
     "selectionSummary": "{count} / {max} pages",
-    "hint": "{max} captures au plus : 2 pages sur les deux appareils, 4 sur un seul.",
+    "hint": "{max} captures au plus : 2 pages sur les deux appareils, 5 sur un seul.",
     "captureCount": "Capturer ({count})",
     "preview": "Aperçu",
     "pagesLimitReached": "{max} pages maximum : décochez-en une pour en choisir une autre.",
@@ -348,7 +383,12 @@
   },
   "mockups": {
     "desktopPlaceholder": "Capture desktop",
-    "mobilePlaceholder": "Capture mobile"
+    "mobilePlaceholder": "Capture mobile",
+    "menuFile": "Fichier",
+    "menuEdit": "Édition",
+    "menuView": "Affichage",
+    "menuWindow": "Fenêtre",
+    "aboutWindow": "À propos de {name}"
   },
   "errors": {
     "previewNotFound": "Aperçu introuvable.",
@@ -377,7 +417,13 @@
     "chipResponsive": "Responsive",
     "chipOpenSource": "Open source",
     "footer": "monapp.com",
-    "browserUrl": "monapp.com"
+    "browserUrl": "monapp.com",
+    "statGrowthValue": "+43 %",
+    "statGrowthLabel": "de productivité",
+    "statUsersValue": "12 400",
+    "statUsersLabel": "utilisateurs actifs",
+    "statRatingValue": "4,9 ★",
+    "statRatingLabel": "note moyenne"
   },
   "contentPage": {
     "breadcrumbLabel": "Fil d'Ariane"

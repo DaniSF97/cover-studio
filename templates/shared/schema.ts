@@ -105,3 +105,22 @@ const DESKTOP_ONLY = ["content.browserUrl", "mockups.browserTheme"]
 export const mobileTrioSchema: FieldSchema[] = baseSchema.filter(
   (field) => !DESKTOP_ONLY.includes(field.path)
 )
+
+/** Sans barre d'adresse (laptop, écran, captures nues) : ni URL ni thème de navigateur. */
+export const noBrowserBarSchema: FieldSchema[] = mobileTrioSchema
+
+/** Chiffres : les champs de base plus les chiffres clés, après les fonctionnalités. */
+export const metricsSchema: FieldSchema[] = baseSchema.flatMap((field) =>
+  field.path === "content.chips"
+    ? [
+        field,
+        {
+          type: "stats",
+          section: "content",
+          path: "content.stats",
+          label: "statsLabel",
+          help: "statsHelp",
+        } satisfies FieldSchema,
+      ]
+    : [field]
+)

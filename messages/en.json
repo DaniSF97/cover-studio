@@ -13,8 +13,8 @@
     "heroTitle": "Screenshot mockup generator for your app's showcase image",
     "heroText": "For your GitHub README, Product Hunt or LinkedIn: add your screenshots (or paste your website's address), pick a color, and download a ready-to-publish image. Nothing to design.",
     "startTitle": "Start with your screenshots",
-    "startText": "Up to 4 screenshots, desktop or mobile: import them, or paste your website's address to capture it on desktop and mobile. Add your logo and pick the brand color, or let it come from your first screenshot.",
-    "imageLabel": "Screenshots of your app ({max} maximum)",
+    "startText": "Import your desktop or mobile screenshots, or paste your website's address to capture it.",
+    "imageLabel": "Your screenshots",
     "createButton": "Create my cover",
     "useScreenshotColor": "Screenshot color",
     "howTitle": "How it works",
@@ -62,7 +62,7 @@
     "q4": "Can I self-host it or contribute?",
     "a4": "Yes. The site is fully static: clone the GitHub repository, run the build and host the generated folder anywhere. Contributions are welcome.",
     "q5": "Can I capture my website directly?",
-    "a5": "Yes. Paste its address: Cover Studio lists its pages, you pick 2 (captured on desktop and mobile) or up to 4 on a single device, and the screenshots land in the gallery. Pages behind a login and sites that block robots can't be captured: import your screenshots instead.",
+    "a5": "Yes. Paste its address: Cover Studio lists its pages, you pick 2 (captured on desktop and mobile) or up to 5 on a single device, and the screenshots land in the gallery. Pages behind a login and sites that block robots can't be captured: import your screenshots instead.",
     "q6": "Can I make App Store or Google Play screenshots?",
     "a6": "No. Cover Studio makes one showcase image (README, Product Hunt, link previews), not the series of screenshots at the sizes each store requires. Use a dedicated tool for those."
   },
@@ -105,7 +105,7 @@
     "colorsTitle": "Colors",
     "colorsDescription": "A single color: the whole palette follows from it.",
     "mockupsTitle": "Screenshots",
-    "mockupsDescription": "Up to 4 screenshots, placed in order. Nothing is uploaded.",
+    "mockupsDescription": "Up to 5 screenshots, placed in order. Nothing is uploaded.",
     "exportTitle": "Download",
     "exportDescription": "PNG export at full size."
   },
@@ -172,7 +172,35 @@
     "calloutsName": "Callouts",
     "calloutsDescription": "Features in bubbles around the phone",
     "ribbonName": "Ribbon",
-    "ribbonDescription": "Three screens on a diagonal band"
+    "ribbonDescription": "Three screens on a diagonal band",
+    "explodedName": "Exploded",
+    "explodedDescription": "Pieces of the screen popping out of the phone",
+    "wallName": "Iso wall",
+    "wallDescription": "A tilted mosaic of every screenshot",
+    "brandboardName": "Brand board",
+    "brandboardDescription": "Colour block, type, swatches and screens in a grid",
+    "studioName": "Studio",
+    "studioDescription": "A laptop under a spotlight, black backdrop",
+    "devicesName": "Device family",
+    "devicesDescription": "Desktop, tablet and phone side by side",
+    "longscrollName": "Long scroll",
+    "longscrollDescription": "The whole page cut into three columns",
+    "closeupName": "Close-up",
+    "closeupDescription": "A giant phone cropped by the frame",
+    "flatlayName": "Flat lay",
+    "flatlayDescription": "Phones lying flat, seen from above",
+    "metricsName": "Metrics",
+    "metricsDescription": "Dashboard with key figures in cards",
+    "splitName": "Split",
+    "splitDescription": "Two-tone background, browser across the seam",
+    "blueprintName": "Blueprint",
+    "blueprintDescription": "Dimensions, callouts and a title block",
+    "fanName": "Fan",
+    "fanDescription": "Five screens spread like a hand of cards",
+    "scrapbookName": "Scrapbook",
+    "scrapbookDescription": "Polaroids, tape and handwritten notes",
+    "desktopName": "Desktop",
+    "desktopDescription": "Windows on a wallpaper, with a dock"
   },
   "templatesPanel": {
     "tagsLabel": "Filter by tag",
@@ -196,7 +224,8 @@
     "phone": "Phone",
     "phoneCenter": "Center phone",
     "phoneLeft": "Left phone",
-    "phoneRight": "Right phone"
+    "phoneRight": "Right phone",
+    "fullPage": "Full-page screenshot"
   },
   "fields": {
     "badgeLabel": "Badge",
@@ -234,7 +263,13 @@
     "required": "This field is required.",
     "useIconColor": "Use the icon color",
     "galleryUsesOne": "{template} uses {count} screenshot: {slots}.",
-    "galleryUsesOther": "{template} uses {count} screenshots: {slots}."
+    "galleryUsesOther": "{template} uses {count} screenshots: {slots}.",
+    "statsLabel": "Key figures",
+    "statsHelp": "A short value and its caption, for templates that show figures.",
+    "statValuePlaceholder": "+43%",
+    "statLabelPlaceholder": "more tasks done",
+    "statValueAria": "Figure {index} value",
+    "statLabelAria": "Figure {index} caption"
   },
   "fileInput": {
     "reading": "Reading…",
@@ -303,7 +338,7 @@
     "doneOther": "{count} screenshots added to the gallery.",
     "pagesLabel": "Pages to capture",
     "selectionSummary": "{count} / {max} pages",
-    "hint": "{max} screenshots at most: 2 pages on both devices, 4 on a single one.",
+    "hint": "{max} screenshots at most: 2 pages on both devices, 5 on a single one.",
     "captureCount": "Capture ({count})",
     "preview": "Preview",
     "pagesLimitReached": "{max} pages maximum: uncheck one to pick another.",
@@ -348,7 +383,12 @@
   },
   "mockups": {
     "desktopPlaceholder": "Desktop screenshot",
-    "mobilePlaceholder": "Mobile screenshot"
+    "mobilePlaceholder": "Mobile screenshot",
+    "menuFile": "File",
+    "menuEdit": "Edit",
+    "menuView": "View",
+    "menuWindow": "Window",
+    "aboutWindow": "About {name}"
   },
   "errors": {
     "previewNotFound": "Preview not found.",
@@ -377,7 +417,13 @@
     "chipResponsive": "Responsive",
     "chipOpenSource": "Open source",
     "footer": "myapp.com",
-    "browserUrl": "myapp.com"
+    "browserUrl": "myapp.com",
+    "statGrowthValue": "+43%",
+    "statGrowthLabel": "productivity",
+    "statUsersValue": "12,400",
+    "statUsersLabel": "active users",
+    "statRatingValue": "4.9 ★",
+    "statRatingLabel": "average rating"
   },
   "contentPage": {
     "breadcrumbLabel": "Breadcrumb"

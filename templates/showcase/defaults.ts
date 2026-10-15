@@ -20,6 +20,11 @@ function defaultContent(locale: Locale): Content {
     chips: [t("chipKeyFeature"), t("chipResponsive"), t("chipOpenSource")],
     footer: t("footer"),
     browserUrl: t("browserUrl"),
+    stats: [
+      { value: t("statGrowthValue"), label: t("statGrowthLabel") },
+      { value: t("statUsersValue"), label: t("statUsersLabel") },
+      { value: t("statRatingValue"), label: t("statRatingLabel") },
+    ],
   }
 }
 

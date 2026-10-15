@@ -23,7 +23,7 @@ const content: PageContent = {
           ordered: true,
           items: [
             "**Analyser.** Cover Studio lit la page d'accueil, ses liens de navigation et le sitemap pour lister les pages du site, rangées en navigation, pages, blog et mentions légales.",
-            "**Choisir.** Cochez jusqu'à 2 pages capturées sur ordinateur et sur mobile, ou jusqu'à 4 pages sur un seul appareil. Un aperçu montre la page avant de lancer la capture.",
+            "**Choisir.** Cochez jusqu'à 2 pages capturées sur ordinateur et sur mobile, ou jusqu'à 5 pages sur un seul appareil. Un aperçu montre la page avant de lancer la capture.",
             "**Capturer.** Chaque page est affichée dans un vrai navigateur Chrome, puis arrive dans la galerie comme une capture d'écran importée.",
             "**Mettre en scène et exporter.** Choisissez un modèle et une couleur, puis téléchargez le PNG au format voulu.",
           ],
@@ -96,7 +96,7 @@ const content: PageContent = {
     {
       question: "Combien de pages puis-je capturer à la fois ?",
       answer:
-        "Quatre captures par lancement : 2 pages sur ordinateur et mobile, ou 4 pages sur un seul appareil. La galerie contient 4 images.",
+        "Cinq captures par lancement : 2 pages sur ordinateur et mobile, ou 5 pages sur un seul appareil. La galerie contient 5 images.",
     },
     {
       question: "Combien de temps prend une capture ?",

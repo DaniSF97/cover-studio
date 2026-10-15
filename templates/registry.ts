@@ -16,7 +16,21 @@ import { SpotlightTemplate } from "./spotlight/Template"
 import { StoreTemplate } from "./store/Template"
 import { SunburstTemplate } from "./sunburst/Template"
 import { TerminalTemplate } from "./terminal/Template"
-import { baseSchema, mobileTrioSchema } from "./shared/schema"
+import { ExplodedTemplate } from "./exploded/Template"
+import { WallTemplate } from "./wall/Template"
+import { BrandboardTemplate } from "./brandboard/Template"
+import { StudioTemplate } from "./studio/Template"
+import { DevicesTemplate } from "./devices/Template"
+import { LongscrollTemplate } from "./longscroll/Template"
+import { CloseupTemplate } from "./closeup/Template"
+import { FlatlayTemplate } from "./flatlay/Template"
+import { MetricsTemplate } from "./metrics/Template"
+import { SplitTemplate } from "./split/Template"
+import { BlueprintTemplate } from "./blueprint/Template"
+import { FanTemplate } from "./fan/Template"
+import { ScrapbookTemplate } from "./scrapbook/Template"
+import { DesktopTemplate } from "./desktop/Template"
+import { baseSchema, metricsSchema, mobileTrioSchema, noBrowserBarSchema } from "./shared/schema"
 import { COVER_SIZE } from "./shared/mockups"
 
 const BROWSER_AND_PHONE: Slot[] = [
@@ -25,6 +39,12 @@ const BROWSER_AND_PHONE: Slot[] = [
 ]
 
 const ONE_PHONE: Slot[] = [{ kind: "mobile", labelKey: "phone", key: "mobileImage" }]
+
+const ONE_BROWSER: Slot[] = [{ kind: "desktop", labelKey: "browser", key: "desktopImage" }]
+
+// Une capture pleine page est plus haute que large : l'emplacement la prend comme
+// une capture mobile, sans quoi une capture desktop ordinaire passerait devant.
+const FULL_PAGE: Slot[] = [{ kind: "mobile", labelKey: "fullPage", key: "desktopImage" }]
 
 const THREE_PHONES: Slot[] = [
   { kind: "mobile", labelKey: "phoneCenter", key: "mobileImage" },
@@ -192,6 +212,146 @@ export const templates: Template[] = [
     schema: mobileTrioSchema,
     slots: THREE_PHONES,
     tags: ["mobile", "colorful", "playful"],
+  },
+  {
+    id: "exploded",
+    nameKey: "explodedName",
+    descriptionKey: "explodedDescription",
+    size: COVER_SIZE,
+    component: ExplodedTemplate,
+    schema: mobileTrioSchema,
+    slots: ONE_PHONE,
+    tags: ["mobile", "light"],
+  },
+  {
+    id: "wall",
+    nameKey: "wallName",
+    descriptionKey: "wallDescription",
+    size: COVER_SIZE,
+    component: WallTemplate,
+    schema: baseSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "dark"],
+  },
+  {
+    id: "brandboard",
+    nameKey: "brandboardName",
+    descriptionKey: "brandboardDescription",
+    size: COVER_SIZE,
+    component: BrandboardTemplate,
+    schema: baseSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "light", "colorful"],
+  },
+  {
+    id: "studio",
+    nameKey: "studioName",
+    descriptionKey: "studioDescription",
+    size: COVER_SIZE,
+    component: StudioTemplate,
+    schema: noBrowserBarSchema,
+    slots: ONE_BROWSER,
+    tags: ["desktop", "dark", "minimal"],
+  },
+  {
+    id: "devices",
+    nameKey: "devicesName",
+    descriptionKey: "devicesDescription",
+    size: COVER_SIZE,
+    component: DevicesTemplate,
+    schema: noBrowserBarSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "light"],
+  },
+  {
+    id: "longscroll",
+    nameKey: "longscrollName",
+    descriptionKey: "longscrollDescription",
+    size: COVER_SIZE,
+    component: LongscrollTemplate,
+    schema: noBrowserBarSchema,
+    slots: FULL_PAGE,
+    tags: ["desktop", "colorful"],
+  },
+  {
+    id: "closeup",
+    nameKey: "closeupName",
+    descriptionKey: "closeupDescription",
+    size: COVER_SIZE,
+    component: CloseupTemplate,
+    schema: mobileTrioSchema,
+    slots: ONE_PHONE,
+    tags: ["mobile", "light", "minimal"],
+  },
+  {
+    id: "flatlay",
+    nameKey: "flatlayName",
+    descriptionKey: "flatlayDescription",
+    size: COVER_SIZE,
+    component: FlatlayTemplate,
+    schema: mobileTrioSchema,
+    slots: THREE_PHONES,
+    tags: ["mobile", "light", "playful"],
+  },
+  {
+    id: "metrics",
+    nameKey: "metricsName",
+    descriptionKey: "metricsDescription",
+    size: COVER_SIZE,
+    component: MetricsTemplate,
+    schema: metricsSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "dark"],
+  },
+  {
+    id: "split",
+    nameKey: "splitName",
+    descriptionKey: "splitDescription",
+    size: COVER_SIZE,
+    component: SplitTemplate,
+    schema: baseSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "colorful"],
+  },
+  {
+    id: "blueprint",
+    nameKey: "blueprintName",
+    descriptionKey: "blueprintDescription",
+    size: COVER_SIZE,
+    component: BlueprintTemplate,
+    schema: baseSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "dark", "minimal"],
+  },
+  {
+    id: "fan",
+    nameKey: "fanName",
+    descriptionKey: "fanDescription",
+    size: COVER_SIZE,
+    component: FanTemplate,
+    schema: mobileTrioSchema,
+    slots: THREE_PHONES,
+    tags: ["mobile", "dark", "playful"],
+  },
+  {
+    id: "scrapbook",
+    nameKey: "scrapbookName",
+    descriptionKey: "scrapbookDescription",
+    size: COVER_SIZE,
+    component: ScrapbookTemplate,
+    schema: noBrowserBarSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "light", "playful"],
+  },
+  {
+    id: "desktop",
+    nameKey: "desktopName",
+    descriptionKey: "desktopDescription",
+    size: COVER_SIZE,
+    component: DesktopTemplate,
+    schema: baseSchema,
+    slots: BROWSER_AND_PHONE,
+    tags: ["desktop", "colorful", "playful"],
   },
 ]
 
