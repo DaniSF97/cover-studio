@@ -32,6 +32,7 @@ export type SitePage = {
   updatedAt: string
 }
 
+
 export const PAGES: SitePage[] = [
   {
     kind: "landing",
@@ -56,6 +57,19 @@ export const PAGES: SitePage[] = [
       "générateur de mockup",
       "mockup en ligne gratuit",
       "mockup application",
+    ],
+    updatedAt: "2026-10-14",
+  },
+  {
+    kind: "landing",
+    locale: "es",
+    slug: "",
+    group: "landing",
+    primaryKeyword: "generador de mockups gratis",
+    secondaryKeywords: [
+      "generador de mockups",
+      "mockup online gratis",
+      "mockup de aplicación",
     ],
     updatedAt: "2026-10-14",
   },
@@ -119,7 +133,7 @@ export const PAGES: SitePage[] = [
     startSource: "url",
     updatedAt: "2026-10-14",
   },
-]
+];
 
 /**
  * Types rendus par la route `app/[locale]/[slug]` ; la Landing a la sienne. Une page
