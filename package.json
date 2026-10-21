@@ -3,10 +3,22 @@
   "version": "0.0.1",
   "description": "Free, open-source cover generator for your app: import a screenshot, get a ready-to-share PNG.",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/roosveltkn/cover-studio.git" },
-  "bugs": { "url": "https://github.com/roosveltkn/cover-studio/issues" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roosveltkn/cover-studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roosveltkn/cover-studio/issues"
+  },
   "homepage": "https://github.com/roosveltkn/cover-studio#readme",
-  "keywords": ["cover-generator", "mockup", "screenshot", "open-graph", "nextjs", "open-source"],
+  "keywords": [
+    "cover-generator",
+    "mockup",
+    "screenshot",
+    "open-graph",
+    "nextjs",
+    "open-source"
+  ],
   "type": "module",
   "private": true,
   "scripts": {
@@ -33,6 +45,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@next/third-parties": "16.4.0",
+    "@radix-ui/react-select": "^2.4.1",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",
     "culori": "^4.0.2",

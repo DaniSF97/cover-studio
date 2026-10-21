@@ -3,26 +3,26 @@ import { notFound } from "next/navigation"
 
 import { ContentPage } from "@/components/content/content-page"
 import { contentFor } from "@/content/pages"
-import { hasLocale } from "@/i18n/routing"
 import { pageMetadata } from "@/lib/page-metadata"
-import { SLUG_PAGE_KINDS, findPage, pagesOf } from "@/lib/pages"
 import {
   contentPageStructuredData,
   serializeJsonLd,
 } from "@/lib/structured-data"
+import {
+  PAGES,
+  SLUG_PAGE_KINDS,
+  findPage,
+} from "@/lib/pages"
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
 
 // Export statique : une page par entrée du registre dans cette langue, 404 sinon.
 export const dynamicParams = false
 
-export function generateStaticParams({
-  params,
-}: {
-  params: { locale: string }
-}) {
-  if (!hasLocale(params.locale)) return []
-  return pagesOf(params.locale, SLUG_PAGE_KINDS).map(({ slug }) => ({ slug }))
+export function generateStaticParams() {
+  return PAGES
+    .filter((page) => SLUG_PAGE_KINDS.includes(page.kind))
+    .map(({ locale, slug }) => ({ locale, slug }))
 }
 
 function resolve(locale: string, slug: string) {
