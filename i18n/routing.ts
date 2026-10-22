@@ -15,11 +15,11 @@ export const LOCALE_STORAGE_KEY = "cover-studio-locale"
 export const LOCALE_NAMES: Record<Locale, string> = {
   fr: "Français",
   en: "English",
-  es: "Español"
+  es: "Español",
 }
 
 export const OPEN_GRAPH_LOCALES: Record<Locale, string> = {
   fr: "fr_FR",
   en: "en_US",
-  es: "es_ES"
+  es: "es_ES",
 }

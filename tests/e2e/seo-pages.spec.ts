@@ -2,6 +2,7 @@
 
 import { EXPORT_SIZES } from "../../lib/export-sizes"
 import { contentFor } from "../../content/pages"
+import { LOCALE_NAMES } from "../../i18n/routing"
 import { PAGES, alternateLanguages, pagePath, pagesOf } from "../../lib/pages"
 import { openPanel } from "./helpers/editor"
 import { en, text } from "./helpers/messages"
@@ -9,14 +10,14 @@ import { DESKTOP_SCREENSHOT } from "./helpers/png"
 
 /**
  * Pages indexables du registre (lib/pages.ts) : parcourues depuis le registre, une
- * nouvelle page est couverte sans toucher Ã  ce fichier.
+ * nouvelle page est couverte sans toucher à ce fichier.
  */
 
 const contentPages = PAGES.filter(
   (page) => page.kind === "use-case" || page.kind === "feature"
 )
 
-/** Remet la source sur Â« Fichiers Â» si la page s'ouvre sur la capture d'URL (service configurÃ©). */
+/** Remet la source sur « Fichiers » si la page s'ouvre sur la capture d'URL (service configuré). */
 async function useFiles(page: Page, locale: "fr" | "en" | "es") {
   const files = page.getByRole("button", {
     name: text(locale, "urlImport", "modeFiles"),
@@ -29,12 +30,12 @@ for (const entry of contentPages) {
   const path = pagePath(entry)
 
   test.describe(path, () => {
-    test("s'affiche avec son H1, son canonical et ses donnÃ©es structurÃ©es", async ({
+    test("s'affiche avec son H1, son canonical et ses données structurées", async ({
       page,
     }) => {
       await page.goto(path)
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible()
-      // Un seul H1 dans le DOM : les aperÃ§us de modÃ¨les ne doivent pas en ajouter.
+      // Un seul H1 dans le DOM : les aperçus de modèles ne doivent pas en ajouter.
       await expect(page.locator("h1")).toHaveCount(1)
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         "href",
@@ -67,7 +68,7 @@ for (const entry of contentPages) {
       }
     })
 
-    test("ouvre l'Ã©diteur depuis son bloc de dÃ©marrage", async ({ page }) => {
+    test("ouvre l'éditeur depuis son bloc de démarrage", async ({ page }) => {
       await page.goto(path)
       if (entry.startSource === "url") {
         const placeholder = page.getByPlaceholder(
@@ -105,7 +106,7 @@ for (const entry of contentPages) {
   })
 }
 
-for (const locale of ["en", "fr"] as const) {
+for (const locale of ["en", "fr", "es"] as const) {
   test(`la Landing ${locale} lie exactement ses pages d'usage`, async ({
     page,
   }) => {
@@ -129,22 +130,32 @@ for (const locale of ["en", "fr"] as const) {
   })
 }
 
-test("le sÃ©lecteur de langue d'une page sans traduction renvoie vers la Landing", async ({
+test("le sélecteur de langue d'une page sans traduction renvoie vers la Landing", async ({
   page,
 }) => {
   const alone = contentPages.find((entry) => !alternateLanguages(entry))!
   const other = alone.locale === "en" ? "fr" : "en"
   await page.goto(pagePath(alone))
   await page
-    .getByRole("navigation", {
+    .getByRole("combobox", {
       name: text(alone.locale, "localeSwitcher", "label"),
     })
-    .getByRole("link", { name: other === "fr" ? "FranÃ§ais" : "English" })
     .click()
+  await page.getByRole("option", { name: LOCALE_NAMES[other] }).click()
   await expect(page).toHaveURL(new RegExp(`/${other}$`))
 })
 
-test("le sitemap liste toutes les pages du registre et pas l'Ã©diteur", async ({
+test("le sélecteur de langue propose l'espagnol", async ({ page }) => {
+  await page.goto("/en")
+  await page
+    .getByRole("combobox", { name: en("localeSwitcher", "label") })
+    .click()
+  await page.getByRole("option", { name: LOCALE_NAMES.es }).click()
+  await expect(page).toHaveURL(/\/es$/)
+  await expect(page.locator("html")).toHaveAttribute("lang", "es")
+})
+
+test("le sitemap liste toutes les pages du registre et pas l'éditeur", async ({
   request,
 }) => {
   const xml = await (await request.get("/sitemap.xml")).text()

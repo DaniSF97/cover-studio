@@ -4,25 +4,23 @@ import { notFound } from "next/navigation"
 import { ContentPage } from "@/components/content/content-page"
 import { contentFor } from "@/content/pages"
 import { pageMetadata } from "@/lib/page-metadata"
+import { PAGES, SLUG_PAGE_KINDS, findPage } from "@/lib/pages"
 import {
   contentPageStructuredData,
   serializeJsonLd,
 } from "@/lib/structured-data"
-import {
-  PAGES,
-  SLUG_PAGE_KINDS,
-  findPage,
-} from "@/lib/pages"
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
 
 // Export statique : une page par entrée du registre dans cette langue, 404 sinon.
 export const dynamicParams = false
 
+// Toutes les langues d'un coup : une langue sans page de ce type (l'espagnol n'a que
+// la Landing) ferait échouer l'export, qui exige au moins une route par appel.
 export function generateStaticParams() {
-  return PAGES
-    .filter((page) => SLUG_PAGE_KINDS.includes(page.kind))
-    .map(({ locale, slug }) => ({ locale, slug }))
+  return PAGES.filter((page) => SLUG_PAGE_KINDS.includes(page.kind)).map(
+    ({ locale, slug }) => ({ locale, slug })
+  )
 }
 
 function resolve(locale: string, slug: string) {

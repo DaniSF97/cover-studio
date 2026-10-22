@@ -51,10 +51,10 @@ type Props = {
 // Export statique : une page par langue, et 404 pour toute autre.
 export const dynamicParams = false
 
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
+
 export async function generateMetadata({ params }: Pick<Props, "params">): Promise<Metadata> {
   const { locale } = await params
   if (!hasLocale(locale)) return {}

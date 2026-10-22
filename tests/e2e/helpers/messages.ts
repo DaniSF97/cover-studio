@@ -13,7 +13,7 @@ const DICTIONARIES = { fr: load("fr"), en: load("en"), es: load("es") }
 
 /**
  * Texte de l'interface depuis les fichiers de messages : les tests suivent les
- * traductions au lieu de rÃ©pÃ©ter des libellÃ©s en dur.
+ * traductions au lieu de répéter des libellés en dur.
  */
 export function text(locale: "fr" | "en" | "es", namespace: string, key: string) {
   const value = DICTIONARIES[locale][namespace]?.[key]
@@ -21,5 +21,5 @@ export function text(locale: "fr" | "en" | "es", namespace: string, key: string)
   return value
 }
 
-/** Variante anglaise, langue des tests par dÃ©faut. */
+/** Variante anglaise, langue des tests par défaut. */
 export const en = (namespace: string, key: string) => text("en", namespace, key)

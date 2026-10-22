@@ -135,7 +135,7 @@ describe("hreflang", () => {
     expect(localePaths(en, pages)).toEqual({
       fr: "/mockup-site-web",
       en: "/website-mockup-from-url",
-      es: "/"
+      es: "/",
     })
   })
 

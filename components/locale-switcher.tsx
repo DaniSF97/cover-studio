@@ -1,10 +1,11 @@
 "use client"
 
-import { saveLocale } from "@/i18n/detect"
-import { usePathname } from "@/i18n/navigation"
 import { useRouter } from "next/navigation"
+
+import { saveLocale } from "@/i18n/detect"
+import { localizePath, usePathname } from "@/i18n/navigation"
 import { useLocale, useTranslations } from "@/i18n/provider"
-import { LOCALE_NAMES, locales, type Locale } from "@/i18n/routing"
+import { LOCALE_NAMES, hasLocale, locales, type Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 import {
   Select,
@@ -18,42 +19,42 @@ type Props = {
   /** `onGradient` : texte blanc, pour la barre colorée de l'éditeur. */
   tone?: "default" | "onGradient"
   className?: string
-  /** Chemin (sans préfixe) de la page dans chaque langue, quand il diffère du chemin courant. */
+  /** Chemin équivalent par langue (page sans traduction → Landing). Sinon, la page courante. */
   paths?: Partial<Record<Locale, string>>
 }
+
+const ITEMS = locales.map((locale) => ({ value: locale, label: LOCALE_NAMES[locale] }))
 
 export function LocaleSwitcher({ tone = "default", className, paths }: Props) {
   const t = useTranslations("localeSwitcher")
   const current = useLocale()
+  // Chemin sans préfixe de langue : on ajoute celui de la langue cible.
   const pathname = usePathname()
   const router = useRouter()
 
-  return (
-    <Select
-      value={current}
-      onValueChange={(value: string) => {
-        const locale = value as Locale
-        saveLocale(locale)
+  function change(locale: string | null) {
+    if (!hasLocale(locale) || locale === current) return
+    saveLocale(locale)
+    router.push(localizePath(locale, paths?.[locale] ?? pathname))
+  }
 
-    const targetPath = paths?.[locale] ?? pathname
-    router.replace(`/${locale}${targetPath === "/" ? "" : targetPath}`)
-  }}
->
+  return (
+    <Select value={current} onValueChange={change} items={ITEMS}>
       <SelectTrigger
         aria-label={t("label")}
         className={cn(
-          "h-8 w-auto min-w-[76px] gap-1 px-2 text-xs font-semibold uppercase",
+          "h-8 w-auto min-w-[88px] px-2 text-xs font-semibold",
           tone === "onGradient" &&
-            "border-white/30 bg-white/10 text-white focus:ring-white/60",
+            "border-white/30 bg-white/10 text-white focus-visible:ring-white/60",
           className
         )}
       >
-        <SelectValue>{LOCALE_NAMES[current]}</SelectValue>
+        <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {locales.map((locale) => (
-          <SelectItem key={locale} value={locale}>
-            {LOCALE_NAMES[locale]}
+        {ITEMS.map(({ value, label }) => (
+          <SelectItem key={value} value={value} lang={value}>
+            {label}
           </SelectItem>
         ))}
       </SelectContent>

@@ -32,7 +32,6 @@ export type SitePage = {
   updatedAt: string
 }
 
-
 export const PAGES: SitePage[] = [
   {
     kind: "landing",
@@ -133,7 +132,7 @@ export const PAGES: SitePage[] = [
     startSource: "url",
     updatedAt: "2026-10-14",
   },
-];
+]
 
 /**
  * Types rendus par la route `app/[locale]/[slug]` ; la Landing a la sienne. Une page
